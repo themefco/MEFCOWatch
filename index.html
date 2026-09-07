@@ -3,6 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MEFCO Watch">
+<meta name="mobile-web-app-capable" content="yes">
+
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#070a0f">
 <meta name="description" content="MEFCO Watch — live football scores, national teams, competitions, news and statistics.">
 <meta name="robots" content="index,follow">
@@ -39,6 +46,17 @@
 <footer class="footer">MEFCO WATCH • Football, live.<span style="display:block;margin-top:6px">Public viewer mode • Live data from MEFCO</span></footer>
 <div id="toast" class="toast"></div>
 </div>
+
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("./sw.js")
+      .catch(console.error);
+  });
+}
+</script>
+
 <script>
 const SUPABASE_URL="https://qpokxolcdjxtmxrrqlgw.supabase.co";
 const SUPABASE_KEY="sb_publishable_7hKSyu9jxd65IA7zfyZy2w_O0maaXdC";
@@ -130,9 +148,12 @@ function showCreateMatch(){let el=document.getElementById('adminPanel');el.inner
 function fillCreateFlags(){let h=teamById(document.getElementById('createHomeTeam').value),a=teamById(document.getElementById('createAwayTeam').value);if(h)document.getElementById('createHomeFlag').value=h.flag_url||h.logo_url||'';if(a)document.getElementById('createAwayFlag').value=a.flag_url||a.logo_url||''}
 async function createMatch(){let cs=document.getElementById('createCompetition'),h=teamById(document.getElementById('createHomeTeam').value),a=teamById(document.getElementById('createAwayTeam').value);if(!h||!a){showToast('Select both teams');return}let c=cs.options[cs.selectedIndex],name=c?.dataset.name||c?.textContent||'';let match={competition:name,competition_id:cs.value&&!String(cs.value).startsWith('legacy-')?cs.value:null,home:h.name,away:a.name,home_team_id:h.id,away_team_id:a.id,match_date:document.getElementById('createDate').value,match_time:document.getElementById('createKickoff').value,home_flag:document.getElementById('createHomeFlag').value.trim(),away_flag:document.getElementById('createAwayFlag').value.trim(),status:'scheduled',minute:0,score_home:0,score_away:0,stoppage:0,favorite:false};try{let result=await supabaseFetch(MATCHES_URL,{method:'POST',body:JSON.stringify(match)});matches.push(Array.isArray(result)?result[0]:result);showToast('Match created');renderAll()}catch(e){let fallback={...match};delete fallback.competition_id;delete fallback.home_team_id;delete fallback.away_team_id;try{let result=await supabaseFetch(MATCHES_URL,{method:'POST',body:JSON.stringify(fallback)});matches.push(Array.isArray(result)?result[0]:result);showToast('Match created with legacy fields');renderAll()}catch(err){console.error(err);showToast('Could not create match')}}}
 async function toggleFavorite(id){let m=matches.find(x=>String(x.id)===String(id));if(!m)return;await updateMatch(id,{favorite:!m.favorite})}
-async function refreshData(){showToast('Refreshing MEFCO data…');await document.getElementById('adminNav')?.classList.toggle('hide',!ADMIN_MODE);
-loadData();
-setInterval(()=>{if(document.visibilityState==='visible')loadData()},30000);showToast('Data refreshed')}
+async function refreshData(){
+  showToast('Refreshing MEFCO data…');
+  document.getElementById('adminNav')?.classList.toggle('hide',!ADMIN_MODE);
+  await loadData();
+  showToast('Data refreshed');
+}
 async function enableNotifications(){if(!('Notification'in window)){showToast('Notifications are not supported here');return}let p=await Notification.requestPermission();document.getElementById('notificationButton').textContent=p==='granted'?'Notifications Enabled':p==='denied'?'Notifications Blocked':'Enable Notifications';showToast(p==='granted'?'Notifications enabled':'Notification permission not granted')}
 async function sendNotification(title,body,url='/'){try{let r=await fetch(NOTIFICATION_API+'/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({title,body,url})});if(!r.ok)throw new Error(await r.text());showToast('Notification sent')}catch(e){showToast('Notification service unavailable')}}
 function addLog(msg){adminLog.unshift({time:new Date().toLocaleTimeString(),msg});if(adminLog.length>50)adminLog.pop()}
@@ -141,7 +162,10 @@ window.addEventListener('focus',()=>{if(document.visibilityState==='visible')ren
 document.addEventListener('error',e=>{if(e.target?.tagName==='IMG'){e.target.style.display='none'}},true);
 document.getElementById('adminNav')?.classList.toggle('hide',!ADMIN_MODE);
 loadData();
-setInterval(()=>{if(document.visibilityState==='visible')loadData()},30000);
+
+setInterval(()=>{
+  if(document.visibilityState==='visible')loadData();
+},30000);
 </script>
 </body>
 </html>
