@@ -1,60 +1,61 @@
-self.addEventListener("push", event => {
-    let data = {};
+const CACHE_NAME = "mefco-watch-v1";
 
-    try {
-        data = event.data ? event.data.json() : {};
-    } catch {
-        data = {};
-    }
+const APP_SHELL = [
+  "./",
+  "./index.html",
+  "./manifest.json",
+  "./icon-180.png"
+];
 
-    const title = data.title || "MEFCO Watch";
-
-    const options = {
-        body: data.body || "New MEFCO update",
-        icon: "/icon-192.png",
-        badge: "/icon-192.png",
-        tag: data.tag || "mefco-watch",
-        data: {
-            url: data.url || "/"
-        }
-    };
-
-    event.waitUntil(
-        self.registration.showNotification(
-            title,
-            options
-        )
-    );
+self.addEventListener("install", event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(APP_SHELL))
+      .then(() => self.skipWaiting())
+  );
 });
 
+self.addEventListener("activate", event => {
+  event.waitUntil(
+    caches.keys().then(keys =>
+      Promise.all(
+        keys
+          .filter(key => key !== CACHE_NAME)
+          .map(key => caches.delete(key))
+      )
+    ).then(() => self.clients.claim())
+  );
+});
 
-self.addEventListener("notificationclick", event => {
+self.addEventListener("fetch", event => {
+  if (event.request.method !== "GET") return;
 
-    event.notification.close();
+  const url = new URL(event.request.url);
 
-    const url =
-        event.notification.data?.url || "/";
+  // Keep Supabase/API requests live.
+  if (url.origin !== location.origin) return;
 
-    event.waitUntil(
-        clients.matchAll({
-            type: "window",
-            includeUncontrolled: true
-        }).then(clientList => {
-
-            for (const client of clientList) {
-
-                if ("focus" in client) {
-                    client.navigate(url);
-                    return client.focus();
-                }
-
-            }
-
-            if (clients.openWindow) {
-                return clients.openWindow(url);
-            }
-
+  // Network first for index.html so updates appear quickly.
+  if (
+    event.request.mode === "navigate" ||
+    url.pathname.endsWith("/index.html")
+  ) {
+    event.respondWith(
+      fetch(event.request)
+        .then(response => {
+          const copy = response.clone();
+          caches.open(CACHE_NAME)
+            .then(cache => cache.put("./index.html", copy));
+          return response;
         })
+        .catch(() => caches.match("./index.html"))
     );
+    return;
+  }
 
+  // Cache local assets.
+  event.respondWith(
+    caches.match(event.request)
+      .then(cached => cached || fetch(event.request))
+  );
 });

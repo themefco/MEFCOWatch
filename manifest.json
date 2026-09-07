@@ -1,0 +1,17 @@
+{
+  "name": "MEFCO Watch",
+  "short_name": "MEFCO Watch",
+  "description": "Live MEFCO football scores, competitions, news and statistics.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#070a0f",
+  "theme_color": "#070a0f",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
