@@ -402,19 +402,25 @@ function renderAdminPanel(){
 async function updateMatch(id,changes){
  const m=matches.find(x=>String(x.id)===String(id));if(!m)return false;
  const previous={...m};
- try{
-  /* PATCH only the requested fields. Never send the stale whole match object. */
-  const result=await supabaseFetch(MATCHES_URL+"?id=eq."+encodeURIComponent(id),{method:"PATCH",body:JSON.stringify(changes)});
-  const server=Array.isArray(result)?result[0]:result;
-  Object.assign(m,server||changes);
+ const requested={...changes};
 
-  /* If status was changed, trust the server response only after it contains status. */
-  if(Object.prototype.hasOwnProperty.call(changes,"status")){
-   if(server&&String(server.status).toLowerCase()!==String(changes.status).toLowerCase()){
-    throw new Error("Database returned a different status");
-   }
-   m.status=changes.status;
-  }
+ /* NON-STATUS UPDATE LOCK:
+    Score, events, lineups and fixture edits NEVER send a status value.
+    Status is changed ONLY by persistStatus(). This prevents stale UI or
+    stale Supabase response data from resetting LIVE/HALFTIME/FINISHED. */
+ delete requested.status;
+
+ try{
+  await supabaseFetch(
+   MATCHES_URL+"?id=eq."+encodeURIComponent(id),
+   {method:"PATCH",body:JSON.stringify(requested)}
+  );
+
+  /* Do not copy the PATCH response back into the match. Supabase may return
+     an old representation depending on REST/RLS settings. Only apply the
+     fields we explicitly changed. */
+  Object.assign(m,requested);
+
   addLog(`Updated ${teamDisplayName(m,"home")} vs ${teamDisplayName(m,"away")}: ${Object.keys(changes).join(", ")}`);
   renderAll();
   return true;
