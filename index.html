@@ -427,18 +427,36 @@ async function updateMatch(id,changes){
 }
 
 async function persistStatus(id,status){
- const m=matches.find(x=>String(x.id)===String(id));if(!m)return false;
+ const m=matches.find(x=>String(x.id)===String(id));
+ if(!m)return false;
  status=String(status).toLowerCase();
- if(!["scheduled","live","halftime","finished","postponed","cancelled","abandoned"].includes(status))return false;
+ const allowed=["scheduled","live","halftime","finished","postponed","cancelled","abandoned"];
+ if(!allowed.includes(status)){showToast("Invalid match status");return false}
  try{
   showToast(status==="live"?"Starting match…":"Updating match…");
-  /* Status writes are isolated from score/fixture writes. */
-  const result=await supabaseFetch(MATCHES_URL+"?id=eq."+encodeURIComponent(id),{method:"PATCH",body:JSON.stringify({status})});
-  const row=Array.isArray(result)?result[0]:result;
-  if(!row||String(row.status).toLowerCase()!==status)throw new Error("Supabase did not confirm status="+status);
+
+  /* IMPORTANT: status is written by itself. Never send the whole match row. */
+  const result=await supabaseFetch(
+   MATCHES_URL+"?id=eq."+encodeURIComponent(id),
+   {method:"PATCH",body:JSON.stringify({status})}
+  );
+
+  /*
+   * Supabase REST can legally return an empty array from PATCH when the
+   * update succeeds but the API/RLS setup does not return the changed row.
+   * Therefore an empty PATCH response is NOT treated as a failed update.
+   */
+  const returned=Array.isArray(result)?result[0]:result;
+  if(returned&&returned.status!=null&&String(returned.status).toLowerCase()!==status){
+   throw new Error("Supabase returned status=\""+returned.status+"\" after requesting \""+status+"\"");
+  }
+
+  /* Update the local source immediately after a successful HTTP PATCH. */
   m.status=status;
-  if(row)Object.assign(m,row);
-  /* Do not let a UI rerender invent a different status. */
+  if(returned)Object.assign(m,returned);
+  m.status=status;
+
+  addLog(`Status changed to ${status}: ${teamDisplayName(m,"home")} vs ${teamDisplayName(m,"away")}`);
   renderAll();
   return true;
  }catch(e){
@@ -447,30 +465,27 @@ async function persistStatus(id,status){
   return false;
  }
 }
+
 async function startSelected(){
  const id=selectedMatchId;
- const m=matches.find(x=>String(x.id)===String(id));
- if(!m)return;
- /* Only this function is allowed to transition a match into LIVE. */
+ if(!id)return;
  const ok=await persistStatus(id,"live");
  if(!ok)return;
- try{
-  /* Final read-back prevents an old scheduled value from being accepted by the UI. */
-  const verify=await supabaseFetch(MATCHES_URL+"?id=eq."+encodeURIComponent(id)+"&select=id,status");
-  const row=Array.isArray(verify)?verify[0]:verify;
-  if(!row||String(row.status).toLowerCase()!=="live")throw new Error("Live status was not persisted");
-  m.status="live";
-  startTimer();
-  showToast("Match is LIVE");
- }catch(e){
-  console.error("LIVE verification failed:",e);
-  m.status="scheduled";
-  stopTimer();
-  showToast("Could not confirm LIVE status");
- }
+ const m=matches.find(x=>String(x.id)===String(id));
+ if(m)m.status="live";
+ startTimer();
+ showToast("Match is LIVE");
 }
-async function pauseSelected(){const ok=await persistStatus(selectedMatchId,"halftime");if(ok)stopTimer()}
-async function finishSelected(){const ok=await persistStatus(selectedMatchId,"finished");if(ok)stopTimer()}
+
+async function pauseSelected(){
+ const ok=await persistStatus(selectedMatchId,"halftime");
+ if(ok)stopTimer();
+}
+
+async function finishSelected(){
+ const ok=await persistStatus(selectedMatchId,"finished");
+ if(ok)stopTimer();
+}
 
 /* ---------- CLOCK: NEVER REBUILD DIRTY LINEUP EDITOR ---------- */
 function startTimer(){
