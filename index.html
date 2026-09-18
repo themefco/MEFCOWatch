@@ -400,14 +400,12 @@ function renderAdminPanel(){
 
 /* ---------- STATUS / DATABASE FIX ---------- */
 async function updateMatch(id,changes){
- const m=matches.find(x=>String(x.id)===String(id));if(!m)return false;
+ const m=matches.find(x=>String(x.id)===String(id));
+ if(!m)return false;
  const previous={...m};
  const requested={...changes};
 
- /* NON-STATUS UPDATE LOCK:
-    Score, events, lineups and fixture edits NEVER send a status value.
-    Status is changed ONLY by persistStatus(). This prevents stale UI or
-    stale Supabase response data from resetting LIVE/HALFTIME/FINISHED. */
+ /* NEVER allow an ordinary edit to change match status. */
  delete requested.status;
 
  try{
@@ -415,21 +413,21 @@ async function updateMatch(id,changes){
    MATCHES_URL+"?id=eq."+encodeURIComponent(id),
    {method:"PATCH",body:JSON.stringify(requested)}
   );
-
-  /* Do not copy the PATCH response back into the match. Supabase may return
-     an old representation depending on REST/RLS settings. Only apply the
-     fields we explicitly changed. */
-  Object.assign(m,requested);
-
-  addLog(`Updated ${teamDisplayName(m,"home")} vs ${teamDisplayName(m,"away")}: ${Object.keys(changes).join(", ")}`);
-  renderAll();
-  return true;
  }catch(e){
   Object.assign(m,previous);
-  console.error("MEFCO updateMatch:",e);
-  showToast("Could not save match: "+(e?.message||"database error"));
+  console.error("MEFCO database update failed:",e);
+  showToast("Could not save: "+(e?.message||"database error"));
   return false;
  }
+
+ /* The database write succeeded. Update ONLY fields we intentionally changed. */
+ Object.assign(m,requested);
+ addLog(`Updated ${teamDisplayName(m,"home")} vs ${teamDisplayName(m,"away")}: ${Object.keys(changes).join(", ")}`);
+
+ /* Rendering is deliberately OUTSIDE the database try/catch. A UI render
+    error must never turn a successful database save into a fake save error. */
+ try{renderAll()}catch(uiError){console.error("MEFCO render after save failed:",uiError)}
+ return true;
 }
 
 async function persistStatus(id,status){
@@ -463,7 +461,7 @@ async function persistStatus(id,status){
   m.status=status;
 
   addLog(`Status changed to ${status}: ${teamDisplayName(m,"home")} vs ${teamDisplayName(m,"away")}`);
-  renderAll();
+  try{renderAll()}catch(uiError){console.error("MEFCO status render failed:",uiError)}
   return true;
  }catch(e){
   console.error("MEFCO status update:",e);
@@ -523,21 +521,58 @@ async function adjustPlayerStat(playerId,field,delta){if(!playerId||!["goals","a
 function refreshEventPlayers(){const teamId=document.getElementById("eventTeamSelect")?.value,sel=document.getElementById("eventPlayerSelect"),assist=document.getElementById("eventAssistPlayerSelect");if(!sel)return;const ps=players.filter(p=>String(p.team_id)===String(teamId));sel.innerHTML='<option value="">No player</option>'+ps.map(p=>`<option value="${esc(p.id)}">${esc(p.short_name||p.name)}</option>`).join("");if(assist)assist.innerHTML='<option value="">No assist</option>'+ps.map(p=>`<option value="${esc(p.id)}">${esc(p.short_name||p.name)}</option>`).join("")}
 function refreshOtherEventPlayers(){const teamId=document.getElementById("otherEventTeam")?.value,sel=document.getElementById("otherEventPlayer");if(!sel)return;const ps=players.filter(p=>String(p.team_id)===String(teamId));sel.innerHTML='<option value="">No player</option>'+ps.map(p=>`<option value="${esc(p.id)}">${esc(p.short_name||p.name)}</option>`).join("")}
 async function addGoalWithAssist(){
- const m=matches.find(x=>String(x.id)===String(selectedMatchId));if(!m)return;
- const teamId=document.getElementById("eventTeamSelect").value,playerId=document.getElementById("eventPlayerSelect").value||null,assistId=document.getElementById("eventAssistPlayerSelect").value||null,minute=Math.max(0,Number(document.getElementById("eventMinute").value)||Number(m.minute)||0),stoppage=Math.max(0,Number(document.getElementById("eventStoppage").value)||0);
+ const m=matches.find(x=>String(x.id)===String(selectedMatchId));
+ if(!m)return;
+ const teamId=document.getElementById("eventTeamSelect")?.value;
+ const playerId=document.getElementById("eventPlayerSelect")?.value||null;
+ const assistId=document.getElementById("eventAssistPlayerSelect")?.value||null;
+ const minute=Math.max(0,Number(document.getElementById("eventMinute")?.value)||Number(m.minute)||0);
+ const stoppage=Math.max(0,Number(document.getElementById("eventStoppage")?.value)||0);
  if(!teamId||!playerId){showToast("Select the scoring team and scorer");return}
  if(assistId&&String(assistId)===String(playerId)){showToast("Scorer and assister must be different");return}
+
+ const isHome=String(teamId)===String(m.home_team_id);
+ const isAway=String(teamId)===String(m.away_team_id);
+ if(!isHome&&!isAway){showToast("Scoring team is not part of this match");return}
+
  const p=playerById(playerId),ap=playerById(assistId);
+ const oldHome=Number(m.score_home||0),oldAway=Number(m.score_away||0);
+ const newScore=isHome?oldHome+1:oldHome;
+ const newAway=isAway?oldAway+1:oldAway;
+
+ /* STEP 1: save the score. This is the authoritative match update. */
+ const scoreSaved=await updateMatch(m.id,{score_home:newScore,score_away:newAway});
+ if(!scoreSaved)return;
+
  try{
-  const goal=await postEvent({match_id:m.id,minute,stoppage,type:"goal",player_id:playerId,team_id:teamId,player:p?.name||"",team:teamName(teamId,""),detail:assistId?"Assist: "+(ap?.name||""):""});
-  m.events=m.events||[];m.events.push(goal);await adjustPlayerStat(playerId,"goals",1);
-  if(assistId){const assist=await postEvent({match_id:m.id,minute,stoppage,type:"assist",player_id:assistId,team_id:teamId,player:ap?.name||"",team:teamName(teamId,""),detail:"For "+(p?.name||"")});m.events.push(assist);await adjustPlayerStat(assistId,"assists",1)}
-  const changes=String(teamId)===String(m.home_team_id)?{score_home:Number(m.score_home||0)+1}:String(teamId)===String(m.away_team_id)?{score_away:Number(m.score_away||0)+1}:null;
-  if(!changes)throw new Error("Scoring team is not part of this match");
-  if(!(await updateMatch(m.id,changes)))throw new Error("Score update failed");
-  showToast(assistId?"Goal + assist added":"Goal added");
- }catch(e){console.error(e);showToast("Goal was not fully saved")}
+  /* STEP 2: save the goal event. */
+  const goal=await postEvent({
+   match_id:m.id,minute,stoppage,type:"goal",player_id:playerId,team_id:teamId,
+   player:p?.name||"",team:teamName(teamId,""),
+   detail:assistId?"Assist: "+(ap?.name||""):""
+  });
+  m.events=m.events||[];
+  if(goal)m.events.push(goal);
+  await adjustPlayerStat(playerId,"goals",1);
+
+  /* STEP 3: save the assist as a separate event if supplied. */
+  if(assistId){
+   const assist=await postEvent({
+    match_id:m.id,minute,stoppage,type:"assist",player_id:assistId,team_id:teamId,
+    player:ap?.name||"",team:teamName(teamId,""),detail:"For "+(p?.name||"")
+   });
+   if(assist)m.events.push(assist);
+   await adjustPlayerStat(assistId,"assists",1);
+  }
+
+  try{renderAll()}catch(uiError){console.error("MEFCO goal render failed:",uiError)}
+  showToast(assistId?"Goal + assist saved":"Goal saved");
+ }catch(e){
+  console.error("MEFCO goal event failed:",e);
+  showToast("Score saved, but the goal event could not be saved");
+ }
 }
+
 async function addAssistOnly(){
  const m=matches.find(x=>String(x.id)===String(selectedMatchId));if(!m)return;
  const teamId=document.getElementById("eventTeamSelect").value,playerId=document.getElementById("eventAssistPlayerSelect").value||null,minute=Math.max(0,Number(document.getElementById("eventMinute").value)||Number(m.minute)||0),stoppage=Math.max(0,Number(document.getElementById("eventStoppage").value)||0);
