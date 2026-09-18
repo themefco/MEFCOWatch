@@ -247,9 +247,11 @@ const TEAMS_URL=SUPABASE_URL+"/rest/v1/teams";
 const PLAYERS_URL=SUPABASE_URL+"/rest/v1/players";
 const COMPETITIONS_URL=SUPABASE_URL+"/rest/v1/competitions";
 const NOTIFICATION_API="https://mefco-notifications.drtwelveyt.workers.dev";
+const ADMIN_MODE=new URLSearchParams(location.search).get("admin")==="1";
+const PUBLIC_MODE=!ADMIN_MODE;
 let matches=[],news=[],teams=[],players=[],competitions=[],selectedMatchId=null,selectedArticleId=null,selectedCompetition=null,scoreFilter="all",scoreDate=todayISO(),adminLog=[],timer=null,refreshTimer=null,dbOnline=false;
 const esc=v=>String(v??"").replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
-function todayISO(){return new Date().toISOString().slice(0,10)}
+function todayISO(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
 function dateObj(s){const [y,m,d]=String(s||todayISO()).split('-').map(Number);return new Date(y,m-1,d)}
 function localISO(d){return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}
 function shiftISO(s,n){const d=dateObj(s);d.setDate(d.getDate()+Number(n||0));return localISO(d)}
