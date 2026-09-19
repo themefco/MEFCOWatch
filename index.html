@@ -373,7 +373,7 @@ function matchCard(m){
    <div class="team">${at&&teamFlag(at)?`<img src="${esc(teamFlag(at))}" alt="">`:""}<div>${esc(teamDisplayName(m,"away"))}</div></div>
   </div>
   <div class="match-bottom"><span class="muted">${fmtDate(matchDate(m),{month:"short",day:"numeric"})}${m.venue?" • "+esc(m.venue):""}</span>
-   <div class="actions"><button class="btn small" onclick="openMatch('${esc(m.id)}')">Match Centre</button>${ADMIN_MODE?`<button class="btn small" onclick="openMatchEditor('${esc(m.id)}')">Edit</button>`:""}</div>
+   <div class="actions"><button type="button" class="btn small match-centre-btn" data-match-id="${esc(m.id)}">Match Centre</button>${ADMIN_MODE?`<button class="btn small" onclick="openMatchEditor('${esc(m.id)}')">Edit</button>`:""}</div>
   </div>
  </article>`;
 }
@@ -473,7 +473,23 @@ function openPlayer(id){const p=playerById(id)||players.find(x=>x.name===id);if(
 
 
 /* ---------- MATCH CENTRE ---------- */
-async function openMatch(id){selectedMatchId=id;showPage("match-page");renderMatch();await loadMatchEvents(id);renderMatch();}
+async function openMatch(id){
+ const normalized=String(id??"");
+ const m=matches.find(x=>String(x.id)===normalized);
+ if(!m){showToast("Match could not be opened");return false}
+ selectedMatchId=m.id;
+ showPage("match-page");
+ renderMatch();
+ await loadMatchEvents(m.id);
+ if(String(selectedMatchId)===normalized)renderMatch();
+ return true;
+}
+document.addEventListener("click",ev=>{
+ const btn=ev.target.closest?.(".match-centre-btn[data-match-id]");
+ if(!btn)return;
+ ev.preventDefault();ev.stopPropagation();
+ openMatch(btn.getAttribute("data-match-id"));
+});
 function eventIcon(type){const t=eventType({type});return t==="goal"?"⚽":t==="assist"?"A":t==="yellow"?"Y":t==="red"?"R":t==="substitution"?"↕":t==="var"?"V":"•"}
 function matchLineup(m,side){return readMatchLineups(m)[side]}
 function lineupPlayers(m,side){return matchLineup(m,side).map(String).map(playerById).filter(Boolean)}
@@ -494,23 +510,45 @@ function adminStatusClass(m){return isLive(m)?"live":isFinished(m)?"finished":""
 function renderAdmin(){
  const el=document.getElementById("admin");
  if(!ADMIN_MODE){el.innerHTML='<div class="empty">Admin mode is not enabled. Open the site with <code>?admin=1</code>.</div>';return}
- el.innerHTML=`<div class="section-head"><div><div class="eyebrow">Admin</div><h2>Match control room</h2><p>Run live matches, publish events, build lineups and manage fixtures.</p></div><button class="btn" onclick="refreshData()">↻ Reload database</button></div><div class="admin-shell"><aside class="card admin-list-v2"><div class="admin-list-tools"><input id="adminMatchSearch" class="input admin-search" placeholder="Search teams or competition" oninput="renderAdminMatchList"><button class="btn small" onclick="setAdminFilter('all')">All</button><button class="btn small" onclick="setAdminFilter('live')">Live</button><button class="btn small" onclick="setAdminFilter('scheduled')">Upcoming</button><button class="btn small" onclick="setAdminFilter('finished')">Finished</button></div><div id="adminMatchList" class="admin-match-list"></div><button class="btn primary" style="width:100%;margin-top:10px" onclick="showCreateMatch()">+ Create match</button></aside><section id="adminPanel" class="card admin-panel-v2"><div class="empty">Select a match to control it.</div></section></div>`;
+ el.innerHTML=`<div class="section-head"><div><div class="eyebrow">Admin</div><h2>Match control room</h2><p>Run live matches, publish events, build lineups and manage fixtures.</p></div><button class="btn" onclick="refreshData()">↻ Reload database</button></div><div class="admin-shell"><aside class="card admin-list-v2"><div class="admin-list-tools"><input id="adminMatchSearch" class="input admin-search" placeholder="Search teams or competition" oninput="renderAdminMatchList()"><button class="btn small" onclick="setAdminFilter('all')">All</button><button class="btn small" onclick="setAdminFilter('live')">Live</button><button class="btn small" onclick="setAdminFilter('scheduled')">Upcoming</button><button class="btn small" onclick="setAdminFilter('finished')">Finished</button></div><div id="adminMatchList" class="admin-match-list"></div><button class="btn primary" style="width:100%;margin-top:10px" onclick="showCreateMatch()">+ Create match</button></aside><section id="adminPanel" class="card admin-panel-v2"><div class="empty">Select a match to control it.</div></section></div>`;
  renderAdminMatchList();
- if(selectedMatchId)renderAdminPanel();
+ if(selectedMatchId&&matches.some(m=>String(m.id)===String(selectedMatchId)))renderAdminPanel();
+ bindAdminMatchButtons();
 }
 function setAdminFilter(f){adminFilter=f;renderAdminMatchList()}
 function renderAdminMatchList(){
  const el=document.getElementById("adminMatchList");if(!el)return;
  const q=(document.getElementById("adminMatchSearch")?.value||"").toLowerCase().trim();
  const list=matches.filter(m=>{const text=(teamDisplayName(m,"home")+" "+teamDisplayName(m,"away")+" "+competitionNameForMatch(m)).toLowerCase();const f=adminFilter==="live"?isLive(m):adminFilter==="finished"?isFinished(m):adminFilter==="scheduled"?(!isLive(m)&&!isFinished(m)):true;return f&&(!q||text.includes(q))}).sort((a,b)=>matchDate(a).localeCompare(matchDate(b))||matchTime(a).localeCompare(matchTime(b)));
- el.innerHTML=list.length?list.map(m=>`<button class="admin-match-btn ${String(m.id)===String(selectedMatchId)?"selected":""}" onclick="selectAdminMatch('${esc(m.id)}')"><div class="am-top"><strong>${esc(teamDisplayName(m,"home"))} ${scoreOf(m)[0]}–${scoreOf(m)[1]} ${esc(teamDisplayName(m,"away"))}</strong><span class="admin-status-dot ${adminStatusClass(m)}"></span></div><small>${esc(fmtDate(matchDate(m),{month:"short",day:"numeric"}))} • ${esc(fmtTime(matchTime(m)))} • ${esc(competitionNameForMatch(m))}</small></button>`).join(""):'<div class="mc-empty">No matches match this filter.</div>';
+ el.innerHTML=list.length?list.map(m=>`<button class="admin-match-btn ${String(m.id)===String(selectedMatchId)?"selected":""}" data-admin-match-id="${esc(m.id)}"><div class="am-top"><strong>${esc(teamDisplayName(m,"home"))} ${scoreOf(m)[0]}–${scoreOf(m)[1]} ${esc(teamDisplayName(m,"away"))}</strong><span class="admin-status-dot ${adminStatusClass(m)}"></span></div><small>${esc(fmtDate(matchDate(m),{month:"short",day:"numeric"}))} • ${esc(fmtTime(matchTime(m)))} • ${esc(competitionNameForMatch(m))}</small></button>`).join(""):'<div class="mc-empty">No matches match this filter.</div>';
 }
+function bindAdminMatchButtons(){
+ const list=document.getElementById("adminMatchList");
+ if(!list)return;
+ list.querySelectorAll(".admin-match-btn[data-admin-match-id]").forEach(btn=>{
+  if(btn.dataset.bound==="1")return;
+  btn.dataset.bound="1";
+  btn.addEventListener("click",function(ev){
+   ev.preventDefault();ev.stopPropagation();
+   const id=this.getAttribute("data-admin-match-id");
+   if(id)selectAdminMatch(id);
+  });
+ });
+}
+
 function selectAdminMatch(id){
- if(String(selectedMatchId)!==String(id)&&lineupDraft.dirty)snapshotLineupDraftFromDOM();
- selectedMatchId=id;
- const m=matches.find(x=>String(x.id)===String(id));
+ const normalized=String(id??"");
+ const m=matches.find(x=>String(x.id)===normalized);
+ if(!m){showToast("Match could not be selected");return false}
+ if(String(selectedMatchId)!==normalized&&lineupDraft.dirty)snapshotLineupDraftFromDOM();
+ selectedMatchId=m.id;
  resetLineupDraft(m);
- renderAdminMatchList();renderAdminPanel();
+ renderAdminMatchList();
+ renderAdminPanel();
+ requestAnimationFrame(()=>{
+  document.querySelectorAll(".admin-match-btn").forEach(b=>b.classList.toggle("selected",String(b.getAttribute("data-admin-match-id"))===normalized));
+ });
+ return true;
 }
 function adminLineupEditor(m,side){
  ensureLineupDraft(m);
@@ -522,7 +560,7 @@ function renderAdminPanel(){
  ensureLineupDraft(m);
  const[a,b]=scoreOf(m),compList=getCompetitionList();
  el.innerHTML=`<div class="admin-v2-header"><div class="eyebrow">Live match editor</div><h2>${esc(teamDisplayName(m,"home"))} <span style="color:#68747b">vs</span> ${esc(teamDisplayName(m,"away"))}</h2><div class="admin-v2-sub"><span class="pill ${isLive(m)?"live":isFinished(m)?"done":""}">${esc(m.status||"scheduled")}</span><span class="pill">ID ${esc(m.id)}</span></div></div>
- <div class="admin-section-v2"><div class="section-head"><div><h3>Live score</h3><p>Change the score, minute and match state.</p></div></div><div class="admin-score-control"><div class="admin-score-box"><label>${esc(teamDisplayName(m,"home"))}<input id="admHomeScore" class="input" type="number" min="0" value="${a[0]}"></label></div><div class="admin-score-vs">VS</div><div class="admin-score-box"><label>${esc(teamDisplayName(m,"away"))}<input id="admAwayScore" class="input" type="number" min="0" value="${b}"></label></div></div><div class="form-grid three" style="margin-top:10px"><label>Minute<input id="admMinute" class="input" type="number" min="0" value="${live?liveMinute(m):(m.minute||0)}"></label><label>Stoppage<input id="admStoppage" class="input" type="number" min="0" value="${m.stoppage||0}"></label><div class="public-note">Status is controlled by Start, Half time and Finish. Saving the score will not change it.</div></div><div class="actions" style="margin-top:11px"><button class="btn primary" onclick="saveScoreOnly()">Save score</button><button class="btn" onclick="startSelected()">▶ Start</button><button class="btn" onclick="pauseSelected()">Ⅱ Half time</button><button class="btn danger" onclick="finishSelected()">■ Finish</button><button class="btn" onclick="openMatch('${esc(m.id)}')">View centre</button></div></div>
+ <div class="admin-section-v2"><div class="section-head"><div><h3>Live score</h3><p>Change the score, minute and match state.</p></div></div><div class="admin-score-control"><div class="admin-score-box"><label>${esc(teamDisplayName(m,"home"))}<input id="admHomeScore" class="input" type="number" min="0" value="${a[0]}"></label></div><div class="admin-score-vs">VS</div><div class="admin-score-box"><label>${esc(teamDisplayName(m,"away"))}<input id="admAwayScore" class="input" type="number" min="0" value="${b}"></label></div></div><div class="form-grid three" style="margin-top:10px"><label>Minute<input id="admMinute" class="input" type="number" min="0" value="${live?liveMinute(m):(m.minute||0)}"></label><label>Stoppage<input id="admStoppage" class="input" type="number" min="0" value="${m.stoppage||0}"></label><div class="public-note">Status is controlled by Start, Half time and Finish. Saving the score will not change it.</div></div><div class="actions" style="margin-top:11px"><button type="button" class="btn primary" onclick="saveScoreOnly()">Save score</button><button type="button" class="btn" onclick="startSelected()">▶ Start</button><button type="button" class="btn" onclick="pauseSelected()">Ⅱ Half time</button><button type="button" class="btn danger" onclick="finishSelected()">■ Finish</button><button class="btn" onclick="openMatch('${esc(m.id)}')">View centre</button></div></div>
  <div class="admin-section-v2"><div class="section-head"><div><h3>Goal + assist</h3><p>Log a goal and optional assist together.</p></div></div><div class="form-grid three"><label>Scoring team<select id="eventTeamSelect" class="select" onchange="refreshEventPlayers()"><option value="">Select team</option><option value="${esc(m.home_team_id)}">${esc(teamDisplayName(m,"home"))}</option><option value="${esc(m.away_team_id)}">${esc(teamDisplayName(m,"away"))}</option></select></label><label>Scorer<select id="eventPlayerSelect" class="select"><option value="">Select team first</option></select></label><label>Minute<input id="eventMinute" class="input" type="number" min="0" value="${m.minute||0}"></label></div><div class="goal-assist"><label>Assisting player<select id="eventAssistPlayerSelect" class="select"><option value="">No assist</option></select></label><label>Stoppage<input id="eventStoppage" class="input" type="number" min="0" value="0"></label></div><div class="actions" style="margin-top:11px"><button class="btn primary" onclick="addGoalWithAssist()">⚽ Add goal</button><button class="btn" onclick="addAssistOnly()">＋ Log assist</button></div></div>
  <div class="admin-section-v2"><div class="section-head"><div><h3>Other event</h3><p>Cards, substitutions, VAR and other entries.</p></div></div><div class="form-grid three"><label>Team<select id="otherEventTeam" class="select" onchange="refreshOtherEventPlayers()"><option value="">Match event</option><option value="${esc(m.home_team_id)}">${esc(teamDisplayName(m,"home"))}</option><option value="${esc(m.away_team_id)}">${esc(teamDisplayName(m,"away"))}</option></select></label><label>Player<select id="otherEventPlayer" class="select"><option value="">No player</option></select></label><label>Type<select id="otherEventType" class="select"><option value="yellow">Yellow card</option><option value="red">Red card</option><option value="substitution">Substitution</option><option value="var">VAR</option><option value="other">Other</option></select></label><label>Minute<input id="otherEventMinute" class="input" type="number" min="0" value="${m.minute||0}"></label><label>Detail<input id="otherEventDetail" class="input" placeholder="Optional detail"></label></div><div class="actions" style="margin-top:11px"><button class="btn" onclick="addOtherEvent()">Add event</button></div></div>
  <div class="admin-section-v2"><div class="section-head"><div><h3>Starting lineups</h3><p>Publish the XI for each side. Selections survive refreshes and live-clock updates.</p></div><span id="lineupDraftIndicator" class="pill">${lineupDraft.dirty?"Unsaved changes":"Saved"}</span></div><div class="lineup-builder">${adminLineupEditor(m,"home")}${adminLineupEditor(m,"away")}</div><div class="actions" style="margin-top:11px"><button class="btn primary" onclick="saveLineups()">Save lineups</button><button class="btn" onclick="resetCurrentLineupDraft()">Reset to saved</button><button class="btn" onclick="openMatch('${esc(m.id)}')">Preview</button></div></div>
