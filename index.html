@@ -111,7 +111,7 @@ let matches=[],news=[],teams=[],players=[],competitions=[];
 const pendingMatchWrites=new Map(),pendingStatusWrites=new Map();
 const verifiedScoreCache=new Map();
 let selectedMatchId=null,selectedArticleId=null,selectedCompetition=null;
-let scoreFilter="all",scoreDate=todayISO(),adminLog=[],timer=null,refreshTimer=null,dbOnline=false;
+let scoreFilter="all",scoreDate=todayISO(),adminLog=[],timer=null,refreshTimer=null,dbOnline=false,maybeClockSyncTimer=null;
 let adminFilter="all";
 
 /* V2 LINEUP DRAFT STATE */
@@ -317,12 +317,14 @@ function renderAll(){
  if(ADMIN_MODE&&lineupDraft.dirty&&String(lineupDraft.matchId)===String(selectedMatchId)&&document.getElementById("adminPanel")){
   renderAdminMatchList();
   updateLineupDraftIndicator();
+  bindAdminMatchSelection();
  }else{
   renderAdmin();
+  bindAdminMatchSelection();
  }
  renderTicker();
  if(selectedMatchId)renderMatch();
- bindV10Controls();
+ bindMatchCentreButtons();
 }
 function renderTicker(){
  const live=matches.filter(isLive),finished=matches.filter(isFinished).slice(-4);
@@ -349,7 +351,7 @@ function matchCard(m){
   <div class="match-top"><span class="competition-label">${esc(competitionNameForMatch(m))}</span><div class="actions"><span class="status">${live?'● LIVE':isFinished(m)?"FT":fmtTime(matchTime(m))}</span>${favoriteButton(m)}</div></div>
   <div class="teams">
    <div class="team">${ht&&teamFlag(ht)?`<img src="${esc(teamFlag(ht))}" alt="">`:""}<div>${esc(teamDisplayName(m,"home"))}</div></div>
-   <div><div class="score">${isFinished(m)||live?a+"–"+b:"VS"}</div>${live?`<div class="status live-minute-display">${liveDisplayMinute(m)}</div>`:""}</div>
+   <div><div class="score">${isFinished(m)||live?a+"–"+b:"VS"}</div>${live?`<div class="status">${Number(m.minute||0)}${m.stoppage?`+${m.stoppage}`:""}'</div>`:""}</div>
    <div class="team">${at&&teamFlag(at)?`<img src="${esc(teamFlag(at))}" alt="">`:""}<div>${esc(teamDisplayName(m,"away"))}</div></div>
   </div>
   <div class="match-bottom"><span class="muted">${fmtDate(matchDate(m),{month:"short",day:"numeric"})}${m.venue?" • "+esc(m.venue):""}</span>
@@ -453,16 +455,13 @@ function openPlayer(id){const p=playerById(id)||players.find(x=>x.name===id);if(
 
 /* ---------- MATCH CENTRE ---------- */
 async function openMatch(id){
- const normalized=String(id??"");
- const m=matches.find(x=>String(x.id)===normalized);
+ const normalized=String(id??""),m=matches.find(x=>String(x.id)===normalized);
  if(!m){showToast("Match could not be opened");return false}
- selectedMatchId=m.id;
- showPage("match-page");
- renderMatch();
- await loadMatchEvents(m.id);
- if(String(selectedMatchId)===normalized)renderMatch();
- return true;
+ selectedMatchId=m.id;showPage("match-page");renderMatch();
+ if(typeof loadMatchEvents==="function"){try{await loadMatchEvents(m.id)}catch(e){console.warn("Match events load failed:",e)}}
+ if(String(selectedMatchId)===normalized)renderMatch();return true;
 }
+function bindMatchCentreButtons(){document.querySelectorAll(".match-centre-btn[data-match-id]").forEach(btn=>{if(btn.dataset.bound==="1")return;btn.dataset.bound="1";btn.addEventListener("click",ev=>{ev.preventDefault();ev.stopPropagation();openMatch(btn.getAttribute("data-match-id"))})})}
 function eventIcon(type){const t=eventType({type});return t==="goal"?"⚽":t==="assist"?"A":t==="yellow"?"Y":t==="red"?"R":t==="substitution"?"↕":t==="var"?"V":"•"}
 function matchLineup(m,side){return readMatchLineups(m)[side]}
 function lineupPlayers(m,side){return matchLineup(m,side).map(String).map(playerById).filter(Boolean)}
@@ -483,9 +482,9 @@ function adminStatusClass(m){return isLive(m)?"live":isFinished(m)?"finished":""
 function renderAdmin(){
  const el=document.getElementById("admin");
  if(!ADMIN_MODE){el.innerHTML='<div class="empty">Admin mode is not enabled. Open the site with <code>?admin=1</code>.</div>';return}
- el.innerHTML=`<div class="section-head"><div><div class="eyebrow">Admin</div><h2>Match control room</h2><p>Run live matches, publish events, build lineups and manage fixtures.</p></div><button class="btn" onclick="refreshData()">↻ Reload database</button></div><div class="admin-shell"><aside class="card admin-list-v2"><div class="admin-list-tools"><input id="adminMatchSearch" class="input admin-search" placeholder="Search teams or competition" oninput="renderAdminMatchList()"><button class="btn small" onclick="setAdminFilter('all')">All</button><button class="btn small" onclick="setAdminFilter('live')">Live</button><button class="btn small" onclick="setAdminFilter('scheduled')">Upcoming</button><button class="btn small" onclick="setAdminFilter('finished')">Finished</button></div><div id="adminMatchList" class="admin-match-list"></div><button class="btn primary" style="width:100%;margin-top:10px" onclick="showCreateMatch()">+ Create match</button></aside><section id="adminPanel" class="card admin-panel-v2"><div class="empty">Select a match to control it.</div></section></div>`;
- renderAdminMatchList();
- if(selectedMatchId)renderAdminPanel();
+ el.innerHTML=`<div class="section-head"><div><div class="eyebrow">Admin</div><h2>Match control room</h2><p>Run live matches, publish events, build lineups and manage fixtures.</p></div><button type="button" class="btn" onclick="refreshData()">↻ Reload database</button></div><div class="admin-shell"><aside class="card admin-list-v2"><div class="admin-list-tools"><input id="adminMatchSearch" class="input admin-search" placeholder="Search teams or competition"><button type="button" class="btn small" onclick="setAdminFilter('all')">All</button><button type="button" class="btn small" onclick="setAdminFilter('live')">Live</button><button type="button" class="btn small" onclick="setAdminFilter('scheduled')">Upcoming</button><button type="button" class="btn small" onclick="setAdminFilter('finished')">Finished</button></div><div id="adminMatchList" class="admin-match-list"></div><button type="button" class="btn primary" style="width:100%;margin-top:10px" onclick="showCreateMatch()">+ Create match</button></aside><section id="adminPanel" class="card admin-panel-v2"><div class="empty">Select a match to control it.</div></section></div>`;
+ const search=document.getElementById("adminMatchSearch");if(search)search.addEventListener("input",renderAdminMatchList);
+ renderAdminMatchList();if(selectedMatchId)renderAdminPanel();
 }
 function setAdminFilter(f){adminFilter=f;renderAdminMatchList()}
 function renderAdminMatchList(){
@@ -493,37 +492,22 @@ function renderAdminMatchList(){
  const q=(document.getElementById("adminMatchSearch")?.value||"").toLowerCase().trim();
  const list=matches.filter(m=>{const text=(teamDisplayName(m,"home")+" "+teamDisplayName(m,"away")+" "+competitionNameForMatch(m)).toLowerCase();const f=adminFilter==="live"?isLive(m):adminFilter==="finished"?isFinished(m):adminFilter==="scheduled"?(!isLive(m)&&!isFinished(m)):true;return f&&(!q||text.includes(q))}).sort((a,b)=>matchDate(a).localeCompare(matchDate(b))||matchTime(a).localeCompare(matchTime(b)));
  el.innerHTML=list.length?list.map(m=>`<button type="button" class="admin-match-btn ${String(m.id)===String(selectedMatchId)?"selected":""}" data-admin-match-id="${esc(m.id)}"><div class="am-top"><strong>${esc(teamDisplayName(m,"home"))} ${scoreOf(m)[0]}–${scoreOf(m)[1]} ${esc(teamDisplayName(m,"away"))}</strong><span class="admin-status-dot ${adminStatusClass(m)}"></span></div><small>${esc(fmtDate(matchDate(m),{month:"short",day:"numeric"}))} • ${esc(fmtTime(matchTime(m)))} • ${esc(competitionNameForMatch(m))}</small></button>`).join(""):'<div class="mc-empty">No matches match this filter.</div>';
- bindV10Controls();
+ bindAdminMatchSelection();
 }
 function selectAdminMatch(id){
- const normalized=String(id??"");
- const m=matches.find(x=>String(x.id)===normalized);
+ const normalized=String(id??""),m=matches.find(x=>String(x.id)===normalized);
  if(!m){showToast("Match could not be selected");return false}
  if(String(selectedMatchId)!==normalized&&lineupDraft.dirty)snapshotLineupDraftFromDOM();
- selectedMatchId=m.id;
- resetLineupDraft(m);
- renderAdminMatchList();
- renderAdminPanel();
- requestAnimationFrame(()=>document.querySelectorAll(".admin-match-btn").forEach(b=>b.classList.toggle("selected",String(b.dataset.adminMatchId)===normalized)));
+ selectedMatchId=m.id;resetLineupDraft(m);renderAdminMatchList();renderAdminPanel();
+ const active=document.querySelector('#adminMatchList [data-admin-match-id="'+CSS.escape(normalized)+'"]');
+ if(active){active.classList.add("selected");active.focus({preventScroll:true})}
  return true;
 }
-function bindV10Controls(){
- document.querySelectorAll(".admin-match-btn[data-admin-match-id]").forEach(btn=>{
-  if(btn.dataset.v10Bound==="1")return;
-  btn.dataset.v10Bound="1";
-  btn.addEventListener("click",ev=>{
-   ev.preventDefault();ev.stopPropagation();selectAdminMatch(btn.dataset.adminMatchId);
-  });
- });
- document.querySelectorAll(".match-centre-btn[data-match-id]").forEach(btn=>{
-  if(btn.dataset.v10Bound==="1")return;
-  btn.dataset.v10Bound="1";
-  btn.addEventListener("click",ev=>{
-   ev.preventDefault();ev.stopPropagation();openMatch(btn.dataset.matchId);
-  });
- });
+function bindAdminMatchSelection(){
+ const list=document.getElementById("adminMatchList");if(!list||list.dataset.bound==="1")return;
+ list.dataset.bound="1";
+ list.addEventListener("click",function(ev){const btn=ev.target.closest?.("[data-admin-match-id]");if(!btn||!list.contains(btn))return;ev.preventDefault();ev.stopPropagation();selectAdminMatch(btn.getAttribute("data-admin-match-id"));});
 }
-
 function adminLineupEditor(m,side){
  ensureLineupDraft(m);
  const teamId=side==="home"?m.home_team_id:m.away_team_id,t=teamById(teamId),selected=getDraftSide(m,side).map(String),ps=players.filter(p=>String(p.team_id)===String(teamId));
@@ -534,7 +518,7 @@ function renderAdminPanel(){
  ensureLineupDraft(m);
  const[a,b]=scoreOf(m),compList=getCompetitionList();
  el.innerHTML=`<div class="admin-v2-header"><div class="eyebrow">Live match editor</div><h2>${esc(teamDisplayName(m,"home"))} <span style="color:#68747b">vs</span> ${esc(teamDisplayName(m,"away"))}</h2><div class="admin-v2-sub"><span class="pill ${isLive(m)?"live":isFinished(m)?"done":""}">${esc(m.status||"scheduled")}</span><span class="pill">ID ${esc(m.id)}</span></div></div>
- <div class="admin-section-v2"><div class="section-head"><div><h3>Live score</h3><p>Change the score, minute and match state.</p></div></div><div class="admin-score-control"><div class="admin-score-box"><label>${esc(teamDisplayName(m,"home"))}<input id="admHomeScore" class="input" type="number" min="0" value="${a[0]}"></label></div><div class="admin-score-vs">VS</div><div class="admin-score-box"><label>${esc(teamDisplayName(m,"away"))}<input id="admAwayScore" class="input" type="number" min="0" value="${b}"></label></div></div><div class="form-grid three" style="margin-top:10px"><label>Minute<input id="admMinute" class="input" type="number" min="0" value="${m.minute||0}"></label><label>Stoppage<input id="admStoppage" class="input" type="number" min="0" value="${m.stoppage||0}"></label><div class="public-note">Status is controlled by Start, Half time and Finish. Saving the score will not change it.</div></div><div class="actions" style="margin-top:11px"><button type="button" class="btn primary" onclick="saveScoreOnly()">Save score</button><button type="button" class="btn" onclick="startSelected()">▶ Start</button><button type="button" class="btn" onclick="pauseSelected()">Ⅱ Half time</button><button type="button" class="btn danger" onclick="finishSelected()">■ Finish</button><button class="btn" onclick="openMatch('${esc(m.id)}')">View centre</button></div></div>
+ <div class="admin-section-v2"><div class="section-head"><div><h3>Live score</h3><p>Change the score, minute and match state.</p></div></div><div class="admin-score-control"><div class="admin-score-box"><label>${esc(teamDisplayName(m,"home"))}<input id="admHomeScore" class="input" type="number" min="0" value="${a[0]}"></label></div><div class="admin-score-vs">VS</div><div class="admin-score-box"><label>${esc(teamDisplayName(m,"away"))}<input id="admAwayScore" class="input" type="number" min="0" value="${b}"></label></div></div><div class="form-grid three" style="margin-top:10px"><label>Minute<input id="admMinute" class="input" type="number" min="0" value="${m.minute||0}"></label><label>Stoppage<input id="admStoppage" class="input" type="number" min="0" value="${m.stoppage||0}"></label><div class="public-note">Status is controlled by Start, Half time and Finish. Saving the score will not change it.</div></div><div class="actions" style="margin-top:11px"><button class="btn primary" onclick="saveScoreOnly()">Save score</button><button class="btn" onclick="startSelected()">▶ Start</button><button class="btn" onclick="pauseSelected()">Ⅱ Half time</button><button class="btn danger" onclick="finishSelected()">■ Finish</button><button class="btn" onclick="openMatch('${esc(m.id)}')">View centre</button></div></div>
  <div class="admin-section-v2"><div class="section-head"><div><h3>Goal + assist</h3><p>Log a goal and optional assist together.</p></div></div><div class="form-grid three"><label>Scoring team<select id="eventTeamSelect" class="select" onchange="refreshEventPlayers()"><option value="">Select team</option><option value="${esc(m.home_team_id)}">${esc(teamDisplayName(m,"home"))}</option><option value="${esc(m.away_team_id)}">${esc(teamDisplayName(m,"away"))}</option></select></label><label>Scorer<select id="eventPlayerSelect" class="select"><option value="">Select team first</option></select></label><label>Minute<input id="eventMinute" class="input" type="number" min="0" value="${m.minute||0}"></label></div><div class="goal-assist"><label>Assisting player<select id="eventAssistPlayerSelect" class="select"><option value="">No assist</option></select></label><label>Stoppage<input id="eventStoppage" class="input" type="number" min="0" value="0"></label></div><div class="actions" style="margin-top:11px"><button class="btn primary" onclick="addGoalWithAssist()">⚽ Add goal</button><button class="btn" onclick="addAssistOnly()">＋ Log assist</button></div></div>
  <div class="admin-section-v2"><div class="section-head"><div><h3>Other event</h3><p>Cards, substitutions, VAR and other entries.</p></div></div><div class="form-grid three"><label>Team<select id="otherEventTeam" class="select" onchange="refreshOtherEventPlayers()"><option value="">Match event</option><option value="${esc(m.home_team_id)}">${esc(teamDisplayName(m,"home"))}</option><option value="${esc(m.away_team_id)}">${esc(teamDisplayName(m,"away"))}</option></select></label><label>Player<select id="otherEventPlayer" class="select"><option value="">No player</option></select></label><label>Type<select id="otherEventType" class="select"><option value="yellow">Yellow card</option><option value="red">Red card</option><option value="substitution">Substitution</option><option value="var">VAR</option><option value="other">Other</option></select></label><label>Minute<input id="otherEventMinute" class="input" type="number" min="0" value="${m.minute||0}"></label><label>Detail<input id="otherEventDetail" class="input" placeholder="Optional detail"></label></div><div class="actions" style="margin-top:11px"><button class="btn" onclick="addOtherEvent()">Add event</button></div></div>
  <div class="admin-section-v2"><div class="section-head"><div><h3>Starting lineups</h3><p>Publish the XI for each side. Selections survive refreshes and live-clock updates.</p></div><span id="lineupDraftIndicator" class="pill">${lineupDraft.dirty?"Unsaved changes":"Saved"}</span></div><div class="lineup-builder">${adminLineupEditor(m,"home")}${adminLineupEditor(m,"away")}</div><div class="actions" style="margin-top:11px"><button class="btn primary" onclick="saveLineups()">Save lineups</button><button class="btn" onclick="resetCurrentLineupDraft()">Reset to saved</button><button class="btn" onclick="openMatch('${esc(m.id)}')">Preview</button></div></div>
@@ -651,33 +635,17 @@ async function persistStatus(id,status){
 }
 
 async function startSelected(){
- const id=selectedMatchId;if(!id)return;
- const m=matches.find(x=>String(x.id)===String(id));if(!m)return;
- if(isFinished(m)){showToast("This match is already finished");return}
- const current=liveMinute(m);
- m.minute=current;
- if(!await updateMatch(m.id,{minute:current}))return;
- if(!await persistStatus(m.id,"live"))return;
- if(!await setLiveClockState(m,"start")){
-  await persistStatus(m.id,String(m.status||"scheduled"));
-  return;
- }
- m.status="live";
- startTimer();
- renderAdminMatchList();renderAdminPanel();renderMatch();
- showToast("Match is LIVE");
+ const id=selectedMatchId;if(!id)return;const m=matches.find(x=>String(x.id)===String(id));if(!m)return;if(isFinished(m)){showToast("This match is already finished");return}
+ const current=Math.max(0,Math.floor(Number(m.minute)||0)),meta=readMatchMetadata(m);meta.clock={started_at:new Date().toISOString(),base_minute:current};
+ if(!await persistStatus(id,"live"))return;
+ try{await supabaseFetch(MATCHES_URL+"?id=eq."+encodeURIComponent(id),{method:"PATCH",body:JSON.stringify({minute:current,metadata:meta,status:"live"}),headers:{Prefer:"return=minimal"}});m.status="live";m.minute=current;m.metadata=meta;startTimer();renderAll();showToast("Match is LIVE")}catch(e){showToast("Match started, but the clock could not be saved")}
 }
 async function pauseSelected(){
- const m=matches.find(x=>String(x.id)===String(selectedMatchId));if(!m)return;
- const current=liveMinute(m);m.minute=current;
- if(!await updateMatch(m.id,{minute:current}))return;
- if(!await persistStatus(m.id,"halftime"))return;
- await setLiveClockState(m,"pause");
- stopTimer();
- renderAdminMatchList();renderAdminPanel();renderMatch();
- showToast("Half time — clock paused");
+ const m=matches.find(x=>String(x.id)===String(selectedMatchId));if(!m||!isLive(m)){showToast("Match is not currently live");return}
+ const current=liveClockMinute(m);if(!await persistStatus(selectedMatchId,"halftime"))return;const meta=readMatchMetadata(m);delete meta.clock;
+ try{await supabaseFetch(MATCHES_URL+"?id=eq."+encodeURIComponent(m.id),{method:"PATCH",body:JSON.stringify({minute:current,metadata:meta,status:"halftime"}),headers:{Prefer:"return=minimal"}});m.minute=current;m.metadata=meta;m.status="halftime"}catch(e){showToast("Half time saved, but minute sync failed")}
+ stopTimer();renderAll();
 }
-
 async function syncPlayerTotalsFromEvents(){
  const stats=eventStats();
  const jobs=[];
@@ -721,71 +689,21 @@ async function syncCompletedMatchStats(match){
   return false;
  }
 }
-async function finishSelected(){const m=matches.find(x=>String(x.id)===String(selectedMatchId));if(!m)return;const he=document.getElementById('admHomeScore'),ae=document.getElementById('admAwayScore'),me=document.getElementById('admMinute'),se=document.getElementById('admStoppage');const homeScore=he?Math.max(0,Math.floor(Number(he.value)||0)):Math.max(0,Math.floor(Number(m.score_home)||0)),awayScore=ae?Math.max(0,Math.floor(Number(ae.value)||0)):Math.max(0,Math.floor(Number(m.score_away)||0)),minute=me?Math.max(0,Math.floor(Number(me.value)||0)):Math.max(0,Math.floor(Number(m.minute)||0)),stoppage=se?Math.max(0,Math.floor(Number(se.value)||0)):Math.max(0,Math.floor(Number(m.stoppage)||0));showToast('Saving final score…');if(!await updateMatch(m.id,{score_home:homeScore,score_away:awayScore,minute,stoppage})){showToast('Match was not finished because the final score could not be saved.');return}if(!await persistStatus(m.id,'finished'))return;stopTimer();await setLiveClockState(m,'finish');m.score_home=homeScore;m.score_away=awayScore;m.minute=minute;m.stoppage=stoppage;m.status='finished';showToast('Match finished — syncing events and stats…');await syncCompletedMatchStats(m);await loadData();const fresh=matches.find(x=>String(x.id)===String(m.id));if(fresh&&isFinished(fresh))showToast(`Final saved: ${scoreOf(fresh)[0]}–${scoreOf(fresh)[1]} • FULL TIME`);else if(fresh)showToast('Score saved, but status verification failed — check Supabase.');}
+async function finishSelected(){const m=matches.find(x=>String(x.id)===String(selectedMatchId));if(!m)return;const he=document.getElementById('admHomeScore'),ae=document.getElementById('admAwayScore'),me=document.getElementById('admMinute'),se=document.getElementById('admStoppage');const homeScore=he?Math.max(0,Math.floor(Number(he.value)||0)):Math.max(0,Math.floor(Number(m.score_home)||0)),awayScore=ae?Math.max(0,Math.floor(Number(ae.value)||0)):Math.max(0,Math.floor(Number(m.score_away)||0)),minute=me?Math.max(0,Math.floor(Number(me.value)||0)):Math.max(0,Math.floor(Number(m.minute)||0)),stoppage=se?Math.max(0,Math.floor(Number(se.value)||0)):Math.max(0,Math.floor(Number(m.stoppage)||0));showToast('Saving final score…');if(!await updateMatch(m.id,{score_home:homeScore,score_away:awayScore,minute,stoppage})){showToast('Match was not finished because the final score could not be saved.');return}if(!await persistStatus(m.id,'finished'))return;stopTimer();m.score_home=homeScore;m.score_away=awayScore;m.minute=minute;m.stoppage=stoppage;m.status='finished';showToast('Match finished — syncing events and stats…');await syncCompletedMatchStats(m);await loadData();const fresh=matches.find(x=>String(x.id)===String(m.id));if(fresh&&isFinished(fresh))showToast(`Final saved: ${scoreOf(fresh)[0]}–${scoreOf(fresh)[1]} • FULL TIME`);else if(fresh)showToast('Score saved, but status verification failed — check Supabase.');}
 
 
-/* ---------- CLOCK: LOCAL LIVE CLOCK + LOW-FREQUENCY DB SYNC ---------- */
-function liveClockMeta(m){
- const meta=readMatchMetadata(m);
- const c=meta&&typeof meta.clock==='object'?meta.clock:null;
- return c&&c.started_at?c:null;
-}
-function liveMinute(m){
- if(!m)return 0;
- const base=Math.max(0,Math.floor(Number(m.minute)||0));
- const c=liveClockMeta(m);
- if(!isLive(m)||!c)return base;
- const started=Date.parse(c.started_at);
- if(!Number.isFinite(started))return base;
- return base+Math.max(0,Math.floor((Date.now()-started)/60000));
-}
-function liveDisplayMinute(m){
- const minute=liveMinute(m),stop=Math.max(0,Math.floor(Number(m?.stoppage)||0));
- return `${minute}${stop?`+${stop}`:""}'`;
-}
-function renderLiveClockUI(m){
- if(!m)return;
- const minute=liveMinute(m);
- const ids=["admMinute","eventMinute","otherEventMinute"];
- ids.forEach(id=>{const el=document.getElementById(id);if(el&&document.activeElement!==el)el.value=minute});
- document.querySelectorAll(".live-minute-display").forEach(el=>el.textContent=liveDisplayMinute(m));
-}
-async function setLiveClockState(m,mode){
- if(!m)return false;
- const meta=readMatchMetadata(m);
- if(mode==="start"){
-  const current=Math.max(0,Math.floor(Number(m.minute)||0));
-  meta.clock={started_at:new Date().toISOString(),base_minute:current};
- }else delete meta.clock;
- try{
-  const rows=await supabaseFetch(MATCHES_URL+"?id=eq."+encodeURIComponent(m.id),{method:"PATCH",body:JSON.stringify({metadata:meta,minute:liveMinute(m)}),headers:{Prefer:"return=representation"}});
-  const row=Array.isArray(rows)?rows[0]:rows;
-  if(row&&String(row.id)===String(m.id))Object.assign(m,row);
-  else{m.metadata=meta;if(mode!=="start")m.minute=liveMinute(m)}
-  return true;
- }catch(e){console.error("MEFCO clock state update failed:",e);showToast("Clock could not be saved: "+(e?.message||"database error"));return false}
-}
+/* ---------- CLOCK: NEVER REBUILD DIRTY LINEUP EDITOR ---------- */
+function liveClockMeta(m){const meta=readMatchMetadata(m);return meta&&typeof meta.clock==="object"?meta.clock:{}}
+function liveClockMinute(m){if(!m||!isLive(m))return Math.max(0,Math.floor(Number(m?.minute)||0));const c=liveClockMeta(m),started=Date.parse(c.started_at||"");if(!Number.isFinite(started))return Math.max(0,Math.floor(Number(m.minute)||0));return Math.max(0,Math.floor(Number(c.base_minute??m.minute)||0)+Math.floor((Date.now()-started)/60000))}
+function liveClockDisplay(m){const minute=liveClockMinute(m),stoppage=Math.max(0,Math.floor(Number(m?.stoppage)||0));return `${minute}${stoppage?`+${stoppage}`:""}'`}
+async function syncLiveClock(m,force=false){if(!m||!isLive(m))return;const minute=liveClockMinute(m);if(!force&&Number(m.minute||0)===minute)return;m.minute=minute;m.status="live";try{await supabaseFetch(MATCHES_URL+"?id=eq."+encodeURIComponent(m.id),{method:"PATCH",body:JSON.stringify({minute,status:"live"}),headers:{Prefer:"return=minimal"}})}catch(e){console.warn("Live clock sync failed:",e)}}
 function startTimer(){
  stopTimer();
- const tick=async()=>{
-  const m=matches.find(x=>String(x.id)===String(selectedMatchId));
-  if(!m||!isLive(m)){stopTimer();return}
-  renderLiveClockUI(m);
-  renderTicker();
-  if(String(selectedMatchId)===String(m.id))renderMatch();
-  const minute=liveMinute(m);
-  if(minute!==Number(m.minute||0)){
-   m.minute=minute;
-   if(!startTimer.lastPersist||Date.now()-startTimer.lastPersist>=30000){
-    startTimer.lastPersist=Date.now();
-    try{await supabaseFetch(MATCHES_URL+"?id=eq."+encodeURIComponent(m.id),{method:"PATCH",body:JSON.stringify({minute,status:"live"}),headers:{Prefer:"return=minimal"}})}catch(e){console.warn("MEFCO live minute sync failed",e)}
-   }
-  }
- };
- tick();
- timer=setInterval(tick,1000);
+ const tick=async()=>{const m=matches.find(x=>String(x.id)===String(selectedMatchId));if(!m||!isLive(m)){stopTimer();return}const minute=liveClockMinute(m);m.minute=minute;m.status="live";if(ADMIN_MODE&&lineupDraft.dirty&&String(lineupDraft.matchId)===String(m.id)){const min=document.getElementById("admMinute");if(min)min.value=minute;const em=document.getElementById("eventMinute");if(em)em.value=minute;const om=document.getElementById("otherEventMinute");if(om)om.value=minute}else{renderAdminPanel()}renderTicker();renderMatch()};
+ tick();timer=setInterval(tick,1000);
+ maybeClockSyncTimer=setInterval(()=>{const m=matches.find(x=>String(x.id)===String(selectedMatchId));if(m&&isLive(m))syncLiveClock(m);else stopTimer()},15000);
 }
-function stopTimer(){if(timer)clearInterval(timer);timer=null;startTimer.lastPersist=0}
+function stopTimer(){if(timer)clearInterval(timer);timer=null;if(maybeClockSyncTimer)clearInterval(maybeClockSyncTimer);maybeClockSyncTimer=null}
 function resumeLiveTimer(){const live=matches.find(m=>String(m.id)===String(selectedMatchId)&&isLive(m));if(live)startTimer()}
 
 /* ---------- EVENTS ---------- */
@@ -1154,7 +1072,7 @@ function renderMatchStats(m){const s=matchStoredStats(m),rows=[['Possession','%'
 function renderMatch(){
  const m=matches.find(x=>String(x.id)===String(selectedMatchId)),el=document.getElementById('match-page');if(!m){el.innerHTML='<div class="empty">Match not found.</div>';return}
  const[a,b]=scoreOf(m),events=[...(m.events||[])].sort((x,y)=>(Number(x.minute||0)-Number(y.minute||0))||(Number(x.stoppage||0)-Number(y.stoppage||0))),ht=teamById(m.home_team_id),at=teamById(m.away_team_id),live=isLive(m),finished=isFinished(m),status=live?`LIVE • ${Number(m.minute||0)}${m.stoppage?`+${m.stoppage}`:""}'`:finished?'FULL TIME':String(m.status||'SCHEDULED').toUpperCase();
- el.innerHTML=`<div class="match-centre-shell"><div class="match-centre-bar"><button class="ghost" onclick="navFor('scores')">← Scores</button><div class="actions">${favoriteButton(m)}${ADMIN_MODE?`<button class="btn" onclick="openMatchEditor('${esc(m.id)}')">Edit match</button>`:''}</div></div><div class="card mc-hero"><div class="mc-topline"><span>${esc(competitionNameForMatch(m))}</span><span>${esc(fmtDate(matchDate(m),{weekday:'long',month:'long',day:'numeric',year:'numeric'}))}</span></div><div class="mc-scoreboard"><div class="mc-team">${ht&&teamFlag(ht)?`<img src="${esc(teamFlag(ht))}" alt="">`:''}<div class="mc-team-name"><button class="ghost" onclick="openTeam('${esc(m.home_team_id)}')">${esc(teamDisplayName(m,'home'))}</button></div><div class="mc-team-side">Home</div></div><div><div class="mc-big-score">${finished||live?a+'–'+b:'VS'}</div><span class="mc-status ${live?'live':finished?'done':''}">${live?liveDisplayMinute(m):esc(status)}</span></div><div class="mc-team">${at&&teamFlag(at)?`<img src="${esc(teamFlag(at))}" alt="">`:''}<div class="mc-team-name"><button class="ghost" onclick="openTeam('${esc(m.away_team_id)}')">${esc(teamDisplayName(m,'away'))}</button></div><div class="mc-team-side">Away</div></div></div><div class="mc-meta"><div>Kickoff <strong>${esc(fmtTime(matchTime(m)))}</strong></div>${m.venue?`<div>• <strong>${esc(m.venue)}</strong></div>`:''}${m.city?`<div>• ${esc(m.city)}</div>`:''}</div></div><div class="mc-tabs"><button class="mc-tab active" data-mctab="overview" onclick="switchMatchTab('overview')">Overview</button><button class="mc-tab" data-mctab="events" onclick="switchMatchTab('events')">Events (${events.length})</button><button class="mc-tab" data-mctab="stats" onclick="switchMatchTab('stats')">Stats</button><button class="mc-tab" data-mctab="lineups" onclick="switchMatchTab('lineups')">Lineups</button></div><div id="mc-overview" class="mc-tab-panel active"><div class="mc-columns"><div class="card mc-panel"><div class="mc-panel-title"><div><div class="eyebrow">Match timeline</div><h3>Latest events</h3></div><span>${events.length} logged</span></div>${events.length?`<div class="mc-event-list">${events.slice().reverse().slice(0,8).map(matchEventRow).join('')}</div>`:'<div class="mc-empty">No match events have been recorded yet.</div>'}</div><div class="card mc-panel"><div class="mc-panel-title"><div><div class="eyebrow">Match facts</div><h3>At a glance</h3></div></div>${matchStatsSummary(events)}<div style="margin-top:12px" class="table-wrap"><table class="table"><tbody><tr><td>Competition</td><td>${esc(competitionNameForMatch(m))}</td></tr><tr><td>Kickoff</td><td>${esc(fmtTime(matchTime(m)))}</td></tr><tr><td>Venue</td><td>${esc(m.venue||'—')}</td></tr><tr><td>Status</td><td>${esc(m.status||'scheduled')}</td></tr></tbody></table></div></div></div></div><div id="mc-events" class="mc-tab-panel"><div class="card mc-panel"><div class="mc-panel-title"><div><div class="eyebrow">Events</div><h3>Full timeline</h3></div></div>${events.length?`<div class="mc-event-list">${events.slice().reverse().map(matchEventRow).join('')}</div>`:'<div class="mc-empty">No events have been recorded.</div>'}</div></div><div id="mc-stats" class="mc-tab-panel">${renderMatchStats(m)}</div><div id="mc-lineups" class="mc-tab-panel"><div class="card mc-panel"><div class="mc-panel-title"><div><div class="eyebrow">Team sheets</div><h3>Starting lineups</h3></div><span>11 players per side</span></div><div class="mc-lineups">${renderLineupSide(m,'home')}${renderLineupSide(m,'away')}</div></div></div></div>`;
+ el.innerHTML=`<div class="match-centre-shell"><div class="match-centre-bar"><button class="ghost" onclick="navFor('scores')">← Scores</button><div class="actions">${favoriteButton(m)}${ADMIN_MODE?`<button class="btn" onclick="openMatchEditor('${esc(m.id)}')">Edit match</button>`:''}</div></div><div class="card mc-hero"><div class="mc-topline"><span>${esc(competitionNameForMatch(m))}</span><span>${esc(fmtDate(matchDate(m),{weekday:'long',month:'long',day:'numeric',year:'numeric'}))}</span></div><div class="mc-scoreboard"><div class="mc-team">${ht&&teamFlag(ht)?`<img src="${esc(teamFlag(ht))}" alt="">`:''}<div class="mc-team-name"><button class="ghost" onclick="openTeam('${esc(m.home_team_id)}')">${esc(teamDisplayName(m,'home'))}</button></div><div class="mc-team-side">Home</div></div><div><div class="mc-big-score">${finished||live?a+'–'+b:'VS'}</div><span class="mc-status ${live?'live':finished?'done':''}">${esc(status)}</span></div><div class="mc-team">${at&&teamFlag(at)?`<img src="${esc(teamFlag(at))}" alt="">`:''}<div class="mc-team-name"><button class="ghost" onclick="openTeam('${esc(m.away_team_id)}')">${esc(teamDisplayName(m,'away'))}</button></div><div class="mc-team-side">Away</div></div></div><div class="mc-meta"><div>Kickoff <strong>${esc(fmtTime(matchTime(m)))}</strong></div>${m.venue?`<div>• <strong>${esc(m.venue)}</strong></div>`:''}${m.city?`<div>• ${esc(m.city)}</div>`:''}</div></div><div class="mc-tabs"><button class="mc-tab active" data-mctab="overview" onclick="switchMatchTab('overview')">Overview</button><button class="mc-tab" data-mctab="events" onclick="switchMatchTab('events')">Events (${events.length})</button><button class="mc-tab" data-mctab="stats" onclick="switchMatchTab('stats')">Stats</button><button class="mc-tab" data-mctab="lineups" onclick="switchMatchTab('lineups')">Lineups</button></div><div id="mc-overview" class="mc-tab-panel active"><div class="mc-columns"><div class="card mc-panel"><div class="mc-panel-title"><div><div class="eyebrow">Match timeline</div><h3>Latest events</h3></div><span>${events.length} logged</span></div>${events.length?`<div class="mc-event-list">${events.slice().reverse().slice(0,8).map(matchEventRow).join('')}</div>`:'<div class="mc-empty">No match events have been recorded yet.</div>'}</div><div class="card mc-panel"><div class="mc-panel-title"><div><div class="eyebrow">Match facts</div><h3>At a glance</h3></div></div>${matchStatsSummary(events)}<div style="margin-top:12px" class="table-wrap"><table class="table"><tbody><tr><td>Competition</td><td>${esc(competitionNameForMatch(m))}</td></tr><tr><td>Kickoff</td><td>${esc(fmtTime(matchTime(m)))}</td></tr><tr><td>Venue</td><td>${esc(m.venue||'—')}</td></tr><tr><td>Status</td><td>${esc(m.status||'scheduled')}</td></tr></tbody></table></div></div></div></div><div id="mc-events" class="mc-tab-panel"><div class="card mc-panel"><div class="mc-panel-title"><div><div class="eyebrow">Events</div><h3>Full timeline</h3></div></div>${events.length?`<div class="mc-event-list">${events.slice().reverse().map(matchEventRow).join('')}</div>`:'<div class="mc-empty">No events have been recorded.</div>'}</div></div><div id="mc-stats" class="mc-tab-panel">${renderMatchStats(m)}</div><div id="mc-lineups" class="mc-tab-panel"><div class="card mc-panel"><div class="mc-panel-title"><div><div class="eyebrow">Team sheets</div><h3>Starting lineups</h3></div><span>11 players per side</span></div><div class="mc-lineups">${renderLineupSide(m,'home')}${renderLineupSide(m,'away')}</div></div></div></div>`;
 }
 function openPlayer(id){const p=playerById(id)||players.find(x=>x.name===id);if(!p){document.getElementById('player-page').innerHTML='<div class="empty">Player not found.</div>';showPage('player-page');return}const s=playerSeasonStats(p),photo=safeMediaUrl(playerImage(p)),ms=matches.filter(m=>(m.events||[]).some(e=>String(e.player_id)===String(p.id))).sort((a,b)=>matchDate(b).localeCompare(matchDate(a)));document.getElementById('player-page').innerHTML=`<button class="ghost" onclick="navFor('stats')">← Stats</button><div class="card player-header" style="margin-top:12px"><div class="player-avatar">${photo?`<img src="${esc(photo)}" alt="">`:'⚽'}</div><div class="profile-meta"><div class="eyebrow">Player profile</div><h1>${esc(p.name)}</h1><p>${esc(teamName(p.team_id,p.nationality||'Free'))} • ${esc(p.position||'Position not set')}</p></div><div class="profile-actions"><button class="btn small" onclick="togglePlayerFavorite('${esc(p.id)}')">${isPlayerFavorite(p.id)?'★ Following':'☆ Follow player'}</button></div></div><div class="profile-stat-grid"><div class="kpi"><strong>${s.goals}</strong><span>Goals</span></div><div class="kpi"><strong>${s.assists}</strong><span>Assists</span></div><div class="kpi"><strong>${s.yellow_cards}</strong><span>Yellow</span></div><div class="kpi"><strong>${s.red_cards}</strong><span>Red</span></div><div class="kpi"><strong>${p.overall??'—'}</strong><span>OVR</span></div></div><div class="section"><div class="section-head"><div><h2>Match activity</h2><p>Matches containing recorded events for this player.</p></div></div>${ms.length?`<div class="grid">${ms.map(matchCard).join('')}</div>`:'<div class="empty">No recorded match activity yet.</div>'}</div>`;showPage('player-page')}
 function isPlayerFavorite(id){try{return JSON.parse(localStorage.getItem('mefco_favorite_players')||'[]').map(String).includes(String(id))}catch{return false}}
@@ -1549,15 +1467,8 @@ loadData=async function(){await _v9LoadDataBase();await v9ConsistencySweep();ren
   const _baseRenderHome=renderHome;
   renderHome=function(){_baseRenderHome();const home=document.getElementById('home');if(!home)return;const old=document.getElementById('homeRecords');if(old)old.remove();const box=document.createElement('div');box.id='homeRecords';box.innerHTML=renderRecords();home.appendChild(box);};
 })();
-</script>
-<script>
-/* V10 reliability layer: delegated handlers survive every re-render. */
-document.addEventListener("click",function(ev){
- const adminBtn=ev.target.closest?.(".admin-match-btn[data-admin-match-id]");
- if(adminBtn){ev.preventDefault();ev.stopPropagation();selectAdminMatch(adminBtn.dataset.adminMatchId);return}
- const centreBtn=ev.target.closest?.(".match-centre-btn[data-match-id]");
- if(centreBtn){ev.preventDefault();ev.stopPropagation();openMatch(centreBtn.dataset.matchId);return}
-});
+
+document.addEventListener("click",function(ev){const a=ev.target.closest?.("[data-admin-match-id]");if(a&&a.closest("#adminMatchList")){ev.preventDefault();ev.stopPropagation();selectAdminMatch(a.getAttribute("data-admin-match-id"));return}const mc=ev.target.closest?.(".match-centre-btn[data-match-id]");if(mc){ev.preventDefault();ev.stopPropagation();openMatch(mc.getAttribute("data-match-id"))}});
 </script>
 <style id="mefco-intelligence-css">
 .match-intelligence{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px}.mi-panel{padding:18px}.mi-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}.mi-head h3{margin:3px 0 0}.mi-head p{margin:5px 0 0}.mi-muted{color:var(--muted);font-size:13px;padding:12px 0}.predict-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:15px}.predict-grid>div{text-align:center;padding:12px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.025)}.predict-grid strong{display:block;font-size:24px}.predict-grid span{display:block;color:var(--muted);font-size:11px;margin-top:4px}.predict-bar{height:8px;display:flex;overflow:hidden;border-radius:99px;background:var(--line);margin-top:12px}.predict-bar i{display:block;height:100%}.predict-bar i:nth-child(1){background:var(--accent)}.predict-bar i:nth-child(2){background:#7a8590}.predict-bar i:nth-child(3){background:#4aa9ff}.predict-detail{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:11px;margin-top:9px}.momentum-chart{height:150px;display:grid;grid-template-columns:repeat(19,1fr);gap:3px;align-items:center;margin-top:15px;padding:0 4px;position:relative}.momentum-chart:before{content:"";position:absolute;left:0;right:0;top:50%;border-top:1px dashed var(--line)}.momentum-col{height:100%;position:relative;display:flex;align-items:center;justify-content:center}.momentum-fill{position:absolute;width:70%;border-radius:3px;min-height:3px;z-index:1}.momentum-fill.home{bottom:50%;background:var(--accent)}.momentum-fill.away{top:50%;background:#4aa9ff}.momentum-col span{position:absolute;bottom:-17px;font-size:8px;color:var(--muted)}.momentum-scale{display:flex;justify-content:space-between;color:var(--muted);font-size:10px;margin-top:24px}.mi-legend{display:flex;gap:10px;color:var(--muted);font-size:10px;white-space:nowrap}.potm-mark{font-size:10px;font-weight:900;letter-spacing:.08em;border:1px solid var(--accent);color:var(--accent);border-radius:999px;padding:5px 8px}.potm-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:15px 0}.potm-stats>div{text-align:center;padding:10px;border:1px solid var(--line);border-radius:9px}.potm-stats strong{display:block;font-size:18px}.potm-stats span{font-size:9px;color:var(--muted);text-transform:uppercase}.records-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.record-item{display:grid;grid-template-columns:1fr auto;gap:5px 10px;padding:14px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.02)}.record-item span{grid-column:1/-1;color:var(--muted);font-size:10px;text-transform:uppercase}.record-item strong{font-size:13px}.record-item b{font-size:18px;text-align:right}.milestones{margin-top:14px;padding:14px;border:1px solid var(--line);border-radius:10px}.milestones h3{margin:0 0 8px}.milestone-row{width:100%;display:flex;justify-content:space-between;gap:12px;padding:9px 0;background:none;border:0;border-bottom:1px solid var(--line);color:var(--text);text-align:left;cursor:pointer}.milestone-row:last-child{border-bottom:0}.milestone-row b{color:var(--accent)}
