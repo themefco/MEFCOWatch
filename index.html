@@ -63,6 +63,15 @@ html,body{min-width:320px;overflow-x:hidden}body{-webkit-text-size-adjust:100%;t
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
 @media(prefers-contrast:more){.card,.input,.select,.btn{border-width:2px}}
 .app-boot{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#071014;color:var(--text);transition:opacity .22s ease,visibility .22s ease}.app-boot.hide{opacity:0;visibility:hidden;pointer-events:none}.boot-shell{width:min(88vw,430px);padding:30px 0;text-align:center}.boot-brand{font-weight:950;font-size:30px;letter-spacing:-.06em}.boot-brand span{color:var(--accent)}.boot-rule{height:2px;width:min(300px,72vw);margin:28px auto 16px;background:#1b2a31;border-radius:99px;overflow:hidden}.boot-rule i{display:block;height:100%;width:18%;background:var(--accent);border-radius:99px;animation:bootProgress 1.25s ease-in-out infinite}.boot-status{font-size:14px;font-weight:800}.boot-detail{margin-top:5px;color:var(--muted);font-size:12px}.boot-retry{margin-top:16px}@keyframes bootProgress{0%{transform:translateX(-130%);width:18%}50%{width:42%}100%{transform:translateX(650%);width:18%}}
+
+/* V15 device + performance polish */
+.section,.match-card,.news-card,.profile-panel,.stat-leader-card,.record-item{content-visibility:auto;contain-intrinsic-size:1px 220px}
+img{content-visibility:auto}button,.btn,.nav button,.ghost,.select,.input{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+@media(max-width:1100px){.topbar-inner{gap:10px}.actions{gap:6px}.main{padding-top:18px}.hero h1{font-size:clamp(30px,7vw,50px)}}
+@media(max-width:760px){.topbar{position:sticky}.topbar-inner{padding-top:max(9px,env(safe-area-inset-top));padding-bottom:8px}.brand{font-size:18px}.actions{margin-left:auto}.actions .btn{padding:8px 10px}.nav{gap:2px;padding-bottom:2px;overscroll-behavior-x:contain}.nav button{padding:8px 10px;white-space:nowrap}.main{padding-bottom:max(42px,calc(42px + env(safe-area-inset-bottom)))}.hero-main{padding:24px}.hero-side{padding:18px}.section-head{align-items:flex-start;flex-direction:column}.section-head>.btn,.section-head>.ghost{align-self:stretch}.date-nav{width:100%;justify-content:space-between}.date-control{width:100%}.date-control .input{min-width:0}.mc-scoreboard{padding:22px 0}.mc-team img{width:54px;height:54px}.mc-team-name{font-size:17px}.mc-tabs{overflow-x:auto;scrollbar-width:none}.mc-tabs::-webkit-scrollbar{display:none}.mc-tab{white-space:nowrap}.mc-event{grid-template-columns:38px 28px minmax(0,1fr) auto}.mc-event-copy{min-width:0}.mc-event-copy strong{overflow-wrap:anywhere}.mc-facts,.mc-stat-grid{grid-template-columns:1fr}.predict-grid,.potm-stats{grid-template-columns:1fr 1fr}.predict-detail{flex-direction:column}.records-grid{grid-template-columns:1fr 1fr}.admin-panel-v2{padding:14px}.admin-section-v2{padding:14px 0}.table-wrap{max-width:100%;-webkit-overflow-scrolling:touch}.table,.standings{font-size:12px}.table th,.table td,.standings th,.standings td{padding:9px 7px}.footer{padding-bottom:max(25px,calc(25px + env(safe-area-inset-bottom)))}}
+@media(max-width:480px){.topbar-inner{padding-left:10px;padding-right:10px}.main{padding-left:10px;padding-right:10px}.actions .btn{font-size:12px;padding:7px 9px}.hero-main{padding:20px}.hero h1{font-size:34px}.hero p{font-size:14px}.grid,.grid.two,.stats-grid,.leaderboard-grid,.profile-two,.team-profile-grid{gap:10px}.predict-grid,.potm-stats,.records-grid{grid-template-columns:1fr 1fr}.predict-grid strong{font-size:21px}.momentum-chart{gap:2px;height:150px}.momentum-col span{font-size:8px}.mc-big-score{font-size:36px}.mc-team-name{font-size:15px}.mc-panel{padding:14px}.mc-event{grid-template-columns:34px 25px minmax(0,1fr)}.mc-event-team{display:none}.profile-stat-grid{grid-template-columns:1fr 1fr}.profile-stat-grid .kpi{padding:11px}.search-result{padding:11px}.admin-score-box input{font-size:24px}}
+@media(orientation:landscape) and (max-height:520px){.topbar-inner{padding-top:6px;padding-bottom:6px}.main{padding-top:12px}.hero h1{font-size:32px}.mc-scoreboard{padding:14px 0}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}.loading-skeleton{animation:none}}
 </style>
 
 
@@ -1715,6 +1724,30 @@ setTimeout(()=>{if(!loadingDone)bootMessage('Still connecting…',true,'The data
       clearTimeout(__realtimeTimer);
       __realtimeTimer=setTimeout(()=>__originalScheduleRender(),50);
     };
+  }
+})();
+</script>
+
+<script>
+/* V15: keep image decoding and DOM work cheap on phones/tablets. */
+(function(){
+  const markImages=()=>{
+    document.querySelectorAll('img:not([data-mefco-img])').forEach(img=>{
+      img.dataset.mefcoImg='1';
+      if(!img.loading)img.loading='lazy';
+      if(!img.decoding)img.decoding='async';
+    });
+  };
+  const run=()=>{try{markImages()}catch(e){console.warn('MEFCO image optimization:',e)}};
+  if('requestIdleCallback' in window)requestIdleCallback(run,{timeout:700});else setTimeout(run,120);
+  if('MutationObserver' in window){
+    let queued=false;
+    const obs=new MutationObserver(()=>{
+      if(queued)return; queued=true;
+      const flush=()=>{queued=false;run()};
+      if('requestIdleCallback' in window)requestIdleCallback(flush,{timeout:500});else setTimeout(flush,80);
+    });
+    obs.observe(document.body,{childList:true,subtree:true});
   }
 })();
 </script>
