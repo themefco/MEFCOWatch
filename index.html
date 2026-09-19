@@ -54,11 +54,20 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:10
 .stats-dashboard{display:grid;gap:16px}.stats-hero{padding:22px}.stats-filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.stats-filters .select{min-width:180px;width:auto}.stat-kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.stat-kpi-grid .kpi{padding:16px}.leaderboard-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.leaderboard-card{padding:16px}.leaderboard-card .rank-row{display:grid;grid-template-columns:28px 1fr auto;gap:8px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}.leaderboard-card .rank-row:last-child{border-bottom:0}.rank-row button{text-align:left}.rank-num{color:var(--muted);font-weight:800}.profile-actions{flex-wrap:wrap}.profile-link{color:var(--accent);text-decoration:none}.team-profile-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}.squad-player{display:flex;align-items:center;gap:9px}.squad-player img{width:34px;height:34px;object-fit:cover;border-radius:50%;background:#17242a}.match-report-card{padding:18px}.report-badge{display:inline-flex;padding:4px 8px;border:1px solid var(--line);border-radius:999px;color:var(--accent);font-size:10px;text-transform:uppercase;font-weight:900;letter-spacing:.08em}.auto-lineup-note{font-size:11px;color:var(--muted);margin-top:8px}.news-card.ai-report{border-color:#285c4d}.news-card.ai-report .news-category{color:var(--accent)}
 @media(max-width:1000px){.leaderboard-grid,.team-profile-grid{grid-template-columns:1fr}.stat-kpi-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.stat-kpi-grid{grid-template-columns:1fr}.stats-filters .select{width:100%}}
+
+/* V11 responsive/loading/performance polish */
+html,body{min-width:320px;overflow-x:hidden}body{-webkit-text-size-adjust:100%;text-rendering:optimizeLegibility}.topbar-inner{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}.main{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}.nav{scrollbar-width:none}.nav::-webkit-scrollbar{display:none}.btn,.nav button,.ghost{min-height:38px}.input,.select,textarea{min-height:42px}.card{overflow:hidden}.match-card,.news-card,.leaderboard-card,.profile-panel{contain:layout paint}.app-boot{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#081014;color:var(--text);transition:opacity .25s ease,visibility .25s ease}.app-boot.hide{opacity:0;visibility:hidden;pointer-events:none}.boot-card{width:min(92vw,380px);padding:28px;text-align:center;border:1px solid var(--line);border-radius:18px;background:#0e181d;box-shadow:var(--shadow)}.boot-mark{font-weight:950;font-size:25px;letter-spacing:-.05em}.boot-mark span{color:var(--accent)}.boot-spinner{width:28px;height:28px;margin:20px auto 12px;border:3px solid #223038;border-top-color:var(--accent);border-radius:50%;animation:mefcoSpin .8s linear infinite}.boot-card small{display:block;color:var(--muted);margin-top:5px}@keyframes mefcoSpin{to{transform:rotate(360deg)}}.loading-skeleton{min-height:140px;background:linear-gradient(90deg,#0e181d,#15242b,#0e181d);background-size:200% 100%;animation:mefcoShimmer 1.4s infinite}@keyframes mefcoShimmer{to{background-position:-200% 0}}.mi-panel{padding:18px;margin-top:14px}.mi-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.mi-muted{color:var(--muted);padding:14px 0}.predict-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px}.predict-grid>div{padding:15px;border:1px solid var(--line);border-radius:12px;text-align:center;background:#0b151a}.predict-grid strong{display:block;font-size:25px}.predict-grid span{font-size:11px;color:var(--muted)}.predict-bar{display:flex;height:10px;border-radius:99px;overflow:hidden;background:#17242a;margin:14px 0}.predict-bar i{display:block}.predict-bar i:nth-child(1){background:var(--accent)}.predict-bar i:nth-child(2){background:var(--warn)}.predict-bar i:nth-child(3){background:var(--accent2)}.predict-detail{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:11px}.mi-legend{display:flex;gap:10px;color:var(--muted);font-size:11px}.momentum-chart{height:180px;display:grid;grid-template-columns:repeat(19,1fr);gap:4px;align-items:center;margin-top:12px;border-bottom:1px solid var(--line)}.momentum-col{height:100%;position:relative;display:flex;align-items:center;justify-content:center}.momentum-zero{position:absolute;left:0;right:0;top:50%;border-top:1px dashed #2b3c44}.momentum-fill{position:absolute;width:70%;border-radius:4px}.momentum-fill.home{bottom:50%;background:var(--accent)}.momentum-fill.away{top:50%;background:var(--accent2)}.momentum-col span{position:absolute;bottom:-20px;font-size:9px;color:var(--muted)}.momentum-scale{display:flex;justify-content:space-between;color:var(--muted);font-size:10px;margin-top:24px}.potm-mark{padding:5px 8px;border:1px solid var(--accent);border-radius:999px;color:var(--accent);font-weight:900;font-size:10px}.potm-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0}.potm-stats div{padding:11px;border:1px solid var(--line);border-radius:10px}.potm-stats strong{display:block;font-size:20px}.potm-stats span{font-size:10px;color:var(--muted)}.records-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.record-item{padding:15px;border:1px solid var(--line);border-radius:12px;background:#0b151a}.record-item span,.record-item b{display:block;color:var(--muted);font-size:11px}.record-item strong{display:block;margin:7px 0;font-size:15px}.milestones{margin-top:12px;padding:16px;border:1px solid var(--line);border-radius:14px}.milestone-row{width:100%;display:flex;justify-content:space-between;text-align:left;background:transparent;color:var(--text);border:0;border-bottom:1px solid var(--line);padding:11px 0}.milestone-row:last-child{border-bottom:0}.rating-chip{display:inline-flex;align-items:center;justify-content:center;min-width:38px;padding:4px 7px;border-radius:999px;border:1px solid var(--line);font-weight:900;font-size:11px}.rating-high{color:var(--accent);border-color:#285c4d}.rating-mid{color:var(--warn)}.rating-low{color:var(--danger)}.health-issue{padding:9px 11px;border-left:3px solid var(--warn);background:#17140b;margin-top:6px;border-radius:6px;font-size:12px}
+@media(max-width:1100px){.hero{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.admin-shell{grid-template-columns:280px 1fr}.records-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){.topbar-inner{align-items:flex-start;flex-wrap:wrap;gap:8px}.brand{width:auto}.nav{order:3;flex-basis:100%;width:100%;padding-bottom:2px}.nav button{white-space:nowrap}.notificationButton{margin-left:auto}.grid,.grid.two,.mc-columns,.mc-lineups,.team-profile-grid,.profile-two{grid-template-columns:1fr}.date-nav{margin-left:0;width:100%;justify-content:space-between}.date-control{flex:1}.date-control .input{min-width:0}.mc-scoreboard{padding:24px 0;gap:6px}.mc-team img{width:54px;height:54px}.mc-team-name{font-size:15px}.mc-big-score{font-size:38px}.mc-meta{flex-wrap:wrap}.mc-tabs{overflow:auto}.mc-tab{white-space:nowrap}.admin-shell{grid-template-columns:1fr}.admin-list-v2{position:static}.admin-match-list{max-height:42vh}.form-grid,.form-grid.three{grid-template-columns:1fr}.profile-hero-main{align-items:flex-start;flex-wrap:wrap}.profile-actions{margin-left:0}.profile-stat-grid,.mini-grid,.kpis{grid-template-columns:repeat(2,1fr)}.news-feature{grid-template-columns:1fr}.news-feature-image{min-height:180px}.article h1{font-size:32px}.predict-grid,.records-grid{grid-template-columns:1fr}.predict-detail{flex-direction:column}.momentum-chart{height:145px}.potm-stats{grid-template-columns:repeat(2,1fr)}.mc-event{grid-template-columns:34px 25px 1fr}.mc-event-team{display:none}.standings{min-width:650px}.toolbar{align-items:stretch}.toolbar>.btn{flex:0 0 auto}}
+@media(max-width:430px){body{font-size:13px}.main{padding-top:16px}.hero-main{padding:24px}.hero h1{font-size:36px}.section{margin-top:22px}.profile-stat-grid,.mini-grid,.kpis{grid-template-columns:1fr 1fr}.mc-scoreboard{grid-template-columns:1fr 90px 1fr}.mc-big-score{font-size:32px}.mc-team-name{font-size:13px}.topbar-inner{padding-top:9px}.ticker{font-size:10px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+@media(prefers-contrast:more){.card,.input,.select,.btn{border-width:2px}}
 </style>
 
 
 </head>
 <body>
+<div id="appBoot" class="app-boot" aria-live="polite"><div class="boot-card"><div class="boot-mark">MEFCO <span>WATCH</span></div><div class="boot-spinner"></div><div id="bootText">Loading MEFCO data…</div><small>Connecting to the live database</small><button id="bootRetry" class="btn small" style="display:none" onclick="location.reload()">Retry</button></div></div>
 <div class="app">
 <header class="topbar">
  <div class="topbar-inner">
@@ -1467,5 +1476,113 @@ loadData=async function(){await _v9LoadDataBase();await v9ConsistencySweep();ren
 .match-intelligence{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px}.mi-panel{padding:18px}.mi-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}.mi-head h3{margin:3px 0 0}.mi-head p{margin:5px 0 0}.mi-muted{color:var(--muted);font-size:13px;padding:12px 0}.predict-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:15px}.predict-grid>div{text-align:center;padding:12px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.025)}.predict-grid strong{display:block;font-size:24px}.predict-grid span{display:block;color:var(--muted);font-size:11px;margin-top:4px}.predict-bar{height:8px;display:flex;overflow:hidden;border-radius:99px;background:var(--line);margin-top:12px}.predict-bar i{display:block;height:100%}.predict-bar i:nth-child(1){background:var(--accent)}.predict-bar i:nth-child(2){background:#7a8590}.predict-bar i:nth-child(3){background:#4aa9ff}.predict-detail{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:11px;margin-top:9px}.momentum-chart{height:150px;display:grid;grid-template-columns:repeat(19,1fr);gap:3px;align-items:center;margin-top:15px;padding:0 4px;position:relative}.momentum-chart:before{content:"";position:absolute;left:0;right:0;top:50%;border-top:1px dashed var(--line)}.momentum-col{height:100%;position:relative;display:flex;align-items:center;justify-content:center}.momentum-fill{position:absolute;width:70%;border-radius:3px;min-height:3px;z-index:1}.momentum-fill.home{bottom:50%;background:var(--accent)}.momentum-fill.away{top:50%;background:#4aa9ff}.momentum-col span{position:absolute;bottom:-17px;font-size:8px;color:var(--muted)}.momentum-scale{display:flex;justify-content:space-between;color:var(--muted);font-size:10px;margin-top:24px}.mi-legend{display:flex;gap:10px;color:var(--muted);font-size:10px;white-space:nowrap}.potm-mark{font-size:10px;font-weight:900;letter-spacing:.08em;border:1px solid var(--accent);color:var(--accent);border-radius:999px;padding:5px 8px}.potm-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:15px 0}.potm-stats>div{text-align:center;padding:10px;border:1px solid var(--line);border-radius:9px}.potm-stats strong{display:block;font-size:18px}.potm-stats span{font-size:9px;color:var(--muted);text-transform:uppercase}.records-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.record-item{display:grid;grid-template-columns:1fr auto;gap:5px 10px;padding:14px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.02)}.record-item span{grid-column:1/-1;color:var(--muted);font-size:10px;text-transform:uppercase}.record-item strong{font-size:13px}.record-item b{font-size:18px;text-align:right}.milestones{margin-top:14px;padding:14px;border:1px solid var(--line);border-radius:10px}.milestones h3{margin:0 0 8px}.milestone-row{width:100%;display:flex;justify-content:space-between;gap:12px;padding:9px 0;background:none;border:0;border-bottom:1px solid var(--line);color:var(--text);text-align:left;cursor:pointer}.milestone-row:last-child{border-bottom:0}.milestone-row b{color:var(--accent)}
 @media(max-width:900px){.match-intelligence{grid-template-columns:1fr}}@media(max-width:600px){.predict-grid,.records-grid{grid-template-columns:1fr}.predict-detail{flex-direction:column}.potm-stats{grid-template-columns:repeat(2,1fr)}.mi-head{flex-direction:column}.mi-legend{white-space:normal}}
 </style>
+<script>
+/* ==================== MEFCO WATCH V11 RELIABILITY + DATA LAYER ==================== */
+window.MEFCO_V11={version:'11.0'};
+(function(){
+  const CACHE_KEY='mefco_watch_cache_v11';
+  let loadingDone=false, loadBusy=false, loadSeq=0;
+  const boot=()=>document.getElementById('appBoot');
+  function hideBoot(){const b=boot();if(b)b.classList.add('hide');loadingDone=true}
+  function bootMessage(msg,showRetry=false){const t=document.getElementById('bootText');if(t)t.textContent=msg;const r=document.getElementById('bootRetry');if(r)r.style.display=showRetry?'inline-block':'none'}
+  window.addEventListener('load',()=>setTimeout(()=>{if(!loadingDone&&dbOnline)hideBoot()},250));
+  setTimeout(()=>{if(!loadingDone){bootMessage(dbOnline?'MEFCO is taking longer than expected…':'Database connection is taking longer than expected.',true)}},12000);
+
+  /* Network timeout: prevents Safari/iOS/slow mobile connections from hanging forever. */
+  const _fetch=window.fetch.bind(window);
+  window.fetch=async function(input,init={}){
+    const ctl=new AbortController();
+    const timer=setTimeout(()=>ctl.abort(),18000);
+    const opts={...init,signal:init.signal||ctl.signal};
+    try{return await _fetch(input,opts)}catch(e){if(e?.name==='AbortError')throw new Error('Network request timed out');throw e}finally{clearTimeout(timer)}
+  };
+
+  /* Cross-device-safe local cache: cached data is display-only and never written back to Supabase. */
+  function cacheData(){try{localStorage.setItem(CACHE_KEY,JSON.stringify({savedAt:Date.now(),matches,news,teams,players,competitions}))}catch{}}
+  function restoreCache(){try{const x=JSON.parse(localStorage.getItem(CACHE_KEY)||'null');if(!x||Date.now()-Number(x.savedAt)>1000*60*60*24*7)return false;if(Array.isArray(x.matches)&&!matches.length)matches=x.matches;if(Array.isArray(x.news)&&!news.length)news=x.news;if(Array.isArray(x.teams)&&!teams.length)teams=x.teams;if(Array.isArray(x.players)&&!players.length)players=x.players;if(Array.isArray(x.competitions)&&!competitions.length)competitions=x.competitions;return matches.length>0||teams.length>0}catch{return false}}
+
+  /* Protect refresh from overlapping requests. */
+  const _baseLoad=loadData;
+  loadData=async function(){
+    const seq=++loadSeq;
+    if(loadBusy){return false}
+    loadBusy=true;
+    try{
+      if(!matches.length)restoreCache();
+      if(matches.length||teams.length) { try{renderAll()}catch{} }
+      bootMessage(dbOnline?'Updating MEFCO data…':'Connecting to MEFCO…');
+      const result=await _baseLoad();
+      if(seq!==loadSeq)return false;
+      cacheData();
+      hideBoot();
+      return result;
+    }catch(e){
+      console.error('MEFCO V11 load:',e);
+      const had=restoreCache();
+      if(had){dbOnline=false;try{renderAll()}catch{};hideBoot();showToast('Showing saved data — database connection is unavailable')}else{bootMessage('MEFCO could not connect to the database.',true);showToast('MEFCO database connection failed')}
+      return false;
+    }finally{loadBusy=false}
+  };
+
+  const _refresh=refreshData;
+  refreshData=async function(){if(loadBusy){showToast('A refresh is already running');return}showToast('Refreshing MEFCO data…');const ok=await loadData();if(ok!==false)showToast('Data refreshed');};
+
+  /* Player ratings: transparent event/result formula, not an official football statistic. */
+  window.mefcoPlayerRating=function(p,m){
+    if(!p||!m)return null;
+    const ev=(m.events||[]).filter(e=>String(e.player_id)===String(p.id));
+    const started=new Set(readMatchLineups(m).home.concat(readMatchLineups(m).away).map(String)).has(String(p.id));
+    let r=6.0;
+    ev.forEach(e=>{const t=eventType(e);if(t==='goal')r+=1.5;else if(t==='assist')r+=0.8;else if(t==='yellow')r-=0.4;else if(t==='red')r-=1.8});
+    if(started)r+=0.5; else if(ev.length)r+=0.2;
+    const [h,a]=scoreOf(m),tid=String(p.team_id),home=String(m.home_team_id)===tid,won=home?h>a:a>h,draw=h===a;
+    if(won)r+=.4; else if(draw)r+=.15; else r-=.15;
+    return Math.max(4,Math.min(10,Math.round(r*10)/10));
+  };
+  window.mefcoRatingClass=r=>Number(r)>=8?'rating-high':Number(r)>=6.5?'rating-mid':'rating-low';
+
+  /* Add ratings to the match centre without changing the admin UI. */
+  const _renderMatch=renderMatch;
+  renderMatch=function(){_renderMatch();const m=matches.find(x=>String(x.id)===String(selectedMatchId)),el=document.getElementById('match-page');if(!m||!el)return;const box=document.getElementById('mefcoV11Ratings');if(box)box.remove();if(!isFinished(m)&&!isLive(m))return;const ids=new Set((m.events||[]).map(e=>String(e.player_id)).filter(Boolean));const line=readMatchLineups(m);line.home.concat(line.away).forEach(id=>ids.add(String(id)));const rows=[...ids].map(id=>playerById(id)).filter(Boolean).map(p=>({p,r:mefcoPlayerRating(p,m)})).filter(x=>x.r!==null).sort((a,b)=>b.r-a.r).slice(0,8);const div=document.createElement('div');div.id='mefcoV11Ratings';div.className='card mi-panel';div.innerHTML=`<div class="mi-head"><div><div class="eyebrow">Player ratings</div><h3>MEFCO match ratings</h3><p class="muted">Calculated from recorded lineups, events and result.</p></div><span class="muted">Indicative</span></div>${rows.length?`<div class="table-wrap"><table class="table"><thead><tr><th>Player</th><th>Team</th><th>Rating</th></tr></thead><tbody>${rows.map(x=>`<tr><td><button class="ghost" onclick="openPlayer('${esc(x.p.id)}')">${esc(x.p.short_name||x.p.name)}</button></td><td>${esc(teamName(x.p.team_id,''))}</td><td><span class="rating-chip ${mefcoRatingClass(x.r)}">${x.r.toFixed(1)}</span></td></tr>`).join('')}</tbody></table></div>`:'<div class="mi-muted">No lineup or player events are recorded.</div>'}`;el.appendChild(div)};
+
+  /* Stronger records + milestones: uses cumulative totals and streaks. */
+  window.mefcoRecords=function(){
+    const finished=matches.filter(isFinished), stats=collectPlayerStats();
+    const topGoals=stats.slice().sort((a,b)=>b.goals-a.goals)[0],topAssists=stats.slice().sort((a,b)=>b.assists-a.assists)[0];
+    let biggest=null,highestTeam=null,clean=null;
+    finished.forEach(m=>{const [h,a]=scoreOf(m),sum=h+a;const diff=Math.abs(h-a);if(!biggest||sum>biggest.sum||sum===biggest.sum&&diff>biggest.diff)biggest={m,sum,diff};if(!highestTeam||Math.max(h,a)>highestTeam.n)highestTeam={m,n:Math.max(h,a)};if(h===0||a===0){if(!clean||sum>clean.sum)clean={m,sum}}});
+    const streaks=[];
+    teams.forEach(t=>{const ms=matches.filter(m=>(String(m.home_team_id)===String(t.id)||String(m.away_team_id)===String(t.id))&&isFinished(m)).sort((a,b)=>(matchDate(a)+matchTime(a)).localeCompare(matchDate(b)+matchTime(b)));let w=0,l=0;for(let i=ms.length-1;i>=0;i--){const[h,a]=scoreOf(ms[i]),home=String(ms[i].home_team_id)===String(t.id),gf=home?h:a,ga=home?a:h;if(gf>ga)w++;else break}for(let i=ms.length-1;i>=0;i--){const[h,a]=scoreOf(ms[i]),home=String(ms[i].home_team_id)===String(t.id),gf=home?h:a,ga=home?a:h;if(gf<ga)l++;else break}if(w)streaks.push({t,type:'Winning',n:w});if(l)streaks.push({t,type:'Losing',n:l})});
+    const milestoneRows=stats.flatMap(p=>{const n=Number(p.goals||0);return [5,10,25,50,100].filter(x=>n>=x).slice(-1).map(x=>({p,n,x}))}).sort((a,b)=>b.x-a.x||b.n-a.n);
+    return {topGoals,topAssists,biggest,highestTeam,clean,streaks:streaks.sort((a,b)=>b.n-a.n).slice(0,8),milestoneRows};
+  };
+  const _renderStats=renderStatsV3;
+  renderStatsV3=function(){_renderStats();const el=document.getElementById('stats');if(!el)return;const old=document.getElementById('v11Records');if(old)old.remove();const r=mefcoRecords(),box=document.createElement('div');box.id='v11Records';box.innerHTML=`<div class="section"><div class="section-head"><div><div class="eyebrow">Records</div><h2>Records & milestones</h2><p>Calculated from completed MEFCO Watch matches.</p></div></div><div class="records-grid">${r.topGoals?`<div class="record-item"><span>Top scorer</span><strong>${esc(r.topGoals.name)}</strong><b>${r.topGoals.goals} goals</b></div>`:''}${r.topAssists?`<div class="record-item"><span>Assist leader</span><strong>${esc(r.topAssists.name)}</strong><b>${r.topAssists.assists} assists</b></div>`:''}${r.biggest?`<div class="record-item"><span>Highest-scoring match</span><strong>${esc(teamDisplayName(r.biggest.m,'home'))} ${scoreOf(r.biggest.m)[0]}–${scoreOf(r.biggest.m)[1]} ${esc(teamDisplayName(r.biggest.m,'away'))}</strong><b>${r.biggest.sum} total goals</b></div>`:''}${r.highestTeam?`<div class="record-item"><span>Most goals by one team</span><strong>${esc(teamDisplayName(r.highestTeam.m,scoreOf(r.highestTeam.m)[0]>=scoreOf(r.highestTeam.m)[1]?'home':'away'))}</strong><b>${r.highestTeam.n} goals</b></div>`:''}</div><div class="milestones"><h3>Current milestones</h3>${r.milestoneRows.length?r.milestoneRows.slice(0,12).map(x=>`<button class="milestone-row" onclick="openPlayer('${esc(x.p.id)}')"><span>${esc(x.p.name||x.p.short_name)} reached ${x.x} goals</span><b>${x.n} total</b></button>`).join(''):'<div class="mi-muted">No 5/10/25/50/100-goal milestones yet.</div>'}</div><div class="milestones"><h3>Current streaks</h3>${r.streaks.length?r.streaks.map(x=>`<div class="milestone-row"><span>${esc(x.t.name)} ${x.type.toLowerCase()} streak</span><b>${x.n}</b></div>`).join(''):'<div class="mi-muted">No active winning or losing streaks.</div>'}</div></div>`;el.appendChild(box)};
+
+  /* Database health: score/event/lineup integrity checks. */
+  window.runV11Health=async function(){
+    const card=document.createElement('div');card.className='card health-card';card.id='v11Health';card.innerHTML='<div class="section-head"><div><div class="eyebrow">Database health</div><h3>Running integrity checks…</h3></div></div>';document.getElementById('home')?.appendChild(card);window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+    const issues=[];
+    for(const m of matches){const [h,a]=scoreOf(m),goals=(m.events||[]).filter(e=>eventType(e)==='goal').length;if(isFinished(m)&&h+a!==goals)issues.push(`${teamDisplayName(m,'home')} ${h}–${a} ${teamDisplayName(m,'away')}: score has ${h+a} goals but ${goals} goal events.`);for(const e of(m.events||[])){if(!['goal','assist','yellow','red','substitution','var'].includes(eventType(e)))issues.push(`${m.id}: unknown event type ${eventType(e)}`);if(e.player_id&&!playerById(e.player_id))issues.push(`${m.id}: event references missing player ${e.player_id}`);if(e.team_id&&!teamById(e.team_id))issues.push(`${m.id}: event references missing team ${e.team_id}`)}const lu=readMatchLineups(m);for(const id of [...lu.home,...lu.away])if(!playerById(id))issues.push(`${m.id}: lineup references missing player ${id}`)}
+    const endpoints=[['Matches',MATCHES_URL],['Events',EVENTS_URL],['Teams',TEAMS_URL],['Players',PLAYERS_URL],['Competitions',COMPETITIONS_URL],['News',NEWS_URL]];const reach=[];for(const [name,url] of endpoints){try{await supabaseFetch(url+'?select=id&limit=1');reach.push([name,true])}catch{reach.push([name,false])}}
+    card.innerHTML=`<div class="section-head"><div><div class="eyebrow">Database health</div><h3>${issues.length?'Integrity warnings found':'MEFCO data checks passed'}</h3><p class="muted">Read-only diagnostics. No database records were changed.</p></div><button class="btn small" onclick="document.getElementById('v11Health')?.remove()">Close</button></div><div class="health-grid">${reach.map(x=>`<div class="health-item"><strong class="${x[1]?'health-ok':'health-warn'}">${x[1]?'✓':'✕'} ${esc(x[0])}</strong><span>${x[1]?'Reachable':'Unavailable'}</span></div>`).join('')}</div><div class="mini-grid" style="margin-top:12px"><div class="mini-stat"><strong>${matches.filter(isFinished).length}</strong><span>Finished</span></div><div class="mini-stat"><strong>${matches.filter(isLive).length}</strong><span>Live</span></div><div class="mini-stat"><strong>${matches.filter(m=>!isFinished(m)&&!isLive(m)).length}</strong><span>Other</span></div><div class="mini-stat"><strong>${issues.length}</strong><span>Warnings</span></div></div>${issues.length?`<div class="section">${issues.slice(0,50).map(x=>`<div class="health-issue">${esc(x)}</div>`).join('')}</div>`:'<div class="section v9-note v9-ok">No score, event, lineup or reference-integrity problems were detected in the loaded data.</div>'}`;
+  };
+
+  /* Replace the old health button target with the stronger checks. */
+  const _home=renderHome;
+  renderHome=function(){_home();const b=[...document.querySelectorAll('#home button')].find(x=>/system health/i.test(x.textContent||''));if(b)b.onclick=runV11Health};
+
+  /* Small usability fixes: preserve selected scores date and make date navigation resilient. */
+  const _change=changeScoreDate;changeScoreDate=function(n){const base=/^\d{4}-\d{2}-\d{2}$/.test(scoreDate)?scoreDate:todayISO();scoreDate=shiftISO(base,Number(n)||0);renderScores();};
+  const _jump=jumpScoreDate;jumpScoreDate=function(v){if(/^\d{4}-\d{2}-\d{2}$/.test(String(v||''))){scoreDate=String(v);renderScores();}};
+
+  /* Add a compact status indicator to the home page. */
+  const _home2=renderHome;
+  renderHome=function(){_home2();const el=document.getElementById('home');if(!el)return;const hero=el.querySelector('.hero-side');if(hero&&!hero.querySelector('.v11-net')){hero.insertAdjacentHTML('beforeend',`<div class="v11-net muted" style="margin-top:10px;font-size:11px">${dbOnline?'Live database':'Saved/local data'} • ${navigator.onLine?'Online':'Offline'}</div>`);}};
+
+  /* Initial boot call: the existing app call may already be in flight, so wait briefly and then refresh through the guarded loader. */
+  setTimeout(()=>{if(!dbOnline&&!matches.length)loadData();},50);
+})();
+</script>
 </body>
 </html>
