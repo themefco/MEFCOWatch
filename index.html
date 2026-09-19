@@ -246,11 +246,23 @@ async function loadData(){
  renderAll();
 }
 async function loadAllEvents(){
- if(!matches.length)return;
+ if(!matches.length)return true;
  try{
-  const data=await loadTable(EVENTS_URL,{select:"*",order:"minute.asc,created_at.asc"});
-  for(const m of matches)m.events=(data||[]).filter(e=>String(e.match_id)===String(m.id));
- }catch(e){for(const m of matches)m.events=m.events||[];console.warn("MEFCO events load:",e)}
+  /* Never use loadTable() here: its generic fallback can turn an events
+     query failure into [] and make a refresh look like all events vanished. */
+  const data=await safeLoad(EVENTS_URL,{select:"*",order:"minute.asc,created_at.asc"});
+  if(!Array.isArray(data))throw new Error("Supabase returned an invalid matches-events response");
+  for(const m of matches)m.events=data.filter(e=>String(e.match_id)===String(m.id));
+  return true;
+ }catch(e){
+  console.error("MEFCO matches-events load failed:",e);
+  /* Preserve already-known events if the network/RLS temporarily fails.
+     Do not replace them with an empty array. */
+  for(const m of matches)if(!Array.isArray(m.events))m.events=[];
+  dbOnline=false;
+  showToast("Could not load match events: "+(e?.message||"database error"));
+  return false;
+ }
 }
 
 /* ---------- RENDER ---------- */
@@ -381,27 +393,39 @@ function openCompetition(id,name){
  showPage("competition-page");
 }
 function collectPlayerStats(){
- /* Player totals in the players table are the canonical season totals.
-    Do NOT add match events on top of them: goal/assist events already increment
-    these columns when the admin records an event, which was causing doubled stats. */
+ /* Matches-events is the source of truth for match statistics. The old version
+    used players.goals/assists as the source, which meant the Stats tab could not
+    discover goals already recorded in the database after a refresh. */
  const out={};
  for(const p of players){
   const key=String(p.id??p.name);
-  out[key]={id:p.id,name:p.name,short_name:p.short_name,team:teamName(p.team_id,p.nationality||""),goals:Number(p.goals||0),assists:Number(p.assists||0),yellow_cards:Number(p.yellow_cards||0),red_cards:Number(p.red_cards||0)};
+  out[key]={id:p.id,name:p.name,short_name:p.short_name,team:teamName(p.team_id,p.nationality||""),goals:0,assists:0,yellow_cards:0,red_cards:0};
  }
- /* Keep event-only players visible if an event references a player not present in the
-    current players response. These fallback totals are event-derived only. */
- for(const m of matches)for(const e of m.events||[]){
+ for(const m of matches)for(const e of (m.events||[])){
   if(e.player_id==null)continue;
   const key=String(e.player_id);
-  if(out[key])continue;
-  const name=eventPlayer(e);if(!name)continue;
-  if(!out[key])out[key]={id:e.player_id,name,short_name:name,team:eventTeam(e),goals:0,assists:0,yellow_cards:0,red_cards:0};
+  if(!out[key]){
+   const name=eventPlayer(e);
+   if(!name)continue;
+   out[key]={id:e.player_id,name,short_name:name,team:eventTeam(e),goals:0,assists:0,yellow_cards:0,red_cards:0};
+  }
   const t=eventType(e);
   if(t==="goal")out[key].goals++;
   if(t==="assist")out[key].assists++;
   if(t==="yellow")out[key].yellow_cards++;
   if(t==="red")out[key].red_cards++;
+ }
+ /* If a player has no event records at all, keep their existing database totals
+    as a fallback for legacy data. Players with events are always event-derived,
+    so the same goal can never be counted twice. */
+ for(const p of players){
+  const key=String(p.id??p.name),row=out[key];
+  if(!row)continue;
+  const hasEvents=(matches.some(m=>(m.events||[]).some(e=>String(e.player_id)===key)));
+  if(!hasEvents){
+   row.goals=Number(p.goals||0);row.assists=Number(p.assists||0);
+   row.yellow_cards=Number(p.yellow_cards||0);row.red_cards=Number(p.red_cards||0);
+  }
  }
  return Object.values(out);
 }
@@ -573,9 +597,41 @@ async function pauseSelected(){
  if(ok)stopTimer();
 }
 
+async function syncCompletedMatchStats(match){
+ if(!match)return false;
+ try{
+  /* Completion is a database checkpoint, not a second chance to increment
+     player totals. Goals/cards/assists are already stored as events when they
+     happen, and Stats derives its numbers from those events. Re-reading the
+     finished match here guarantees the completion flow uses the database copy. */
+  const events=await safeLoad(EVENTS_URL,{select:"*",match_id:"eq."+encodeURIComponent(match.id),order:"minute.asc,created_at.asc"});
+  if(!Array.isArray(events))throw new Error("Invalid matches-events response");
+  const metadata=readMatchMetadata(match);
+  metadata.stats_synced_at=new Date().toISOString();
+  metadata.stats_event_count=events.length;
+  await supabaseFetch(MATCHES_URL+"?id=eq."+encodeURIComponent(match.id),{method:"PATCH",body:JSON.stringify({metadata}),headers:{Prefer:"return=minimal"}});
+  match.metadata=metadata;
+  match.events=events;
+  return true;
+ }catch(e){
+  console.error("MEFCO completed-match event sync failed:",e);
+  showToast("Match finished, but event sync failed: "+(e?.message||"database error"));
+  return false;
+ }
+}
 async function finishSelected(){
  const ok=await persistStatus(selectedMatchId,"finished");
- if(ok)stopTimer();
+ if(!ok)return;
+ stopTimer();
+ const m=matches.find(x=>String(x.id)===String(selectedMatchId));
+ if(m){
+  showToast("Match finished — syncing stats…");
+  await syncCompletedMatchStats(m);
+  /* Pull the finished row, players and all events back from Supabase so the
+     public Stats/Scores/Competition views use the saved database state. */
+  await loadData();
+  showToast("Match completed and database updated");
+ }
 }
 
 /* ---------- CLOCK: NEVER REBUILD DIRTY LINEUP EDITOR ---------- */
