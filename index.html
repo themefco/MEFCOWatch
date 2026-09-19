@@ -54,30 +54,11 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:10
 .stats-dashboard{display:grid;gap:16px}.stats-hero{padding:22px}.stats-filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.stats-filters .select{min-width:180px;width:auto}.stat-kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.stat-kpi-grid .kpi{padding:16px}.leaderboard-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.leaderboard-card{padding:16px}.leaderboard-card .rank-row{display:grid;grid-template-columns:28px 1fr auto;gap:8px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}.leaderboard-card .rank-row:last-child{border-bottom:0}.rank-row button{text-align:left}.rank-num{color:var(--muted);font-weight:800}.profile-actions{flex-wrap:wrap}.profile-link{color:var(--accent);text-decoration:none}.team-profile-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}.squad-player{display:flex;align-items:center;gap:9px}.squad-player img{width:34px;height:34px;object-fit:cover;border-radius:50%;background:#17242a}.match-report-card{padding:18px}.report-badge{display:inline-flex;padding:4px 8px;border:1px solid var(--line);border-radius:999px;color:var(--accent);font-size:10px;text-transform:uppercase;font-weight:900;letter-spacing:.08em}.auto-lineup-note{font-size:11px;color:var(--muted);margin-top:8px}.news-card.ai-report{border-color:#285c4d}.news-card.ai-report .news-category{color:var(--accent)}
 @media(max-width:1000px){.leaderboard-grid,.team-profile-grid{grid-template-columns:1fr}.stat-kpi-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.stat-kpi-grid{grid-template-columns:1fr}.stats-filters .select{width:100%}}
-
-/* V11 responsive/loading/performance polish */
-html,body{min-width:320px;overflow-x:hidden}body{-webkit-text-size-adjust:100%;text-rendering:optimizeLegibility}.topbar-inner{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}.main{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}.nav{scrollbar-width:none}.nav::-webkit-scrollbar{display:none}.btn,.nav button,.ghost{min-height:38px}.input,.select,textarea{min-height:42px}.card{overflow:hidden}.match-card,.news-card,.leaderboard-card,.profile-panel{contain:layout paint}.app-boot{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#081014;color:var(--text);transition:opacity .25s ease,visibility .25s ease}.app-boot.hide{opacity:0;visibility:hidden;pointer-events:none}.boot-card{width:min(92vw,380px);padding:28px;text-align:center;border:1px solid var(--line);border-radius:18px;background:#0e181d;box-shadow:var(--shadow)}.boot-mark{font-weight:950;font-size:25px;letter-spacing:-.05em}.boot-mark span{color:var(--accent)}.boot-spinner{width:28px;height:28px;margin:20px auto 12px;border:3px solid #223038;border-top-color:var(--accent);border-radius:50%;animation:mefcoSpin .8s linear infinite}.boot-card small{display:block;color:var(--muted);margin-top:5px}@keyframes mefcoSpin{to{transform:rotate(360deg)}}.loading-skeleton{min-height:140px;background:linear-gradient(90deg,#0e181d,#15242b,#0e181d);background-size:200% 100%;animation:mefcoShimmer 1.4s infinite}@keyframes mefcoShimmer{to{background-position:-200% 0}}.mi-panel{padding:18px;margin-top:14px}.mi-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.mi-muted{color:var(--muted);padding:14px 0}.predict-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px}.predict-grid>div{padding:15px;border:1px solid var(--line);border-radius:12px;text-align:center;background:#0b151a}.predict-grid strong{display:block;font-size:25px}.predict-grid span{font-size:11px;color:var(--muted)}.predict-bar{display:flex;height:10px;border-radius:99px;overflow:hidden;background:#17242a;margin:14px 0}.predict-bar i{display:block}.predict-bar i:nth-child(1){background:var(--accent)}.predict-bar i:nth-child(2){background:var(--warn)}.predict-bar i:nth-child(3){background:var(--accent2)}.predict-detail{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:11px}.mi-legend{display:flex;gap:10px;color:var(--muted);font-size:11px}.momentum-chart{height:180px;display:grid;grid-template-columns:repeat(19,1fr);gap:4px;align-items:center;margin-top:12px;border-bottom:1px solid var(--line)}.momentum-col{height:100%;position:relative;display:flex;align-items:center;justify-content:center}.momentum-zero{position:absolute;left:0;right:0;top:50%;border-top:1px dashed #2b3c44}.momentum-fill{position:absolute;width:70%;border-radius:4px}.momentum-fill.home{bottom:50%;background:var(--accent)}.momentum-fill.away{top:50%;background:var(--accent2)}.momentum-col span{position:absolute;bottom:-20px;font-size:9px;color:var(--muted)}.momentum-scale{display:flex;justify-content:space-between;color:var(--muted);font-size:10px;margin-top:24px}.potm-mark{padding:5px 8px;border:1px solid var(--accent);border-radius:999px;color:var(--accent);font-weight:900;font-size:10px}.potm-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0}.potm-stats div{padding:11px;border:1px solid var(--line);border-radius:10px}.potm-stats strong{display:block;font-size:20px}.potm-stats span{font-size:10px;color:var(--muted)}.records-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.record-item{padding:15px;border:1px solid var(--line);border-radius:12px;background:#0b151a}.record-item span,.record-item b{display:block;color:var(--muted);font-size:11px}.record-item strong{display:block;margin:7px 0;font-size:15px}.milestones{margin-top:12px;padding:16px;border:1px solid var(--line);border-radius:14px}.milestone-row{width:100%;display:flex;justify-content:space-between;text-align:left;background:transparent;color:var(--text);border:0;border-bottom:1px solid var(--line);padding:11px 0}.milestone-row:last-child{border-bottom:0}.rating-chip{display:inline-flex;align-items:center;justify-content:center;min-width:38px;padding:4px 7px;border-radius:999px;border:1px solid var(--line);font-weight:900;font-size:11px}.rating-high{color:var(--accent);border-color:#285c4d}.rating-mid{color:var(--warn)}.rating-low{color:var(--danger)}.health-issue{padding:9px 11px;border-left:3px solid var(--warn);background:#17140b;margin-top:6px;border-radius:6px;font-size:12px}
-@media(max-width:1100px){.hero{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.admin-shell{grid-template-columns:280px 1fr}.records-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:760px){.topbar-inner{align-items:flex-start;flex-wrap:wrap;gap:8px}.brand{width:auto}.nav{order:3;flex-basis:100%;width:100%;padding-bottom:2px}.nav button{white-space:nowrap}.notificationButton{margin-left:auto}.grid,.grid.two,.mc-columns,.mc-lineups,.team-profile-grid,.profile-two{grid-template-columns:1fr}.date-nav{margin-left:0;width:100%;justify-content:space-between}.date-control{flex:1}.date-control .input{min-width:0}.mc-scoreboard{padding:24px 0;gap:6px}.mc-team img{width:54px;height:54px}.mc-team-name{font-size:15px}.mc-big-score{font-size:38px}.mc-meta{flex-wrap:wrap}.mc-tabs{overflow:auto}.mc-tab{white-space:nowrap}.admin-shell{grid-template-columns:1fr}.admin-list-v2{position:static}.admin-match-list{max-height:42vh}.form-grid,.form-grid.three{grid-template-columns:1fr}.profile-hero-main{align-items:flex-start;flex-wrap:wrap}.profile-actions{margin-left:0}.profile-stat-grid,.mini-grid,.kpis{grid-template-columns:repeat(2,1fr)}.news-feature{grid-template-columns:1fr}.news-feature-image{min-height:180px}.article h1{font-size:32px}.predict-grid,.records-grid{grid-template-columns:1fr}.predict-detail{flex-direction:column}.momentum-chart{height:145px}.potm-stats{grid-template-columns:repeat(2,1fr)}.mc-event{grid-template-columns:34px 25px 1fr}.mc-event-team{display:none}.standings{min-width:650px}.toolbar{align-items:stretch}.toolbar>.btn{flex:0 0 auto}}
-@media(max-width:430px){body{font-size:13px}.main{padding-top:16px}.hero-main{padding:24px}.hero h1{font-size:36px}.section{margin-top:22px}.profile-stat-grid,.mini-grid,.kpis{grid-template-columns:1fr 1fr}.mc-scoreboard{grid-template-columns:1fr 90px 1fr}.mc-big-score{font-size:32px}.mc-team-name{font-size:13px}.topbar-inner{padding-top:9px}.ticker{font-size:10px}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
-@media(prefers-contrast:more){.card,.input,.select,.btn{border-width:2px}}
-.app-boot{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#071014;color:var(--text);transition:opacity .22s ease,visibility .22s ease}.app-boot.hide{opacity:0;visibility:hidden;pointer-events:none}.boot-shell{width:min(88vw,430px);padding:30px 0;text-align:center}.boot-brand{font-weight:950;font-size:30px;letter-spacing:-.06em}.boot-brand span{color:var(--accent)}.boot-rule{height:2px;width:min(300px,72vw);margin:28px auto 16px;background:#1b2a31;border-radius:99px;overflow:hidden}.boot-rule i{display:block;height:100%;width:18%;background:var(--accent);border-radius:99px;animation:bootProgress 1.25s ease-in-out infinite}.boot-status{font-size:14px;font-weight:800}.boot-detail{margin-top:5px;color:var(--muted);font-size:12px}.boot-retry{margin-top:16px}@keyframes bootProgress{0%{transform:translateX(-130%);width:18%}50%{width:42%}100%{transform:translateX(650%);width:18%}}
-
-/* V15 device + performance polish */
-.section,.match-card,.news-card,.profile-panel,.stat-leader-card,.record-item{content-visibility:auto;contain-intrinsic-size:1px 220px}
-img{content-visibility:auto}button,.btn,.nav button,.ghost,.select,.input{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
-@media(max-width:1100px){.topbar-inner{gap:10px}.actions{gap:6px}.main{padding-top:18px}.hero h1{font-size:clamp(30px,7vw,50px)}}
-@media(max-width:760px){.topbar{position:sticky}.topbar-inner{padding-top:max(9px,env(safe-area-inset-top));padding-bottom:8px}.brand{font-size:18px}.actions{margin-left:auto}.actions .btn{padding:8px 10px}.nav{gap:2px;padding-bottom:2px;overscroll-behavior-x:contain}.nav button{padding:8px 10px;white-space:nowrap}.main{padding-bottom:max(42px,calc(42px + env(safe-area-inset-bottom)))}.hero-main{padding:24px}.hero-side{padding:18px}.section-head{align-items:flex-start;flex-direction:column}.section-head>.btn,.section-head>.ghost{align-self:stretch}.date-nav{width:100%;justify-content:space-between}.date-control{width:100%}.date-control .input{min-width:0}.mc-scoreboard{padding:22px 0}.mc-team img{width:54px;height:54px}.mc-team-name{font-size:17px}.mc-tabs{overflow-x:auto;scrollbar-width:none}.mc-tabs::-webkit-scrollbar{display:none}.mc-tab{white-space:nowrap}.mc-event{grid-template-columns:38px 28px minmax(0,1fr) auto}.mc-event-copy{min-width:0}.mc-event-copy strong{overflow-wrap:anywhere}.mc-facts,.mc-stat-grid{grid-template-columns:1fr}.predict-grid,.potm-stats{grid-template-columns:1fr 1fr}.predict-detail{flex-direction:column}.records-grid{grid-template-columns:1fr 1fr}.admin-panel-v2{padding:14px}.admin-section-v2{padding:14px 0}.table-wrap{max-width:100%;-webkit-overflow-scrolling:touch}.table,.standings{font-size:12px}.table th,.table td,.standings th,.standings td{padding:9px 7px}.footer{padding-bottom:max(25px,calc(25px + env(safe-area-inset-bottom)))}}
-@media(max-width:480px){.topbar-inner{padding-left:10px;padding-right:10px}.main{padding-left:10px;padding-right:10px}.actions .btn{font-size:12px;padding:7px 9px}.hero-main{padding:20px}.hero h1{font-size:34px}.hero p{font-size:14px}.grid,.grid.two,.stats-grid,.leaderboard-grid,.profile-two,.team-profile-grid{gap:10px}.predict-grid,.potm-stats,.records-grid{grid-template-columns:1fr 1fr}.predict-grid strong{font-size:21px}.momentum-chart{gap:2px;height:150px}.momentum-col span{font-size:8px}.mc-big-score{font-size:36px}.mc-team-name{font-size:15px}.mc-panel{padding:14px}.mc-event{grid-template-columns:34px 25px minmax(0,1fr)}.mc-event-team{display:none}.profile-stat-grid{grid-template-columns:1fr 1fr}.profile-stat-grid .kpi{padding:11px}.search-result{padding:11px}.admin-score-box input{font-size:24px}}
-@media(orientation:landscape) and (max-height:520px){.topbar-inner{padding-top:6px;padding-bottom:6px}.main{padding-top:12px}.hero h1{font-size:32px}.mc-scoreboard{padding:14px 0}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}.loading-skeleton{animation:none}}
 </style>
 
 
 </head>
 <body>
-<div id="appBoot" class="app-boot" aria-live="polite"><div class="boot-shell"><div class="boot-brand">MEFCO <span>WATCH</span></div><div class="boot-rule"><i id="bootProgress"></i></div><div id="bootText" class="boot-status">Loading MEFCO Watch…</div><div id="bootDetail" class="boot-detail">Connecting to live data</div><button id="bootRetry" class="btn small boot-retry" style="display:none" onclick="location.reload()">Retry</button></div></div>
 <div class="app">
 <header class="topbar">
  <div class="topbar-inner">
@@ -324,31 +305,23 @@ function showPage(id,button=null){
  const p=document.getElementById(id);if(p)p.classList.add("active");
  document.querySelectorAll("#nav button").forEach(b=>b.classList.remove("active"));
  if(button)button.classList.add("active");
- window.scrollTo({top:0,behavior:"auto"});
+ window.scrollTo({top:0,behavior:"smooth"});
  const fn={home:renderHome,scores:renderScores,news:renderNews,competitions:renderCompetitions,stats:renderStats,search:renderSearch,admin:renderAdmin}[id];
  if(fn)fn();
- if(id==='match-page'&&selectedMatchId)renderMatch();
 }
 function navFor(page){const b=document.querySelector('#nav button[data-page="'+page+'"]');showPage(page,b)}
 
-let renderQueued=false,rendering=false;
-function activePageId(){return document.querySelector('.page.active')?.id||'home'}
-function renderCurrentPage(){
- const id=activePageId();
- const fn={home:renderHome,scores:renderScores,news:renderNews,competitions:renderCompetitions,stats:renderStats,search:renderSearch,admin:renderAdmin}[id];
- if(fn)fn();
- if(selectedMatchId&&id==='match-page')renderMatch();
- renderTicker();
-}
 function renderAll(){
- if(rendering)return;
- rendering=true;
- try{renderCurrentPage()}finally{rendering=false}
-}
-function scheduleRender(){
- if(renderQueued)return;
- renderQueued=true;
- requestAnimationFrame(()=>{renderQueued=false;renderAll()});
+ renderHome();renderScores();renderNews();renderCompetitions();renderStats();renderSearch();
+ /* Critical V2 behavior: a dirty lineup editor must not be rebuilt by refresh/event/score updates. */
+ if(ADMIN_MODE&&lineupDraft.dirty&&String(lineupDraft.matchId)===String(selectedMatchId)&&document.getElementById("adminPanel")){
+  renderAdminMatchList();
+  updateLineupDraftIndicator();
+ }else{
+  renderAdmin();
+ }
+ renderTicker();
+ if(selectedMatchId)renderMatch();
 }
 function renderTicker(){
  const live=matches.filter(isLive),finished=matches.filter(isFinished).slice(-4);
@@ -958,7 +931,7 @@ function setupRealtime(){
    if(!m)return;
    m.events=m.events||[];if(!m.events.some(x=>String(x.id)===String(e.id)))m.events.push(e);
    notifyFavoriteEvent(m,e);
-   try{scheduleRender()}catch(err){console.error("MEFCO realtime render:",err)}
+   try{renderAll()}catch(err){console.error("MEFCO realtime render:",err)}
   }).subscribe();
   const matchesChannel=realtimeClient.channel("mefco-watch-matches").on("postgres_changes",{event:"UPDATE",schema:"public",table:"matches"},payload=>{
    const incoming=payload.new,old=payload.old||{},m=matches.find(x=>String(x.id)===String(incoming?.id));
@@ -1281,13 +1254,7 @@ renderHome=function(){_renderHomeV3();const el=document.getElementById('home');i
 
 /* Preserve the existing admin UI. These hooks only add background data work. */
 const _loadDataV3=loadData;
-loadData=async function(){
- await _loadDataV3();
- renderAll();
- /* Lineups and reports are background work. They must never hold the UI hostage. */
- setTimeout(()=>{ensureAutomaticLineups().then(()=>scheduleRender()).catch(e=>console.warn('Automatic lineups:',e));},0);
- setTimeout(()=>{autoPublishFinishedReports().catch(e=>console.warn('Automatic reports:',e));},0);
-};
+loadData=async function(){await _loadDataV3();await ensureAutomaticLineups();await autoPublishFinishedReports();renderAll();};
 
 loadData().then(()=>{
  setupRealtime();
@@ -1500,256 +1467,5 @@ loadData=async function(){await _v9LoadDataBase();await v9ConsistencySweep();ren
 .match-intelligence{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px}.mi-panel{padding:18px}.mi-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}.mi-head h3{margin:3px 0 0}.mi-head p{margin:5px 0 0}.mi-muted{color:var(--muted);font-size:13px;padding:12px 0}.predict-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:15px}.predict-grid>div{text-align:center;padding:12px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.025)}.predict-grid strong{display:block;font-size:24px}.predict-grid span{display:block;color:var(--muted);font-size:11px;margin-top:4px}.predict-bar{height:8px;display:flex;overflow:hidden;border-radius:99px;background:var(--line);margin-top:12px}.predict-bar i{display:block;height:100%}.predict-bar i:nth-child(1){background:var(--accent)}.predict-bar i:nth-child(2){background:#7a8590}.predict-bar i:nth-child(3){background:#4aa9ff}.predict-detail{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:11px;margin-top:9px}.momentum-chart{height:150px;display:grid;grid-template-columns:repeat(19,1fr);gap:3px;align-items:center;margin-top:15px;padding:0 4px;position:relative}.momentum-chart:before{content:"";position:absolute;left:0;right:0;top:50%;border-top:1px dashed var(--line)}.momentum-col{height:100%;position:relative;display:flex;align-items:center;justify-content:center}.momentum-fill{position:absolute;width:70%;border-radius:3px;min-height:3px;z-index:1}.momentum-fill.home{bottom:50%;background:var(--accent)}.momentum-fill.away{top:50%;background:#4aa9ff}.momentum-col span{position:absolute;bottom:-17px;font-size:8px;color:var(--muted)}.momentum-scale{display:flex;justify-content:space-between;color:var(--muted);font-size:10px;margin-top:24px}.mi-legend{display:flex;gap:10px;color:var(--muted);font-size:10px;white-space:nowrap}.potm-mark{font-size:10px;font-weight:900;letter-spacing:.08em;border:1px solid var(--accent);color:var(--accent);border-radius:999px;padding:5px 8px}.potm-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:15px 0}.potm-stats>div{text-align:center;padding:10px;border:1px solid var(--line);border-radius:9px}.potm-stats strong{display:block;font-size:18px}.potm-stats span{font-size:9px;color:var(--muted);text-transform:uppercase}.records-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.record-item{display:grid;grid-template-columns:1fr auto;gap:5px 10px;padding:14px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.02)}.record-item span{grid-column:1/-1;color:var(--muted);font-size:10px;text-transform:uppercase}.record-item strong{font-size:13px}.record-item b{font-size:18px;text-align:right}.milestones{margin-top:14px;padding:14px;border:1px solid var(--line);border-radius:10px}.milestones h3{margin:0 0 8px}.milestone-row{width:100%;display:flex;justify-content:space-between;gap:12px;padding:9px 0;background:none;border:0;border-bottom:1px solid var(--line);color:var(--text);text-align:left;cursor:pointer}.milestone-row:last-child{border-bottom:0}.milestone-row b{color:var(--accent)}
 @media(max-width:900px){.match-intelligence{grid-template-columns:1fr}}@media(max-width:600px){.predict-grid,.records-grid{grid-template-columns:1fr}.predict-detail{flex-direction:column}.potm-stats{grid-template-columns:repeat(2,1fr)}.mi-head{flex-direction:column}.mi-legend{white-space:normal}}
 </style>
-<script>
-/* ==================== MEFCO WATCH V11 RELIABILITY + DATA LAYER ==================== */
-window.MEFCO_V11={version:'11.0'};
-(function(){
-  const CACHE_KEY='mefco_watch_cache_v11';
-  let loadingDone=false, loadBusy=false, loadSeq=0;
-const boot=()=>document.getElementById('appBoot');
-const bootText=()=>document.getElementById('bootText');
-const bootDetail=()=>document.getElementById('bootDetail');
-function hideBoot(){const b=boot();if(!b)return;loadingDone=true;b.classList.add('hide');setTimeout(()=>b.remove(),260)}
-function bootMessage(msg,showRetry=false,detail='Connecting to live data'){const t=bootText(),d=bootDetail(),r=document.getElementById('bootRetry');if(t)t.textContent=msg;if(d)d.textContent=detail;if(r)r.style.display=showRetry?'inline-block':'none'}
-window.addEventListener('mefco:data-ready',()=>hideBoot(),{once:true});
-const bootStarted=Date.now();
-const bootWatch=setInterval(()=>{if(loadingDone){clearInterval(bootWatch);return}if(matches.length||teams.length||players.length||news.length){hideBoot();clearInterval(bootWatch);return}if(Date.now()-bootStarted>9000){bootMessage('Still connecting…',true,'You can retry if the database is unavailable')}},120);
-setTimeout(()=>{if(!loadingDone)bootMessage('Still connecting…',true,'The database is taking longer than usual')},6000);
-
-  /* Network timeout: prevents Safari/iOS/slow mobile connections from hanging forever. */
-  const _fetch=window.fetch.bind(window);
-  window.fetch=async function(input,init={}){
-    const ctl=new AbortController();
-    const timer=setTimeout(()=>ctl.abort(),18000);
-    const opts={...init,signal:init.signal||ctl.signal};
-    try{return await _fetch(input,opts)}catch(e){if(e?.name==='AbortError')throw new Error('Network request timed out');throw e}finally{clearTimeout(timer)}
-  };
-
-  /* Cross-device-safe local cache: cached data is display-only and never written back to Supabase. */
-  function cacheData(){try{localStorage.setItem(CACHE_KEY,JSON.stringify({savedAt:Date.now(),matches,news,teams,players,competitions}))}catch{}}
-  function restoreCache(){try{const x=JSON.parse(localStorage.getItem(CACHE_KEY)||'null');if(!x||Date.now()-Number(x.savedAt)>1000*60*60*24*7)return false;if(Array.isArray(x.matches)&&!matches.length)matches=x.matches;if(Array.isArray(x.news)&&!news.length)news=x.news;if(Array.isArray(x.teams)&&!teams.length)teams=x.teams;if(Array.isArray(x.players)&&!players.length)players=x.players;if(Array.isArray(x.competitions)&&!competitions.length)competitions=x.competitions;return matches.length>0||teams.length>0}catch{return false}}
-
-  /* Protect refresh from overlapping requests. */
-  const _baseLoad=loadData;
-  loadData=async function(){
-    const seq=++loadSeq;
-    if(loadBusy){return false}
-    loadBusy=true;
-    try{
-      if(!matches.length)restoreCache();
-      if(matches.length||teams.length) { try{renderAll()}catch{} }
-      bootMessage(dbOnline?'Updating MEFCO data…':'Connecting to MEFCO…');
-      const result=await _baseLoad();
-      if(seq!==loadSeq)return false;
-      cacheData();
-      hideBoot();
-      window.dispatchEvent(new Event('mefco:data-ready'));
-      /* Generate missing lineups after the first usable render, never during it. */
-      if(!window._mefcoLineupsQueued){
-        window._mefcoLineupsQueued=true;
-        setTimeout(()=>ensureAutomaticLineups().then(()=>scheduleRender()).catch(e=>console.warn('Automatic lineups:',e)),0);
-      }
-      return result;
-    }catch(e){
-      console.error('MEFCO V11 load:',e);
-      const had=restoreCache();
-      if(had){dbOnline=false;try{renderAll()}catch{};hideBoot();window.dispatchEvent(new Event('mefco:data-ready'));showToast('Showing saved data — database connection is unavailable')}else{bootMessage('MEFCO could not connect to the database.',true);window.dispatchEvent(new Event('mefco:data-ready'));showToast('MEFCO database connection failed')}
-      return false;
-    }finally{loadBusy=false}
-  };
-
-  const _refresh=refreshData;
-  refreshData=async function(){if(loadBusy){showToast('A refresh is already running');return}showToast('Refreshing MEFCO data…');const ok=await loadData();if(ok!==false)showToast('Data refreshed');};
-
-  /* Player ratings: transparent event/result formula, not an official football statistic. */
-  window.mefcoPlayerRating=function(p,m){
-    if(!p||!m)return null;
-    const ev=(m.events||[]).filter(e=>String(e.player_id)===String(p.id));
-    const started=new Set(readMatchLineups(m).home.concat(readMatchLineups(m).away).map(String)).has(String(p.id));
-    let r=6.0;
-    ev.forEach(e=>{const t=eventType(e);if(t==='goal')r+=1.5;else if(t==='assist')r+=0.8;else if(t==='yellow')r-=0.4;else if(t==='red')r-=1.8});
-    if(started)r+=0.5; else if(ev.length)r+=0.2;
-    const [h,a]=scoreOf(m),tid=String(p.team_id),home=String(m.home_team_id)===tid,won=home?h>a:a>h,draw=h===a;
-    if(won)r+=.4; else if(draw)r+=.15; else r-=.15;
-    return Math.max(4,Math.min(10,Math.round(r*10)/10));
-  };
-  window.mefcoRatingClass=r=>Number(r)>=8?'rating-high':Number(r)>=6.5?'rating-mid':'rating-low';
-
-  /* Add ratings to the match centre without changing the admin UI. */
-  const _renderMatch=renderMatch;
-  renderMatch=function(){_renderMatch();const m=matches.find(x=>String(x.id)===String(selectedMatchId)),el=document.getElementById('match-page');if(!m||!el)return;const box=document.getElementById('mefcoV11Ratings');if(box)box.remove();if(!isFinished(m)&&!isLive(m))return;const ids=new Set((m.events||[]).map(e=>String(e.player_id)).filter(Boolean));const line=readMatchLineups(m);line.home.concat(line.away).forEach(id=>ids.add(String(id)));const rows=[...ids].map(id=>playerById(id)).filter(Boolean).map(p=>({p,r:mefcoPlayerRating(p,m)})).filter(x=>x.r!==null).sort((a,b)=>b.r-a.r).slice(0,8);const div=document.createElement('div');div.id='mefcoV11Ratings';div.className='card mi-panel';div.innerHTML=`<div class="mi-head"><div><div class="eyebrow">Player ratings</div><h3>MEFCO match ratings</h3><p class="muted">Calculated from recorded lineups, events and result.</p></div><span class="muted">Indicative</span></div>${rows.length?`<div class="table-wrap"><table class="table"><thead><tr><th>Player</th><th>Team</th><th>Rating</th></tr></thead><tbody>${rows.map(x=>`<tr><td><button class="ghost" onclick="openPlayer('${esc(x.p.id)}')">${esc(x.p.short_name||x.p.name)}</button></td><td>${esc(teamName(x.p.team_id,''))}</td><td><span class="rating-chip ${mefcoRatingClass(x.r)}">${x.r.toFixed(1)}</span></td></tr>`).join('')}</tbody></table></div>`:'<div class="mi-muted">No lineup or player events are recorded.</div>'}`;el.appendChild(div)};
-
-  /* Stronger records + milestones: uses cumulative totals and streaks. */
-  window.mefcoRecords=function(){
-    const finished=matches.filter(isFinished), stats=collectPlayerStats();
-    const topGoals=stats.slice().sort((a,b)=>b.goals-a.goals)[0],topAssists=stats.slice().sort((a,b)=>b.assists-a.assists)[0];
-    let biggest=null,highestTeam=null,clean=null;
-    finished.forEach(m=>{const [h,a]=scoreOf(m),sum=h+a;const diff=Math.abs(h-a);if(!biggest||sum>biggest.sum||sum===biggest.sum&&diff>biggest.diff)biggest={m,sum,diff};if(!highestTeam||Math.max(h,a)>highestTeam.n)highestTeam={m,n:Math.max(h,a)};if(h===0||a===0){if(!clean||sum>clean.sum)clean={m,sum}}});
-    const streaks=[];
-    teams.forEach(t=>{const ms=matches.filter(m=>(String(m.home_team_id)===String(t.id)||String(m.away_team_id)===String(t.id))&&isFinished(m)).sort((a,b)=>(matchDate(a)+matchTime(a)).localeCompare(matchDate(b)+matchTime(b)));let w=0,l=0;for(let i=ms.length-1;i>=0;i--){const[h,a]=scoreOf(ms[i]),home=String(ms[i].home_team_id)===String(t.id),gf=home?h:a,ga=home?a:h;if(gf>ga)w++;else break}for(let i=ms.length-1;i>=0;i--){const[h,a]=scoreOf(ms[i]),home=String(ms[i].home_team_id)===String(t.id),gf=home?h:a,ga=home?a:h;if(gf<ga)l++;else break}if(w)streaks.push({t,type:'Winning',n:w});if(l)streaks.push({t,type:'Losing',n:l})});
-    const milestoneRows=stats.flatMap(p=>{const n=Number(p.goals||0);return [5,10,25,50,100].filter(x=>n>=x).slice(-1).map(x=>({p,n,x}))}).sort((a,b)=>b.x-a.x||b.n-a.n);
-    return {topGoals,topAssists,biggest,highestTeam,clean,streaks:streaks.sort((a,b)=>b.n-a.n).slice(0,8),milestoneRows};
-  };
-  const _renderStats=renderStatsV3;
-  renderStatsV3=function(){_renderStats();const el=document.getElementById('stats');if(!el)return;const old=document.getElementById('v11Records');if(old)old.remove();const r=mefcoRecords(),box=document.createElement('div');box.id='v11Records';box.innerHTML=`<div class="section"><div class="section-head"><div><div class="eyebrow">Records</div><h2>Records & milestones</h2><p>Calculated from completed MEFCO Watch matches.</p></div></div><div class="records-grid">${r.topGoals?`<div class="record-item"><span>Top scorer</span><strong>${esc(r.topGoals.name)}</strong><b>${r.topGoals.goals} goals</b></div>`:''}${r.topAssists?`<div class="record-item"><span>Assist leader</span><strong>${esc(r.topAssists.name)}</strong><b>${r.topAssists.assists} assists</b></div>`:''}${r.biggest?`<div class="record-item"><span>Highest-scoring match</span><strong>${esc(teamDisplayName(r.biggest.m,'home'))} ${scoreOf(r.biggest.m)[0]}–${scoreOf(r.biggest.m)[1]} ${esc(teamDisplayName(r.biggest.m,'away'))}</strong><b>${r.biggest.sum} total goals</b></div>`:''}${r.highestTeam?`<div class="record-item"><span>Most goals by one team</span><strong>${esc(teamDisplayName(r.highestTeam.m,scoreOf(r.highestTeam.m)[0]>=scoreOf(r.highestTeam.m)[1]?'home':'away'))}</strong><b>${r.highestTeam.n} goals</b></div>`:''}</div><div class="milestones"><h3>Current milestones</h3>${r.milestoneRows.length?r.milestoneRows.slice(0,12).map(x=>`<button class="milestone-row" onclick="openPlayer('${esc(x.p.id)}')"><span>${esc(x.p.name||x.p.short_name)} reached ${x.x} goals</span><b>${x.n} total</b></button>`).join(''):'<div class="mi-muted">No 5/10/25/50/100-goal milestones yet.</div>'}</div><div class="milestones"><h3>Current streaks</h3>${r.streaks.length?r.streaks.map(x=>`<div class="milestone-row"><span>${esc(x.t.name)} ${x.type.toLowerCase()} streak</span><b>${x.n}</b></div>`).join(''):'<div class="mi-muted">No active winning or losing streaks.</div>'}</div></div>`;el.appendChild(box)};
-
-  /* Database health: score/event/lineup integrity checks. */
-  window.runV11Health=async function(){
-    const card=document.createElement('div');card.className='card health-card';card.id='v11Health';card.innerHTML='<div class="section-head"><div><div class="eyebrow">Database health</div><h3>Running integrity checks…</h3></div></div>';document.getElementById('home')?.appendChild(card);window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
-    const issues=[];
-    for(const m of matches){const [h,a]=scoreOf(m),goals=(m.events||[]).filter(e=>eventType(e)==='goal').length;if(isFinished(m)&&h+a!==goals)issues.push(`${teamDisplayName(m,'home')} ${h}–${a} ${teamDisplayName(m,'away')}: score has ${h+a} goals but ${goals} goal events.`);for(const e of(m.events||[])){if(!['goal','assist','yellow','red','substitution','var'].includes(eventType(e)))issues.push(`${m.id}: unknown event type ${eventType(e)}`);if(e.player_id&&!playerById(e.player_id))issues.push(`${m.id}: event references missing player ${e.player_id}`);if(e.team_id&&!teamById(e.team_id))issues.push(`${m.id}: event references missing team ${e.team_id}`)}const lu=readMatchLineups(m);for(const id of [...lu.home,...lu.away])if(!playerById(id))issues.push(`${m.id}: lineup references missing player ${id}`)}
-    const endpoints=[['Matches',MATCHES_URL],['Events',EVENTS_URL],['Teams',TEAMS_URL],['Players',PLAYERS_URL],['Competitions',COMPETITIONS_URL],['News',NEWS_URL]];const reach=[];for(const [name,url] of endpoints){try{await supabaseFetch(url+'?select=id&limit=1');reach.push([name,true])}catch{reach.push([name,false])}}
-    card.innerHTML=`<div class="section-head"><div><div class="eyebrow">Database health</div><h3>${issues.length?'Integrity warnings found':'MEFCO data checks passed'}</h3><p class="muted">Read-only diagnostics. No database records were changed.</p></div><button class="btn small" onclick="document.getElementById('v11Health')?.remove()">Close</button></div><div class="health-grid">${reach.map(x=>`<div class="health-item"><strong class="${x[1]?'health-ok':'health-warn'}">${x[1]?'✓':'✕'} ${esc(x[0])}</strong><span>${x[1]?'Reachable':'Unavailable'}</span></div>`).join('')}</div><div class="mini-grid" style="margin-top:12px"><div class="mini-stat"><strong>${matches.filter(isFinished).length}</strong><span>Finished</span></div><div class="mini-stat"><strong>${matches.filter(isLive).length}</strong><span>Live</span></div><div class="mini-stat"><strong>${matches.filter(m=>!isFinished(m)&&!isLive(m)).length}</strong><span>Other</span></div><div class="mini-stat"><strong>${issues.length}</strong><span>Warnings</span></div></div>${issues.length?`<div class="section">${issues.slice(0,50).map(x=>`<div class="health-issue">${esc(x)}</div>`).join('')}</div>`:'<div class="section v9-note v9-ok">No score, event, lineup or reference-integrity problems were detected in the loaded data.</div>'}`;
-  };
-
-  /* Replace the old health button target with the stronger checks. */
-  const _home=renderHome;
-  renderHome=function(){_home();const b=[...document.querySelectorAll('#home button')].find(x=>/system health/i.test(x.textContent||''));if(b)b.onclick=runV11Health};
-
-  /* Small usability fixes: preserve selected scores date and make date navigation resilient. */
-  const _change=changeScoreDate;changeScoreDate=function(n){const base=/^\d{4}-\d{2}-\d{2}$/.test(scoreDate)?scoreDate:todayISO();scoreDate=shiftISO(base,Number(n)||0);renderScores();};
-  const _jump=jumpScoreDate;jumpScoreDate=function(v){if(/^\d{4}-\d{2}-\d{2}$/.test(String(v||''))){scoreDate=String(v);renderScores();}};
-
-  /* Add a compact status indicator to the home page. */
-  const _home2=renderHome;
-  renderHome=function(){_home2();const el=document.getElementById('home');if(!el)return;const hero=el.querySelector('.hero-side');if(hero&&!hero.querySelector('.v11-net')){hero.insertAdjacentHTML('beforeend',`<div class="v11-net muted" style="margin-top:10px;font-size:11px">${dbOnline?'Live database':'Saved/local data'} • ${navigator.onLine?'Online':'Offline'}</div>`);}};
-
-  /* Initial boot call: the existing app call may already be in flight, so wait briefly and then refresh through the guarded loader. */
-  setTimeout(()=>{if(!dbOnline&&!matches.length)loadData();},50);
-})();
-</script>
-<style id="mefco-v13-match-upgrades">
-.visual-lineup{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.visual-lineup-side{min-width:0}.vl-head{display:flex;justify-content:space-between;gap:10px;margin-bottom:10px}.vl-head strong{font-size:15px}.vl-head span{font-size:11px;color:var(--muted)}
-.vl-pitch{position:relative;min-height:500px;border:1px solid rgba(255,255,255,.12);border-radius:14px;overflow:hidden;background:linear-gradient(90deg,rgba(20,115,70,.16),rgba(15,80,50,.22))}.vl-pitch:before{content:"";position:absolute;inset:8px;border:1px solid rgba(255,255,255,.23);border-radius:10px}.vl-pitch:after{content:"";position:absolute;left:50%;top:8px;bottom:8px;border-left:1px solid rgba(255,255,255,.2)}.vl-half{position:absolute;left:50%;top:50%;width:90px;height:90px;border:1px solid rgba(255,255,255,.2);border-radius:50%;transform:translate(-50%,-50%)}.vl-player{position:absolute;transform:translate(-50%,-50%);width:78px;text-align:center;z-index:2}.vl-dot{width:32px;height:32px;margin:auto;border-radius:50%;display:grid;place-items:center;background:rgba(8,15,18,.95);border:2px solid var(--accent);font-size:10px;font-weight:900}.vl-player.away .vl-dot{border-color:#4aa9ff}.vl-name{margin-top:4px;font-size:10px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.vl-pos{font-size:9px;color:var(--muted)}.vl-bench{margin-top:10px;border:1px solid var(--line);border-radius:10px;padding:10px}.vl-bench-title{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:7px}.vl-bench-list{display:flex;flex-wrap:wrap;gap:6px}.vl-bench-player{font-size:11px;padding:6px 8px;border:1px solid var(--line);border-radius:7px}.predict-method{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.predict-method span{padding:5px 8px;border:1px solid var(--line);border-radius:7px;color:var(--muted);font-size:10px}.predict-score{margin-top:14px;padding:11px;border:1px solid var(--line);border-radius:9px;display:flex;justify-content:space-between;align-items:center}.predict-score strong{font-size:18px}.predict-confidence{font-size:11px;color:var(--muted)}.mc-table-panel{padding:18px}.mc-table-note{color:var(--muted);font-size:12px;margin-top:5px}@media(max-width:760px){.visual-lineup{grid-template-columns:1fr}.vl-pitch{min-height:450px}}
-</style>
-<script>
-(function(){
- const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
- const poisson=(k,l)=>{let r=Math.exp(-l);for(let i=1;i<=k;i++)r*=l/i;return r};
- function predMatches(m){let ms=[];try{ms=competitionMatches(m.competition_id??m.competition,competitionNameForMatch(m))}catch{};return (ms&&ms.length?ms:matches).filter(isFinished)}
- function stats(id,ms){const r=ms.filter(x=>String(x.home_team_id)===String(id)||String(x.away_team_id)===String(id)).sort((a,b)=>(matchDate(b)+matchTime(b)).localeCompare(matchDate(a)+matchTime(a))).slice(0,12);let gf=0,ga=0,pts=0,hgf=0,hga=0,agf=0,aga=0,hn=0,an=0;r.forEach(x=>{const[h,a]=scoreOf(x),home=String(x.home_team_id)===String(id),f=home?h:a,g=home?a:h;gf+=f;ga+=g;pts+=f>g?3:f===g?1:0;if(home){hgf+=h;hga+=a;hn++}else{agf+=a;aga+=h;an++}});const n=r.length||1;return{n,gf:gf/n,ga:ga/n,form:pts/(3*n),hgf:hn?hgf/hn:gf/n,hga:hn?hga/hn:ga/n,agf:an?agf/an:gf/n,aga:an?aga/an:ga/n}}
- function realisticPredict(m){const ms=predMatches(m),h=stats(m.home_team_id,ms),a=stats(m.away_team_id,ms);let lg=1.35;if(ms.length){let g=0;ms.forEach(x=>{const[z,y]=scoreOf(x);g+=z+y});lg=clamp(g/(ms.length*2),.75,2.2)}const sh=(v,n)=>((v*n)+(lg*4))/(n+4);let lh=lg*(sh(h.hgf,h.n)/lg)*(sh(a.aga,a.n)/lg)*1.08,la=lg*(sh(a.agf,a.n)/lg)*(sh(h.hga,h.n)/lg)*.94;const fd=h.form-a.form;lh*=1+clamp(fd*.12,-.12,.12);la*=1-clamp(fd*.10,-.10,.10);lh=clamp(lh,.2,3.8);la=clamp(la,.2,3.8);let hp=0,dp=0,ap=0,best={p:0,h:0,a:0};for(let i=0;i<=6;i++)for(let j=0;j<=6;j++){const p=poisson(i,lh)*poisson(j,la);if(i>j)hp+=p;else if(i===j)dp+=p;else ap+=p;if(p>best.p)best={p,h:i,a:j}}const t=hp+dp+ap;hp/=t;dp/=t;ap/=t;return{home:hp,draw:dp,away:ap,best,lh,la,sample:ms.length,confidence:clamp(45+Math.abs(hp-ap)*80+(ms.length>=8?8:0),45,86)}}
- function predictor(m){if(isFinished(m)||isLive(m))return `<div class="card mi-panel"><div class="mi-head"><div><div class="eyebrow">Match Predictor</div><h3>Pre-match projection</h3></div><span class="muted">Closed after kick-off</span></div><div class="mi-muted">The prediction is intentionally hidden once the match begins.</div></div>`;const p=realisticPredict(m),hp=Math.round(p.home*100),dp=Math.round(p.draw*100),ap=Math.round(p.away*100);return `<div class="card mi-panel"><div class="mi-head"><div><div class="eyebrow">Match Predictor</div><h3>Statistical projection</h3><p class="muted">Competition results, home/away scoring, defence and recent form.</p></div><span class="pill">${p.sample} matches</span></div><div class="predict-grid"><div><strong>${hp}%</strong><span>${esc(teamDisplayName(m,'home'))}</span></div><div><strong>${dp}%</strong><span>Draw</span></div><div><strong>${ap}%</strong><span>${esc(teamDisplayName(m,'away'))}</span></div></div><div class="predict-bar"><i style="width:${hp}%"></i><i style="width:${dp}%"></i><i style="width:${ap}%"></i></div><div class="predict-score"><div><span class="predict-confidence">Most likely exact score</span><br><strong>${p.best.h}–${p.best.a}</strong></div><span class="predict-confidence">Model confidence ${Math.round(p.confidence)}%</span></div><div class="predict-method"><span>Home expected goals ${p.lh.toFixed(2)}</span><span>Away expected goals ${p.la.toFixed(2)}</span><span>Poisson model</span></div></div>`}
- function pos(p,i){const x=String(p.position||'').toLowerCase();if(/gk|goal/.test(x))return'GK';if(/cb|lb|rb|def|back/.test(x))return'DEF';if(/mid|dm|cm|am|wing/.test(x))return'MID';if(/st|cf|fw|forward|striker/.test(x))return'FWD';return['GK','DEF','DEF','DEF','DEF','MID','MID','MID','FWD','FWD','FWD'][i]}
- function coords(p,i){const g={GK:[[50,91]],DEF:[[18,72],[39,78],[61,78],[82,72]],MID:[[20,48],[40,58],[60,58],[80,48]],FWD:[[25,24],[50,18],[75,24]]};return(g[p]||g.MID)[i]||(g[p]||g.MID)[(g[p]||g.MID).length-1]}
- function side(m,side){const tid=side==='home'?m.home_team_id:m.away_team_id,t=teamById(tid),ids=readMatchLineups(m)[side]||[],ps=ids.map(playerById).filter(Boolean).slice(0,11),bench=players.filter(p=>String(p.team_id)===String(tid)&&!ids.map(String).includes(String(p.id))).sort((a,b)=>Number(b.overall||0)-Number(a.overall||0)).slice(0,7);const used={GK:0,DEF:0,MID:0,FWD:0};const marks=ps.map((p,i)=>{const q=pos(p,i),[x,y]=coords(q,used[q]++);return `<div class="vl-player ${side==='away'?'away':''}" style="left:${x}%;top:${y}%"><div class="vl-dot">${esc(p.shirt_number??'')}</div><div class="vl-name">${esc(p.short_name||p.name)}</div><div class="vl-pos">${q}</div></div>`}).join('');return `<div class="visual-lineup-side"><div class="vl-head"><strong>${esc(t?.name||teamDisplayName(m,side))}</strong><span>Starting XI • ${ps.length}</span></div>${ps.length?`<div class="vl-pitch"><div class="vl-half"></div>${marks}</div>`:'<div class="mc-empty">No starting XI available yet.</div>'}<div class="vl-bench"><div class="vl-bench-title">Squad / substitutes</div><div class="vl-bench-list">${bench.length?bench.map(p=>`<span class="vl-bench-player">${esc(p.short_name||p.name)}</span>`).join(''):'<span class="vl-bench-player">No additional players</span>'}</div></div></div>`}
- function lineups(m){return `<div class="card mc-panel"><div class="mc-panel-title"><div><div class="eyebrow">Team sheets</div><h3>Starting lineups</h3><p class="muted">Visual XI generated from the saved lineup and player positions.</p></div><span>11 players per side</span></div><div class="visual-lineup">${side(m,'home')}${side(m,'away')}</div></div>`}
- function table(m){const rows=buildLeagueTable(predMatches(m));return `<div class="card mc-table-panel"><div class="mc-panel-title"><div><div class="eyebrow">Competition table</div><h3>${esc(competitionNameForMatch(m))}</h3><div class="mc-table-note">Completed matches in this competition only.</div></div><span class="pill">${rows.length} teams</span></div>${rows.length?`<div class="standings-wrap"><table class="standings"><thead><tr><th>#</th><th>Team</th><th>PL</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>PTS</th></tr></thead><tbody>${rows.map((r,i)=>`<tr class="${String(r.id)===String(m.home_team_id)||String(r.id)===String(m.away_team_id)?'leader':''}"><td class="pos">${i+1}</td><td class="team-cell">${esc(r.name)}</td><td>${r.p}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td><td>${r.gf}</td><td>${r.ga}</td><td>${r.gd>0?'+':''}${r.gd}</td><td class="pts">${r.pts}</td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">No completed matches are available for this competition.</div>'}</div>`}
- const rr=window.renderMatch;window.renderMatch=function(){rr();const m=matches.find(x=>String(x.id)===String(selectedMatchId)),el=document.getElementById('match-page');if(!m||!el)return;const tabs=el.querySelector('.mc-tabs');if(tabs&&!el.querySelector('[data-mctab="table"]')){const b=document.createElement('button');b.className='mc-tab';b.dataset.mctab='table';b.textContent='Table';b.onclick=()=>switchMatchTab('table');tabs.appendChild(b)}if(!el.querySelector('#mc-table')){const d=document.createElement('div');d.id='mc-table';d.className='mc-tab-panel';d.innerHTML=table(m);el.appendChild(d)}const l=el.querySelector('#mc-lineups');if(l)l.innerHTML=lineups(m);const mi=el.querySelector('#match-intelligence');if(mi){const cards=mi.querySelectorAll('.mi-panel');if(cards.length)cards[cards.length-1].outerHTML=predictor(m)}};
-})();
-</script>
-
-<script>
-/* MEFCO Watch V14 — performance-only patch
-   No UI, data model, match logic, or feature changes. This only coalesces
-   repeated renders so realtime/database updates cannot block button clicks. */
-(function(){
-  const __mefcoOriginalRenderAll=renderAll;
-  let __renderPending=false;
-  let __renderTimer=0;
-  let __lastRender=0;
-  const __MIN_RENDER_GAP=80;
-
-  function __runRender(){
-    __renderPending=false;
-    __renderTimer=0;
-    const now=performance.now();
-    const wait=Math.max(0,__MIN_RENDER_GAP-(now-__lastRender));
-    if(wait>0){
-      __renderPending=true;
-      __renderTimer=setTimeout(__runRender,wait);
-      return;
-    }
-    __lastRender=performance.now();
-    try{__mefcoOriginalRenderAll()}catch(e){console.error('MEFCO render:',e)}
-  }
-
-  renderAll=function(){
-    if(__renderPending)return;
-    __renderPending=true;
-    if(typeof requestIdleCallback==='function'){
-      requestIdleCallback(__runRender,{timeout:120});
-    }else{
-      requestAnimationFrame(__runRender);
-    }
-  };
-
-  /* Prevent rapid repeated refresh clicks from launching overlapping database loads. */
-  const __originalRefreshData=refreshData;
-  let __refreshBusy=false;
-  refreshData=async function(){
-    if(__refreshBusy){showToast('Refresh already in progress…');return}
-    __refreshBusy=true;
-    try{await __originalRefreshData()}finally{__refreshBusy=false}
-  };
-
-  /* News search: do not rebuild the entire newsroom on every keystroke. */
-  let __newsSearchTimer=0;
-  const __originalRenderNewsV3=typeof renderNewsV3==='function'?renderNewsV3:null;
-  if(__originalRenderNewsV3){
-    renderNewsV3=function(){
-      __originalRenderNewsV3();
-      const input=document.getElementById('newsSearch');
-      if(input&&!input.dataset.perfBound){
-        input.dataset.perfBound='1';
-        input.oninput=function(){
-          clearTimeout(__newsSearchTimer);
-          const value=this.value;
-          __newsSearchTimer=setTimeout(()=>{
-            window.newsQuery=value;
-            __originalRenderNewsV3();
-          },120);
-        };
-      }
-    };
-  }
-
-  /* Avoid repeatedly doing the same expensive lineup background pass. */
-  let __lineupPassRunning=false;
-  const __originalEnsureLineups=typeof ensureAutomaticLineups==='function'?ensureAutomaticLineups:null;
-  if(__originalEnsureLineups){
-    ensureAutomaticLineups=async function(){
-      if(__lineupPassRunning)return;
-      __lineupPassRunning=true;
-      try{return await __originalEnsureLineups()}
-      finally{__lineupPassRunning=false}
-    };
-  }
-
-  /* Batch rapid realtime INSERT/UPDATE bursts into one UI render. */
-  let __realtimeTimer=0;
-  const __originalScheduleRender=typeof scheduleRender==='function'?scheduleRender:null;
-  if(__originalScheduleRender){
-    scheduleRender=function(){
-      clearTimeout(__realtimeTimer);
-      __realtimeTimer=setTimeout(()=>__originalScheduleRender(),50);
-    };
-  }
-})();
-</script>
-
-<script>
-/* V15: keep image decoding and DOM work cheap on phones/tablets. */
-(function(){
-  const markImages=()=>{
-    document.querySelectorAll('img:not([data-mefco-img])').forEach(img=>{
-      img.dataset.mefcoImg='1';
-      if(!img.loading)img.loading='lazy';
-      if(!img.decoding)img.decoding='async';
-    });
-  };
-  const run=()=>{try{markImages()}catch(e){console.warn('MEFCO image optimization:',e)}};
-  if('requestIdleCallback' in window)requestIdleCallback(run,{timeout:700});else setTimeout(run,120);
-  if('MutationObserver' in window){
-    let queued=false;
-    const obs=new MutationObserver(()=>{
-      if(queued)return; queued=true;
-      const flush=()=>{queued=false;run()};
-      if('requestIdleCallback' in window)requestIdleCallback(flush,{timeout:500});else setTimeout(flush,80);
-    });
-    obs.observe(document.body,{childList:true,subtree:true});
-  }
-})();
-</script>
 </body>
 </html>
