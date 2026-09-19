@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width,initial-scale=1.0" name="viewport"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>MEFCO Watch</title>
 <style>
 :root{
@@ -57,49 +56,52 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:10
 @media(max-width:600px){.stat-kpi-grid{grid-template-columns:1fr}.stats-filters .select{width:100%}}
 
 /* V11 responsive/loading/performance polish */
-html,body{min-width:320px;overflow-x:hidden}body{-webkit-text-size-adjust:100%;text-rendering:optimizeLegibility}.topbar-inner{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}.main{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}.nav{scrollbar-width:none}.nav::-webkit-scrollbar{display:none}.btn,.nav button,.ghost{min-height:38px}.input,.select,textarea{min-height:42px}.card{overflow:hidden}.match-card,.news-card,.leaderboard-card,.profile-panel{contain:layout paint}.boot-card{width:min(92vw,380px);padding:28px;text-align:center;border:1px solid var(--line);border-radius:18px;background:#0e181d;box-shadow:var(--shadow)}.boot-mark{font-weight:950;font-size:25px;letter-spacing:-.05em}.boot-mark span{color:var(--accent)}.boot-spinner{width:28px;height:28px;margin:20px auto 12px;border:3px solid #223038;border-top-color:var(--accent);border-radius:50%;animation:mefcoSpin .8s linear infinite}.boot-card small{display:block;color:var(--muted);margin-top:5px}@keyframes mefcoSpin{to{transform:rotate(360deg)}}.loading-skeleton{min-height:140px;background:linear-gradient(90deg,#0e181d,#15242b,#0e181d);background-size:200% 100%;animation:mefcoShimmer 1.4s infinite}@keyframes mefcoShimmer{to{background-position:-200% 0}}.mi-panel{padding:18px;margin-top:14px}.mi-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.mi-muted{color:var(--muted);padding:14px 0}.predict-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px}.predict-grid>div{padding:15px;border:1px solid var(--line);border-radius:12px;text-align:center;background:#0b151a}.predict-grid strong{display:block;font-size:25px}.predict-grid span{font-size:11px;color:var(--muted)}.predict-bar{display:flex;height:10px;border-radius:99px;overflow:hidden;background:#17242a;margin:14px 0}.predict-bar i{display:block}.predict-bar i:nth-child(1){background:var(--accent)}.predict-bar i:nth-child(2){background:var(--warn)}.predict-bar i:nth-child(3){background:var(--accent2)}.predict-detail{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:11px}.mi-legend{display:flex;gap:10px;color:var(--muted);font-size:11px}.momentum-chart{height:180px;display:grid;grid-template-columns:repeat(19,1fr);gap:4px;align-items:center;margin-top:12px;border-bottom:1px solid var(--line)}.momentum-col{height:100%;position:relative;display:flex;align-items:center;justify-content:center}.momentum-zero{position:absolute;left:0;right:0;top:50%;border-top:1px dashed #2b3c44}.momentum-fill{position:absolute;width:70%;border-radius:4px}.momentum-fill.home{bottom:50%;background:var(--accent)}.momentum-fill.away{top:50%;background:var(--accent2)}.momentum-col span{position:absolute;bottom:-20px;font-size:9px;color:var(--muted)}.momentum-scale{display:flex;justify-content:space-between;color:var(--muted);font-size:10px;margin-top:24px}.potm-mark{padding:5px 8px;border:1px solid var(--accent);border-radius:999px;color:var(--accent);font-weight:900;font-size:10px}.potm-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0}.potm-stats div{padding:11px;border:1px solid var(--line);border-radius:10px}.potm-stats strong{display:block;font-size:20px}.potm-stats span{font-size:10px;color:var(--muted)}.records-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.record-item{padding:15px;border:1px solid var(--line);border-radius:12px;background:#0b151a}.record-item span,.record-item b{display:block;color:var(--muted);font-size:11px}.record-item strong{display:block;margin:7px 0;font-size:15px}.milestones{margin-top:12px;padding:16px;border:1px solid var(--line);border-radius:14px}.milestone-row{width:100%;display:flex;justify-content:space-between;text-align:left;background:transparent;color:var(--text);border:0;border-bottom:1px solid var(--line);padding:11px 0}.milestone-row:last-child{border-bottom:0}.rating-chip{display:inline-flex;align-items:center;justify-content:center;min-width:38px;padding:4px 7px;border-radius:999px;border:1px solid var(--line);font-weight:900;font-size:11px}.rating-high{color:var(--accent);border-color:#285c4d}.rating-mid{color:var(--warn)}.rating-low{color:var(--danger)}.health-issue{padding:9px 11px;border-left:3px solid var(--warn);background:#17140b;margin-top:6px;border-radius:6px;font-size:12px}
+html,body{min-width:320px;overflow-x:hidden}body{-webkit-text-size-adjust:100%;text-rendering:optimizeLegibility}.topbar-inner{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}.main{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}.nav{scrollbar-width:none}.nav::-webkit-scrollbar{display:none}.btn,.nav button,.ghost{min-height:38px}.input,.select,textarea{min-height:42px}.card{overflow:hidden}.match-card,.news-card,.leaderboard-card,.profile-panel{contain:layout paint}.loading-skeleton{min-height:140px;background:linear-gradient(90deg,#0e181d,#15242b,#0e181d);background-size:200% 100%;animation:mefcoShimmer 1.4s infinite}@keyframes mefcoShimmer{to{background-position:-200% 0}}.mi-panel{padding:18px;margin-top:14px}.mi-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.mi-muted{color:var(--muted);padding:14px 0}.predict-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px}.predict-grid>div{padding:15px;border:1px solid var(--line);border-radius:12px;text-align:center;background:#0b151a}.predict-grid strong{display:block;font-size:25px}.predict-grid span{font-size:11px;color:var(--muted)}.predict-bar{display:flex;height:10px;border-radius:99px;overflow:hidden;background:#17242a;margin:14px 0}.predict-bar i{display:block}.predict-bar i:nth-child(1){background:var(--accent)}.predict-bar i:nth-child(2){background:var(--warn)}.predict-bar i:nth-child(3){background:var(--accent2)}.predict-detail{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:11px}.mi-legend{display:flex;gap:10px;color:var(--muted);font-size:11px}.momentum-chart{height:180px;display:grid;grid-template-columns:repeat(19,1fr);gap:4px;align-items:center;margin-top:12px;border-bottom:1px solid var(--line)}.momentum-col{height:100%;position:relative;display:flex;align-items:center;justify-content:center}.momentum-zero{position:absolute;left:0;right:0;top:50%;border-top:1px dashed #2b3c44}.momentum-fill{position:absolute;width:70%;border-radius:4px}.momentum-fill.home{bottom:50%;background:var(--accent)}.momentum-fill.away{top:50%;background:var(--accent2)}.momentum-col span{position:absolute;bottom:-20px;font-size:9px;color:var(--muted)}.momentum-scale{display:flex;justify-content:space-between;color:var(--muted);font-size:10px;margin-top:24px}.potm-mark{padding:5px 8px;border:1px solid var(--accent);border-radius:999px;color:var(--accent);font-weight:900;font-size:10px}.potm-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0}.potm-stats div{padding:11px;border:1px solid var(--line);border-radius:10px}.potm-stats strong{display:block;font-size:20px}.potm-stats span{font-size:10px;color:var(--muted)}.records-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.record-item{padding:15px;border:1px solid var(--line);border-radius:12px;background:#0b151a}.record-item span,.record-item b{display:block;color:var(--muted);font-size:11px}.record-item strong{display:block;margin:7px 0;font-size:15px}.milestones{margin-top:12px;padding:16px;border:1px solid var(--line);border-radius:14px}.milestone-row{width:100%;display:flex;justify-content:space-between;text-align:left;background:transparent;color:var(--text);border:0;border-bottom:1px solid var(--line);padding:11px 0}.milestone-row:last-child{border-bottom:0}.rating-chip{display:inline-flex;align-items:center;justify-content:center;min-width:38px;padding:4px 7px;border-radius:999px;border:1px solid var(--line);font-weight:900;font-size:11px}.rating-high{color:var(--accent);border-color:#285c4d}.rating-mid{color:var(--warn)}.rating-low{color:var(--danger)}.health-issue{padding:9px 11px;border-left:3px solid var(--warn);background:#17140b;margin-top:6px;border-radius:6px;font-size:12px}
 @media(max-width:1100px){.hero{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.admin-shell{grid-template-columns:280px 1fr}.records-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:760px){.topbar-inner{align-items:flex-start;flex-wrap:wrap;gap:8px}.brand{width:auto}.nav{order:3;flex-basis:100%;width:100%;padding-bottom:2px}.nav button{white-space:nowrap}.notificationButton{margin-left:auto}.grid,.grid.two,.mc-columns,.mc-lineups,.team-profile-grid,.profile-two{grid-template-columns:1fr}.date-nav{margin-left:0;width:100%;justify-content:space-between}.date-control{flex:1}.date-control .input{min-width:0}.mc-scoreboard{padding:24px 0;gap:6px}.mc-team img{width:54px;height:54px}.mc-team-name{font-size:15px}.mc-big-score{font-size:38px}.mc-meta{flex-wrap:wrap}.mc-tabs{overflow:auto}.mc-tab{white-space:nowrap}.admin-shell{grid-template-columns:1fr}.admin-list-v2{position:static}.admin-match-list{max-height:42vh}.form-grid,.form-grid.three{grid-template-columns:1fr}.profile-hero-main{align-items:flex-start;flex-wrap:wrap}.profile-actions{margin-left:0}.profile-stat-grid,.mini-grid,.kpis{grid-template-columns:repeat(2,1fr)}.news-feature{grid-template-columns:1fr}.news-feature-image{min-height:180px}.article h1{font-size:32px}.predict-grid,.records-grid{grid-template-columns:1fr}.predict-detail{flex-direction:column}.momentum-chart{height:145px}.potm-stats{grid-template-columns:repeat(2,1fr)}.mc-event{grid-template-columns:34px 25px 1fr}.mc-event-team{display:none}.standings{min-width:650px}.toolbar{align-items:stretch}.toolbar>.btn{flex:0 0 auto}}
 @media(max-width:430px){body{font-size:13px}.main{padding-top:16px}.hero-main{padding:24px}.hero h1{font-size:36px}.section{margin-top:22px}.profile-stat-grid,.mini-grid,.kpis{grid-template-columns:1fr 1fr}.mc-scoreboard{grid-template-columns:1fr 90px 1fr}.mc-big-score{font-size:32px}.mc-team-name{font-size:13px}.topbar-inner{padding-top:9px}.ticker{font-size:10px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
-@media(prefers-contrast:more){.card,.input,.select,.btn{border-width:2px}}.boot-shell{width:min(88vw,430px);padding:30px 0;text-align:center}.boot-brand{font-weight:950;font-size:30px;letter-spacing:-.06em}.boot-brand span{color:var(--accent)}.boot-rule{height:2px;width:min(300px,72vw);margin:28px auto 16px;background:#1b2a31;border-radius:99px;overflow:hidden}.boot-rule i{display:block;height:100%;width:18%;background:var(--accent);border-radius:99px;animation:bootProgress 1.25s ease-in-out infinite}.boot-status{font-size:14px;font-weight:800}.boot-detail{margin-top:5px;color:var(--muted);font-size:12px}.boot-retry{margin-top:16px}@keyframes bootProgress{0%{transform:translateX(-130%);width:18%}50%{width:42%}100%{transform:translateX(650%);width:18%}}
+@media(prefers-contrast:more){.card,.input,.select,.btn{border-width:2px}}
+50%{width:42%}100%{transform:translateX(650%);width:18%}}
 </style>
+
+
 </head>
 <body>
 
 <div class="app">
 <header class="topbar">
-<div class="topbar-inner">
-<div class="brand">MEFCO <span>WATCH</span></div>
-<nav class="nav" id="nav">
-<button class="active" data-page="home" onclick="showPage('home',this)">Home</button>
-<button data-page="scores" onclick="showPage('scores',this)">Scores</button>
-<button data-page="news" onclick="showPage('news',this)">News</button>
-<button data-page="competitions" onclick="showPage('competitions',this)">Competitions</button>
-<button data-page="stats" onclick="showPage('stats',this)">Stats</button>
-<button data-page="search" onclick="showPage('search',this)">Search</button>
-<button data-page="admin" onclick="showPage('admin',this)">Admin</button>
-</nav>
-<button class="btn small" id="notificationButton" onclick="enableNotifications()">Enable Notifications</button>
-</div>
+ <div class="topbar-inner">
+  <div class="brand">MEFCO <span>WATCH</span></div>
+  <nav id="nav" class="nav">
+   <button data-page="home" class="active" onclick="showPage('home',this)">Home</button>
+   <button data-page="scores" onclick="showPage('scores',this)">Scores</button>
+   <button data-page="news" onclick="showPage('news',this)">News</button>
+   <button data-page="competitions" onclick="showPage('competitions',this)">Competitions</button>
+   <button data-page="stats" onclick="showPage('stats',this)">Stats</button>
+   <button data-page="search" onclick="showPage('search',this)">Search</button>
+   <button data-page="admin" onclick="showPage('admin',this)">Admin</button>
+  </nav>
+  <button id="notificationButton" class="btn small" onclick="enableNotifications()">Enable Notifications</button>
+ </div>
 </header>
-<div class="ticker"><div class="ticker-track" id="tickerTrack">MEFCO Watch • Loading…</div></div>
+<div class="ticker"><div id="tickerTrack" class="ticker-track">MEFCO Watch • Loading…</div></div>
 <main class="main">
-<section class="page active" id="home"></section>
-<section class="page" id="scores"></section>
-<section class="page" id="news"></section>
-<section class="page" id="article-page"></section>
-<section class="page" id="competitions"></section>
-<section class="page" id="competition-page"></section>
-<section class="page" id="stats"></section>
-<section class="page" id="search"></section>
-<section class="page" id="team-page"></section>
-<section class="page" id="player-page"></section>
-<section class="page" id="match-page"></section>
-<section class="page" id="admin"></section>
+ <section id="home" class="page active"></section>
+ <section id="scores" class="page"></section>
+ <section id="news" class="page"></section>
+ <section id="article-page" class="page"></section>
+ <section id="competitions" class="page"></section>
+ <section id="competition-page" class="page"></section>
+ <section id="stats" class="page"></section>
+ <section id="search" class="page"></section>
+ <section id="team-page" class="page"></section>
+ <section id="player-page" class="page"></section>
+ <section id="match-page" class="page"></section>
+ <section id="admin" class="page"></section>
 </main>
 <footer class="footer">MEFCO WATCH • Football, live.</footer>
-<div class="toast" id="toast"></div>
+<div id="toast" class="toast"></div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -241,11 +243,11 @@ async function loadData(){
  const previousMatches=matches.map(m=>({...m,events:[...(m.events||[])]}));
 
  const jobs=await Promise.allSettled([
-  loadTable(MATCHES_URL,{select:"*",order:"match_date.asc,match_time.asc"}),
-  loadTable(NEWS_URL,{select:"*",order:"created_at.desc"}),
-  loadTable(TEAMS_URL,{select:"*",order:"name.asc"}),
-  loadTable(PLAYERS_URL,{select:"*",order:"name.asc"}),
-  loadTable(COMPETITIONS_URL,{select:"*"})
+  loadTable(MATCHES_URL,{select:"*",order:"match_date.asc,match_time.asc",limit:500}),
+  loadTable(NEWS_URL,{select:"*",order:"created_at.desc",limit:100}),
+  loadTable(TEAMS_URL,{select:"*",order:"name.asc",limit:200}),
+  loadTable(PLAYERS_URL,{select:"*",order:"name.asc",limit:2000}),
+  loadTable(COMPETITIONS_URL,{select:"*",limit:100})
  ]);
 
  /* Never replace known-good data with an accidental empty fallback response.
@@ -1516,11 +1518,10 @@ loadData=async function(){await _v9LoadDataBase();await v9ConsistencySweep();ren
 window.MEFCO_V11={version:'11.0'};
 (function(){
   const CACHE_KEY='mefco_watch_cache_v11';
-  let loadBusy=false, loadSeq=0;
-
-  /* Loading overlay removed: MEFCO renders immediately and can use cached/live data when available. */
-  function bootMessage(){}
+  let loadBusy=false, loadSeq=0, cacheWriteTimer=null;
+  /* Loading overlay removed: the shell is interactive immediately. */
   function hideBoot(){}
+  function bootMessage(){}
 
   /* Network timeout: prevents Safari/iOS/slow mobile connections from hanging forever. */
   const _fetch=window.fetch.bind(window);
@@ -1532,11 +1533,17 @@ window.MEFCO_V11={version:'11.0'};
   };
 
   /* Cross-device-safe local cache. Events are cached only for matches already loaded. */
-  function cacheData(){try{
+  function cacheDataNow(){try{
     const cachedEvents={};let count=0;
-    for(const [id,evs] of eventCache){if(count>=5000)break;const a=Array.isArray(evs)?evs.slice(0,5000-count):[];cachedEvents[id]=a;count+=a.length;}
-    localStorage.setItem(CACHE_KEY,JSON.stringify({savedAt:Date.now(),matches,news,teams,players,competitions,events:cachedEvents}));
+    for(const [id,evs] of eventCache){if(count>=3000)break;const a=Array.isArray(evs)?evs.slice(0,3000-count):[];cachedEvents[id]=a;count+=a.length;}
+    localStorage.setItem(CACHE_KEY,JSON.stringify({savedAt:Date.now(),matches,news:news.slice(0,100),teams,players,competitions,events:cachedEvents}));
   }catch{}}
+  function cacheData(){
+    if(cacheWriteTimer)return;
+    const run=()=>{cacheWriteTimer=null;cacheDataNow()};
+    if('requestIdleCallback' in window)cacheWriteTimer=requestIdleCallback(run,{timeout:1500});
+    else cacheWriteTimer=setTimeout(run,300);
+  }
   function restoreCache(){try{
     const x=JSON.parse(localStorage.getItem(CACHE_KEY)||'null');if(!x||Date.now()-Number(x.savedAt)>1000*60*60*24*7)return false;
     if(Array.isArray(x.matches)&&!matches.length)matches=x.matches;if(Array.isArray(x.news)&&!news.length)news=x.news;if(Array.isArray(x.teams)&&!teams.length)teams=x.teams;if(Array.isArray(x.players)&&!players.length)players=x.players;if(Array.isArray(x.competitions)&&!competitions.length)competitions=x.competitions;
@@ -1554,9 +1561,11 @@ window.MEFCO_V11={version:'11.0'};
     try{
       if(!matches.length)restoreCache();
       if(matches.length||teams.length) { try{renderAll()}catch{} }
+      bootMessage(dbOnline?'Updating MEFCO data…':'Connecting to MEFCO…');
       const result=await _baseLoad();
       if(seq!==loadSeq)return false;
       cacheData();
+      hideBoot();
       window.dispatchEvent(new Event('mefco:data-ready'));
       /* Generate missing lineups after the first usable render, never during it. */
       if(!window._mefcoLineupsQueued){
@@ -1567,7 +1576,7 @@ window.MEFCO_V11={version:'11.0'};
     }catch(e){
       console.error('MEFCO V11 load:',e);
       const had=restoreCache();
-      if(had){dbOnline=false;try{renderAll()}catch{};window.dispatchEvent(new Event('mefco:data-ready'));showToast('Showing saved data — database connection is unavailable')}else{window.dispatchEvent(new Event('mefco:data-ready'));showToast('MEFCO database connection failed')}
+      if(had){dbOnline=false;try{renderAll()}catch{};hideBoot();window.dispatchEvent(new Event('mefco:data-ready'));showToast('Showing saved data — database connection is unavailable')}else{bootMessage('MEFCO could not connect to the database.',true);window.dispatchEvent(new Event('mefco:data-ready'));showToast('MEFCO database connection failed')}
       return false;
     }finally{loadBusy=false}
   };
@@ -1652,6 +1661,7 @@ window.MEFCO_V11={version:'11.0'};
  const rr=window.renderMatch;window.renderMatch=function(){rr();const m=matches.find(x=>String(x.id)===String(selectedMatchId)),el=document.getElementById('match-page');if(!m||!el)return;const tabs=el.querySelector('.mc-tabs');if(tabs&&!el.querySelector('[data-mctab="table"]')){const b=document.createElement('button');b.className='mc-tab';b.dataset.mctab='table';b.textContent='Table';b.onclick=()=>switchMatchTab('table');tabs.appendChild(b)}if(!el.querySelector('#mc-table')){const d=document.createElement('div');d.id='mc-table';d.className='mc-tab-panel';d.innerHTML=table(m);el.appendChild(d)}const l=el.querySelector('#mc-lineups');if(l)l.innerHTML=lineups(m);const mi=el.querySelector('#match-intelligence');if(mi){const cards=mi.querySelectorAll('.mi-panel');if(cards.length)cards[cards.length-1].outerHTML=predictor(m)}};
 })();
 </script>
+
 <script>
 /* MEFCO Watch V14 — performance-only patch
    No UI, data model, match logic, or feature changes. This only coalesces
