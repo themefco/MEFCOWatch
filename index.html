@@ -54,21 +54,11 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:10
 .stats-dashboard{display:grid;gap:16px}.stats-hero{padding:22px}.stats-filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.stats-filters .select{min-width:180px;width:auto}.stat-kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.stat-kpi-grid .kpi{padding:16px}.leaderboard-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.leaderboard-card{padding:16px}.leaderboard-card .rank-row{display:grid;grid-template-columns:28px 1fr auto;gap:8px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}.leaderboard-card .rank-row:last-child{border-bottom:0}.rank-row button{text-align:left}.rank-num{color:var(--muted);font-weight:800}.profile-actions{flex-wrap:wrap}.profile-link{color:var(--accent);text-decoration:none}.team-profile-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}.squad-player{display:flex;align-items:center;gap:9px}.squad-player img{width:34px;height:34px;object-fit:cover;border-radius:50%;background:#17242a}.match-report-card{padding:18px}.report-badge{display:inline-flex;padding:4px 8px;border:1px solid var(--line);border-radius:999px;color:var(--accent);font-size:10px;text-transform:uppercase;font-weight:900;letter-spacing:.08em}.auto-lineup-note{font-size:11px;color:var(--muted);margin-top:8px}.news-card.ai-report{border-color:#285c4d}.news-card.ai-report .news-category{color:var(--accent)}
 @media(max-width:1000px){.leaderboard-grid,.team-profile-grid{grid-template-columns:1fr}.stat-kpi-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.stat-kpi-grid{grid-template-columns:1fr}.stats-filters .select{width:100%}}
-
-/* V11 responsive/loading/performance polish */
-html,body{min-width:320px;overflow-x:hidden}body{-webkit-text-size-adjust:100%;text-rendering:optimizeLegibility}.topbar-inner{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}.main{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}.nav{scrollbar-width:none}.nav::-webkit-scrollbar{display:none}.btn,.nav button,.ghost{min-height:38px}.input,.select,textarea{min-height:42px}.card{overflow:hidden}.match-card,.news-card,.leaderboard-card,.profile-panel{contain:layout paint}.loading-skeleton{min-height:140px;background:linear-gradient(90deg,#0e181d,#15242b,#0e181d);background-size:200% 100%;animation:mefcoShimmer 1.4s infinite}@keyframes mefcoShimmer{to{background-position:-200% 0}}.mi-panel{padding:18px;margin-top:14px}.mi-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.mi-muted{color:var(--muted);padding:14px 0}.predict-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px}.predict-grid>div{padding:15px;border:1px solid var(--line);border-radius:12px;text-align:center;background:#0b151a}.predict-grid strong{display:block;font-size:25px}.predict-grid span{font-size:11px;color:var(--muted)}.predict-bar{display:flex;height:10px;border-radius:99px;overflow:hidden;background:#17242a;margin:14px 0}.predict-bar i{display:block}.predict-bar i:nth-child(1){background:var(--accent)}.predict-bar i:nth-child(2){background:var(--warn)}.predict-bar i:nth-child(3){background:var(--accent2)}.predict-detail{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:11px}.mi-legend{display:flex;gap:10px;color:var(--muted);font-size:11px}.momentum-chart{height:180px;display:grid;grid-template-columns:repeat(19,1fr);gap:4px;align-items:center;margin-top:12px;border-bottom:1px solid var(--line)}.momentum-col{height:100%;position:relative;display:flex;align-items:center;justify-content:center}.momentum-zero{position:absolute;left:0;right:0;top:50%;border-top:1px dashed #2b3c44}.momentum-fill{position:absolute;width:70%;border-radius:4px}.momentum-fill.home{bottom:50%;background:var(--accent)}.momentum-fill.away{top:50%;background:var(--accent2)}.momentum-col span{position:absolute;bottom:-20px;font-size:9px;color:var(--muted)}.momentum-scale{display:flex;justify-content:space-between;color:var(--muted);font-size:10px;margin-top:24px}.potm-mark{padding:5px 8px;border:1px solid var(--accent);border-radius:999px;color:var(--accent);font-weight:900;font-size:10px}.potm-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0}.potm-stats div{padding:11px;border:1px solid var(--line);border-radius:10px}.potm-stats strong{display:block;font-size:20px}.potm-stats span{font-size:10px;color:var(--muted)}.records-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.record-item{padding:15px;border:1px solid var(--line);border-radius:12px;background:#0b151a}.record-item span,.record-item b{display:block;color:var(--muted);font-size:11px}.record-item strong{display:block;margin:7px 0;font-size:15px}.milestones{margin-top:12px;padding:16px;border:1px solid var(--line);border-radius:14px}.milestone-row{width:100%;display:flex;justify-content:space-between;text-align:left;background:transparent;color:var(--text);border:0;border-bottom:1px solid var(--line);padding:11px 0}.milestone-row:last-child{border-bottom:0}.rating-chip{display:inline-flex;align-items:center;justify-content:center;min-width:38px;padding:4px 7px;border-radius:999px;border:1px solid var(--line);font-weight:900;font-size:11px}.rating-high{color:var(--accent);border-color:#285c4d}.rating-mid{color:var(--warn)}.rating-low{color:var(--danger)}.health-issue{padding:9px 11px;border-left:3px solid var(--warn);background:#17140b;margin-top:6px;border-radius:6px;font-size:12px}
-@media(max-width:1100px){.hero{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.admin-shell{grid-template-columns:280px 1fr}.records-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:760px){.topbar-inner{align-items:flex-start;flex-wrap:wrap;gap:8px}.brand{width:auto}.nav{order:3;flex-basis:100%;width:100%;padding-bottom:2px}.nav button{white-space:nowrap}.notificationButton{margin-left:auto}.grid,.grid.two,.mc-columns,.mc-lineups,.team-profile-grid,.profile-two{grid-template-columns:1fr}.date-nav{margin-left:0;width:100%;justify-content:space-between}.date-control{flex:1}.date-control .input{min-width:0}.mc-scoreboard{padding:24px 0;gap:6px}.mc-team img{width:54px;height:54px}.mc-team-name{font-size:15px}.mc-big-score{font-size:38px}.mc-meta{flex-wrap:wrap}.mc-tabs{overflow:auto}.mc-tab{white-space:nowrap}.admin-shell{grid-template-columns:1fr}.admin-list-v2{position:static}.admin-match-list{max-height:42vh}.form-grid,.form-grid.three{grid-template-columns:1fr}.profile-hero-main{align-items:flex-start;flex-wrap:wrap}.profile-actions{margin-left:0}.profile-stat-grid,.mini-grid,.kpis{grid-template-columns:repeat(2,1fr)}.news-feature{grid-template-columns:1fr}.news-feature-image{min-height:180px}.article h1{font-size:32px}.predict-grid,.records-grid{grid-template-columns:1fr}.predict-detail{flex-direction:column}.momentum-chart{height:145px}.potm-stats{grid-template-columns:repeat(2,1fr)}.mc-event{grid-template-columns:34px 25px 1fr}.mc-event-team{display:none}.standings{min-width:650px}.toolbar{align-items:stretch}.toolbar>.btn{flex:0 0 auto}}
-@media(max-width:430px){body{font-size:13px}.main{padding-top:16px}.hero-main{padding:24px}.hero h1{font-size:36px}.section{margin-top:22px}.profile-stat-grid,.mini-grid,.kpis{grid-template-columns:1fr 1fr}.mc-scoreboard{grid-template-columns:1fr 90px 1fr}.mc-big-score{font-size:32px}.mc-team-name{font-size:13px}.topbar-inner{padding-top:9px}.ticker{font-size:10px}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
-@media(prefers-contrast:more){.card,.input,.select,.btn{border-width:2px}}
-50%{width:42%}100%{transform:translateX(650%);width:18%}}
 </style>
 
 
 </head>
 <body>
-
 <div class="app">
 <header class="topbar">
  <div class="topbar-inner">
@@ -120,9 +110,6 @@ const ADMIN_MODE=new URLSearchParams(location.search).get("admin")==="1";
 let matches=[],news=[],teams=[],players=[],competitions=[];
 const pendingMatchWrites=new Map(),pendingStatusWrites=new Map();
 const verifiedScoreCache=new Map();
-/* Event data is loaded on demand to reduce Supabase traffic. */
-const eventCache=new Map(),eventLoading=new Map();
-let eventsLoadedAll=false;
 let selectedMatchId=null,selectedArticleId=null,selectedCompetition=null;
 let scoreFilter="all",scoreDate=todayISO(),adminLog=[],timer=null,refreshTimer=null,dbOnline=false;
 let adminFilter="all";
@@ -243,11 +230,11 @@ async function loadData(){
  const previousMatches=matches.map(m=>({...m,events:[...(m.events||[])]}));
 
  const jobs=await Promise.allSettled([
-  loadTable(MATCHES_URL,{select:"*",order:"match_date.asc,match_time.asc",limit:500}),
-  loadTable(NEWS_URL,{select:"*",order:"created_at.desc",limit:100}),
-  loadTable(TEAMS_URL,{select:"*",order:"name.asc",limit:200}),
-  loadTable(PLAYERS_URL,{select:"*",order:"name.asc",limit:2000}),
-  loadTable(COMPETITIONS_URL,{select:"*",limit:100})
+  loadTable(MATCHES_URL,{select:"*",order:"match_date.asc,match_time.asc"}),
+  loadTable(NEWS_URL,{select:"*",order:"created_at.desc"}),
+  loadTable(TEAMS_URL,{select:"*",order:"name.asc"}),
+  loadTable(PLAYERS_URL,{select:"*",order:"name.asc"}),
+  loadTable(COMPETITIONS_URL,{select:"*"})
  ]);
 
  /* Never replace known-good data with an accidental empty fallback response.
@@ -281,7 +268,6 @@ async function loadData(){
  players.sort((a,b)=>String(a.name||a.short_name||"").localeCompare(String(b.name||b.short_name||"")));
  competitions.sort((a,b)=>competitionName(a).localeCompare(competitionName(b)));
  news.sort((a,b)=>new Date(b.created_at||b.published_at||0)-new Date(a.created_at||a.published_at||0));
- eventsLoadedAll=false;for(const m of matches){const ev=eventCache.get(String(m.id));if(ev)m.events=ev.slice();}
  dbOnline=jobs[0].status==="fulfilled"&&jobs[2].status==="fulfilled";
 
  /* Never destroy an active lineup draft during refresh. */
@@ -289,6 +275,7 @@ async function loadData(){
   const fresh=matches.find(x=>String(x.id)===String(lineupDraft.matchId));
   if(!fresh)resetLineupDraft(null);
  }
+ await loadAllEvents();
  notifyFavoriteChanges(previousMatches);
  renderAll();
 }
@@ -318,31 +305,24 @@ function showPage(id,button=null){
  const p=document.getElementById(id);if(p)p.classList.add("active");
  document.querySelectorAll("#nav button").forEach(b=>b.classList.remove("active"));
  if(button)button.classList.add("active");
- window.scrollTo({top:0,behavior:"auto"});
+ window.scrollTo({top:0,behavior:"smooth"});
  const fn={home:renderHome,scores:renderScores,news:renderNews,competitions:renderCompetitions,stats:renderStats,search:renderSearch,admin:renderAdmin}[id];
  if(fn)fn();
- if(id==='match-page'&&selectedMatchId)renderMatch();
 }
 function navFor(page){const b=document.querySelector('#nav button[data-page="'+page+'"]');showPage(page,b)}
 
-let renderQueued=false,rendering=false;
-function activePageId(){return document.querySelector('.page.active')?.id||'home'}
-function renderCurrentPage(){
- const id=activePageId();
- const fn={home:renderHome,scores:renderScores,news:renderNews,competitions:renderCompetitions,stats:renderStats,search:renderSearch,admin:renderAdmin}[id];
- if(fn)fn();
- if(selectedMatchId&&id==='match-page')renderMatch();
- renderTicker();
-}
 function renderAll(){
- if(rendering)return;
- rendering=true;
- try{renderCurrentPage()}finally{rendering=false}
-}
-function scheduleRender(){
- if(renderQueued)return;
- renderQueued=true;
- requestAnimationFrame(()=>{renderQueued=false;renderAll()});
+ renderHome();renderScores();renderNews();renderCompetitions();renderStats();renderSearch();
+ /* Critical V2 behavior: a dirty lineup editor must not be rebuilt by refresh/event/score updates. */
+ if(ADMIN_MODE&&lineupDraft.dirty&&String(lineupDraft.matchId)===String(selectedMatchId)&&document.getElementById("adminPanel")){
+  renderAdminMatchList();
+  updateLineupDraftIndicator();
+ }else{
+  renderAdmin();
+ }
+ renderTicker();
+ if(selectedMatchId)renderMatch();
+ bindV10Controls();
 }
 function renderTicker(){
  const live=matches.filter(isLive),finished=matches.filter(isFinished).slice(-4);
@@ -369,7 +349,7 @@ function matchCard(m){
   <div class="match-top"><span class="competition-label">${esc(competitionNameForMatch(m))}</span><div class="actions"><span class="status">${live?'● LIVE':isFinished(m)?"FT":fmtTime(matchTime(m))}</span>${favoriteButton(m)}</div></div>
   <div class="teams">
    <div class="team">${ht&&teamFlag(ht)?`<img src="${esc(teamFlag(ht))}" alt="">`:""}<div>${esc(teamDisplayName(m,"home"))}</div></div>
-   <div><div class="score">${isFinished(m)||live?a+"–"+b:"VS"}</div>${live?`<div class="status">${Number(m.minute||0)}${m.stoppage?`+${m.stoppage}`:""}'</div>`:""}</div>
+   <div><div class="score">${isFinished(m)||live?a+"–"+b:"VS"}</div>${live?`<div class="status live-minute-display">${liveDisplayMinute(m)}</div>`:""}</div>
    <div class="team">${at&&teamFlag(at)?`<img src="${esc(teamFlag(at))}" alt="">`:""}<div>${esc(teamDisplayName(m,"away"))}</div></div>
   </div>
   <div class="match-bottom"><span class="muted">${fmtDate(matchDate(m),{month:"short",day:"numeric"})}${m.venue?" • "+esc(m.venue):""}</span>
@@ -459,8 +439,7 @@ function statTable(title,rows,field,label){
  const sorted=rows.slice().sort((a,b)=>(Number(b[field]||0)-Number(a[field]||0))||String(a.name||"").localeCompare(String(b.name||"")));
  return `<div class="card stat-leader-card"><div class="section-head"><div><div class="eyebrow">${esc(label)}</div><h3>${esc(title)}</h3></div><span class="muted">${sorted.filter(p=>Number(p[field]||0)>0).length} players</span></div><div class="table-wrap"><table class="table"><thead><tr><th>#</th><th>Player</th><th>Team</th><th>${esc(label)}</th></tr></thead><tbody>${sorted.filter(p=>Number(p[field]||0)>0).slice(0,50).map((p,i)=>`<tr><td>${i+1}</td><td><button class="ghost" onclick="openPlayer('${esc(p.id||p.name)}')">${esc(p.short_name||p.name)}</button></td><td>${esc(p.team)}</td><td><b>${Number(p[field]||0)}</b></td></tr>`).join("")||`<tr><td colspan="4">No ${esc(label.toLowerCase())} recorded yet.</td></tr>`}</tbody></table></div></div>`;
 }
-async function renderStats(){
- if(!eventsLoadedAll){const el=document.getElementById("stats");if(el)el.innerHTML='<div class="empty">Loading statistics…</div>';await loadAllEvents();}
+function renderStats(){
  const ps=collectPlayerStats();
  const totalGoals=ps.reduce((n,p)=>n+Number(p.goals||0),0),totalAssists=ps.reduce((n,p)=>n+Number(p.assists||0),0),totalYellows=ps.reduce((n,p)=>n+Number(p.yellow_cards||0),0);
  document.getElementById("stats").innerHTML=`<div class="section-head"><div><div class="eyebrow">Statistics</div><h2>Player statistics</h2><p>Season totals from the MEFCO player database.</p></div><button class="btn" onclick="refreshData()">↻ Refresh</button></div><div class="kpis"><div class="kpi"><strong>${totalGoals}</strong><span>Goals</span></div><div class="kpi"><strong>${totalAssists}</strong><span>Assists</span></div><div class="kpi"><strong>${totalYellows}</strong><span>Yellow cards</span></div><div class="kpi"><strong>${ps.filter(p=>Number(p.goals||0)>0).length}</strong><span>Scoring players</span></div></div><div class="stats-grid section">${statTable("Top scorers",ps,"goals","Goals")}${statTable("Assist leaders",ps,"assists","Assists")}${statTable("Disciplinary",ps,"yellow_cards","Yellow cards")}</div>`;
@@ -484,12 +463,6 @@ async function openMatch(id){
  if(String(selectedMatchId)===normalized)renderMatch();
  return true;
 }
-document.addEventListener("click",ev=>{
- const btn=ev.target.closest?.(".match-centre-btn[data-match-id]");
- if(!btn)return;
- ev.preventDefault();ev.stopPropagation();
- openMatch(btn.getAttribute("data-match-id"));
-});
 function eventIcon(type){const t=eventType({type});return t==="goal"?"⚽":t==="assist"?"A":t==="yellow"?"Y":t==="red"?"R":t==="substitution"?"↕":t==="var"?"V":"•"}
 function matchLineup(m,side){return readMatchLineups(m)[side]}
 function lineupPlayers(m,side){return matchLineup(m,side).map(String).map(playerById).filter(Boolean)}
@@ -500,7 +473,7 @@ function renderMatch(){
  const m=matches.find(x=>String(x.id)===String(selectedMatchId)),el=document.getElementById("match-page");
  if(!m){el.innerHTML='<div class="empty">Match not found.</div>';return}
  const[a,b]=scoreOf(m),events=[...(m.events||[])].sort((x,y)=>(Number(x.minute||0)-Number(y.minute||0))||(Number(x.stoppage||0)-Number(y.stoppage||0))),ht=teamById(m.home_team_id),at=teamById(m.away_team_id),live=isLive(m),finished=isFinished(m);
- const status=live?`LIVE • ${liveDisplayMinute(m)}`:finished?"FULL TIME":String(m.status||"SCHEDULED").toUpperCase();
+ const status=live?`LIVE • ${Number(m.minute||0)}${m.stoppage?`+${m.stoppage}`:""}'`:finished?"FULL TIME":String(m.status||"SCHEDULED").toUpperCase();
  el.innerHTML=`<div class="match-centre-shell"><div class="match-centre-bar"><button class="ghost" onclick="navFor('scores')">← Scores</button><div class="actions">${favoriteButton(m)}${ADMIN_MODE?`<button class="btn" onclick="openMatchEditor('${esc(m.id)}')">Edit match</button>`:""}</div></div><div class="card mc-hero"><div class="mc-topline"><span>${esc(competitionNameForMatch(m))}</span><span>${esc(fmtDate(matchDate(m),{weekday:"long",month:"long",day:"numeric",year:"numeric"}))}</span></div><div class="mc-scoreboard"><div class="mc-team">${ht&&teamFlag(ht)?`<img src="${esc(teamFlag(ht))}" alt="">`:""}<div class="mc-team-name">${esc(teamDisplayName(m,"home"))}</div><div class="mc-team-side">Home</div></div><div><div class="mc-big-score">${finished||live?a+"–"+b:"VS"}</div><span class="mc-status ${live?"live":finished?"done":""}">${esc(status)}</span></div><div class="mc-team">${at&&teamFlag(at)?`<img src="${esc(teamFlag(at))}" alt="">`:""}<div class="mc-team-name">${esc(teamDisplayName(m,"away"))}</div><div class="mc-team-side">Away</div></div></div><div class="mc-meta"><div>Kickoff <strong>${esc(fmtTime(matchTime(m)))}</strong></div>${m.venue?`<div>• <strong>${esc(m.venue)}</strong></div>`:""}${m.city?`<div>• ${esc(m.city)}</div>`:""}</div></div><div class="mc-tabs"><button class="mc-tab active" data-mctab="overview" onclick="switchMatchTab('overview')">Overview</button><button class="mc-tab" data-mctab="events" onclick="switchMatchTab('events')">Events (${events.length})</button><button class="mc-tab" data-mctab="lineups" onclick="switchMatchTab('lineups')">Lineups</button></div><div id="mc-overview" class="mc-tab-panel active"><div class="mc-columns"><div class="card mc-panel"><div class="mc-panel-title"><div><div class="eyebrow">Match timeline</div><h3>Latest events</h3></div><span>${events.length} logged</span></div>${events.length?`<div class="mc-event-list">${events.slice().reverse().slice(0,8).map(matchEventRow).join("")}</div>`:'<div class="mc-empty">No match events have been recorded yet.</div>'}</div><div class="card mc-panel"><div class="mc-panel-title"><div><div class="eyebrow">Match facts</div><h3>At a glance</h3></div></div>${matchStatsSummary(events)}<div style="margin-top:12px" class="table-wrap"><table class="table"><tbody><tr><td>Competition</td><td>${esc(competitionNameForMatch(m))}</td></tr><tr><td>Kickoff</td><td>${esc(fmtTime(matchTime(m)))}</td></tr><tr><td>Venue</td><td>${esc(m.venue||"—")}</td></tr><tr><td>Status</td><td>${esc(m.status||"scheduled")}</td></tr></tbody></table></div></div></div></div><div id="mc-events" class="mc-tab-panel"><div class="card mc-panel"><div class="mc-panel-title"><div><div class="eyebrow">Events</div><h3>Full timeline</h3></div></div>${events.length?`<div class="mc-event-list">${events.slice().reverse().map(matchEventRow).join("")}</div>`:'<div class="mc-empty">No events have been recorded.</div>'}</div></div><div id="mc-lineups" class="mc-tab-panel"><div class="card mc-panel"><div class="mc-panel-title"><div><div class="eyebrow">Team sheets</div><h3>Starting lineups</h3></div><span>11 players per side</span></div><div class="mc-lineups">${renderLineupSide(m,"home")}${renderLineupSide(m,"away")}</div></div></div></div>`;
 }
 function switchMatchTab(tab){document.querySelectorAll(".mc-tab").forEach(b=>b.classList.toggle("active",b.dataset.mctab===tab));document.querySelectorAll(".mc-tab-panel").forEach(p=>p.classList.remove("active"));document.getElementById("mc-"+tab)?.classList.add("active")}
@@ -512,30 +485,16 @@ function renderAdmin(){
  if(!ADMIN_MODE){el.innerHTML='<div class="empty">Admin mode is not enabled. Open the site with <code>?admin=1</code>.</div>';return}
  el.innerHTML=`<div class="section-head"><div><div class="eyebrow">Admin</div><h2>Match control room</h2><p>Run live matches, publish events, build lineups and manage fixtures.</p></div><button class="btn" onclick="refreshData()">↻ Reload database</button></div><div class="admin-shell"><aside class="card admin-list-v2"><div class="admin-list-tools"><input id="adminMatchSearch" class="input admin-search" placeholder="Search teams or competition" oninput="renderAdminMatchList()"><button class="btn small" onclick="setAdminFilter('all')">All</button><button class="btn small" onclick="setAdminFilter('live')">Live</button><button class="btn small" onclick="setAdminFilter('scheduled')">Upcoming</button><button class="btn small" onclick="setAdminFilter('finished')">Finished</button></div><div id="adminMatchList" class="admin-match-list"></div><button class="btn primary" style="width:100%;margin-top:10px" onclick="showCreateMatch()">+ Create match</button></aside><section id="adminPanel" class="card admin-panel-v2"><div class="empty">Select a match to control it.</div></section></div>`;
  renderAdminMatchList();
- if(selectedMatchId&&matches.some(m=>String(m.id)===String(selectedMatchId)))renderAdminPanel();
- bindAdminMatchButtons();
+ if(selectedMatchId)renderAdminPanel();
 }
 function setAdminFilter(f){adminFilter=f;renderAdminMatchList()}
 function renderAdminMatchList(){
  const el=document.getElementById("adminMatchList");if(!el)return;
  const q=(document.getElementById("adminMatchSearch")?.value||"").toLowerCase().trim();
  const list=matches.filter(m=>{const text=(teamDisplayName(m,"home")+" "+teamDisplayName(m,"away")+" "+competitionNameForMatch(m)).toLowerCase();const f=adminFilter==="live"?isLive(m):adminFilter==="finished"?isFinished(m):adminFilter==="scheduled"?(!isLive(m)&&!isFinished(m)):true;return f&&(!q||text.includes(q))}).sort((a,b)=>matchDate(a).localeCompare(matchDate(b))||matchTime(a).localeCompare(matchTime(b)));
- el.innerHTML=list.length?list.map(m=>`<button class="admin-match-btn ${String(m.id)===String(selectedMatchId)?"selected":""}" data-admin-match-id="${esc(m.id)}"><div class="am-top"><strong>${esc(teamDisplayName(m,"home"))} ${scoreOf(m)[0]}–${scoreOf(m)[1]} ${esc(teamDisplayName(m,"away"))}</strong><span class="admin-status-dot ${adminStatusClass(m)}"></span></div><small>${esc(fmtDate(matchDate(m),{month:"short",day:"numeric"}))} • ${esc(fmtTime(matchTime(m)))} • ${esc(competitionNameForMatch(m))}</small></button>`).join(""):'<div class="mc-empty">No matches match this filter.</div>';
+ el.innerHTML=list.length?list.map(m=>`<button type="button" class="admin-match-btn ${String(m.id)===String(selectedMatchId)?"selected":""}" data-admin-match-id="${esc(m.id)}"><div class="am-top"><strong>${esc(teamDisplayName(m,"home"))} ${scoreOf(m)[0]}–${scoreOf(m)[1]} ${esc(teamDisplayName(m,"away"))}</strong><span class="admin-status-dot ${adminStatusClass(m)}"></span></div><small>${esc(fmtDate(matchDate(m),{month:"short",day:"numeric"}))} • ${esc(fmtTime(matchTime(m)))} • ${esc(competitionNameForMatch(m))}</small></button>`).join(""):'<div class="mc-empty">No matches match this filter.</div>';
+ bindV10Controls();
 }
-function bindAdminMatchButtons(){
- const list=document.getElementById("adminMatchList");
- if(!list)return;
- list.querySelectorAll(".admin-match-btn[data-admin-match-id]").forEach(btn=>{
-  if(btn.dataset.bound==="1")return;
-  btn.dataset.bound="1";
-  btn.addEventListener("click",function(ev){
-   ev.preventDefault();ev.stopPropagation();
-   const id=this.getAttribute("data-admin-match-id");
-   if(id)selectAdminMatch(id);
-  });
- });
-}
-
 function selectAdminMatch(id){
  const normalized=String(id??"");
  const m=matches.find(x=>String(x.id)===normalized);
@@ -545,11 +504,26 @@ function selectAdminMatch(id){
  resetLineupDraft(m);
  renderAdminMatchList();
  renderAdminPanel();
- requestAnimationFrame(()=>{
-  document.querySelectorAll(".admin-match-btn").forEach(b=>b.classList.toggle("selected",String(b.getAttribute("data-admin-match-id"))===normalized));
- });
+ requestAnimationFrame(()=>document.querySelectorAll(".admin-match-btn").forEach(b=>b.classList.toggle("selected",String(b.dataset.adminMatchId)===normalized)));
  return true;
 }
+function bindV10Controls(){
+ document.querySelectorAll(".admin-match-btn[data-admin-match-id]").forEach(btn=>{
+  if(btn.dataset.v10Bound==="1")return;
+  btn.dataset.v10Bound="1";
+  btn.addEventListener("click",ev=>{
+   ev.preventDefault();ev.stopPropagation();selectAdminMatch(btn.dataset.adminMatchId);
+  });
+ });
+ document.querySelectorAll(".match-centre-btn[data-match-id]").forEach(btn=>{
+  if(btn.dataset.v10Bound==="1")return;
+  btn.dataset.v10Bound="1";
+  btn.addEventListener("click",ev=>{
+   ev.preventDefault();ev.stopPropagation();openMatch(btn.dataset.matchId);
+  });
+ });
+}
+
 function adminLineupEditor(m,side){
  ensureLineupDraft(m);
  const teamId=side==="home"?m.home_team_id:m.away_team_id,t=teamById(teamId),selected=getDraftSide(m,side).map(String),ps=players.filter(p=>String(p.team_id)===String(teamId));
@@ -560,7 +534,7 @@ function renderAdminPanel(){
  ensureLineupDraft(m);
  const[a,b]=scoreOf(m),compList=getCompetitionList();
  el.innerHTML=`<div class="admin-v2-header"><div class="eyebrow">Live match editor</div><h2>${esc(teamDisplayName(m,"home"))} <span style="color:#68747b">vs</span> ${esc(teamDisplayName(m,"away"))}</h2><div class="admin-v2-sub"><span class="pill ${isLive(m)?"live":isFinished(m)?"done":""}">${esc(m.status||"scheduled")}</span><span class="pill">ID ${esc(m.id)}</span></div></div>
- <div class="admin-section-v2"><div class="section-head"><div><h3>Live score</h3><p>Change the score, minute and match state.</p></div></div><div class="admin-score-control"><div class="admin-score-box"><label>${esc(teamDisplayName(m,"home"))}<input id="admHomeScore" class="input" type="number" min="0" value="${a[0]}"></label></div><div class="admin-score-vs">VS</div><div class="admin-score-box"><label>${esc(teamDisplayName(m,"away"))}<input id="admAwayScore" class="input" type="number" min="0" value="${b}"></label></div></div><div class="form-grid three" style="margin-top:10px"><label>Minute<input id="admMinute" class="input" type="number" min="0" value="${live?liveMinute(m):(m.minute||0)}"></label><label>Stoppage<input id="admStoppage" class="input" type="number" min="0" value="${m.stoppage||0}"></label><div class="public-note">Status is controlled by Start, Half time and Finish. Saving the score will not change it.</div></div><div class="actions" style="margin-top:11px"><button type="button" class="btn primary" onclick="saveScoreOnly()">Save score</button><button type="button" class="btn" onclick="startSelected()">▶ Start</button><button type="button" class="btn" onclick="pauseSelected()">Ⅱ Half time</button><button type="button" class="btn danger" onclick="finishSelected()">■ Finish</button><button class="btn" onclick="openMatch('${esc(m.id)}')">View centre</button></div></div>
+ <div class="admin-section-v2"><div class="section-head"><div><h3>Live score</h3><p>Change the score, minute and match state.</p></div></div><div class="admin-score-control"><div class="admin-score-box"><label>${esc(teamDisplayName(m,"home"))}<input id="admHomeScore" class="input" type="number" min="0" value="${a[0]}"></label></div><div class="admin-score-vs">VS</div><div class="admin-score-box"><label>${esc(teamDisplayName(m,"away"))}<input id="admAwayScore" class="input" type="number" min="0" value="${b}"></label></div></div><div class="form-grid three" style="margin-top:10px"><label>Minute<input id="admMinute" class="input" type="number" min="0" value="${m.minute||0}"></label><label>Stoppage<input id="admStoppage" class="input" type="number" min="0" value="${m.stoppage||0}"></label><div class="public-note">Status is controlled by Start, Half time and Finish. Saving the score will not change it.</div></div><div class="actions" style="margin-top:11px"><button type="button" class="btn primary" onclick="saveScoreOnly()">Save score</button><button type="button" class="btn" onclick="startSelected()">▶ Start</button><button type="button" class="btn" onclick="pauseSelected()">Ⅱ Half time</button><button type="button" class="btn danger" onclick="finishSelected()">■ Finish</button><button class="btn" onclick="openMatch('${esc(m.id)}')">View centre</button></div></div>
  <div class="admin-section-v2"><div class="section-head"><div><h3>Goal + assist</h3><p>Log a goal and optional assist together.</p></div></div><div class="form-grid three"><label>Scoring team<select id="eventTeamSelect" class="select" onchange="refreshEventPlayers()"><option value="">Select team</option><option value="${esc(m.home_team_id)}">${esc(teamDisplayName(m,"home"))}</option><option value="${esc(m.away_team_id)}">${esc(teamDisplayName(m,"away"))}</option></select></label><label>Scorer<select id="eventPlayerSelect" class="select"><option value="">Select team first</option></select></label><label>Minute<input id="eventMinute" class="input" type="number" min="0" value="${m.minute||0}"></label></div><div class="goal-assist"><label>Assisting player<select id="eventAssistPlayerSelect" class="select"><option value="">No assist</option></select></label><label>Stoppage<input id="eventStoppage" class="input" type="number" min="0" value="0"></label></div><div class="actions" style="margin-top:11px"><button class="btn primary" onclick="addGoalWithAssist()">⚽ Add goal</button><button class="btn" onclick="addAssistOnly()">＋ Log assist</button></div></div>
  <div class="admin-section-v2"><div class="section-head"><div><h3>Other event</h3><p>Cards, substitutions, VAR and other entries.</p></div></div><div class="form-grid three"><label>Team<select id="otherEventTeam" class="select" onchange="refreshOtherEventPlayers()"><option value="">Match event</option><option value="${esc(m.home_team_id)}">${esc(teamDisplayName(m,"home"))}</option><option value="${esc(m.away_team_id)}">${esc(teamDisplayName(m,"away"))}</option></select></label><label>Player<select id="otherEventPlayer" class="select"><option value="">No player</option></select></label><label>Type<select id="otherEventType" class="select"><option value="yellow">Yellow card</option><option value="red">Red card</option><option value="substitution">Substitution</option><option value="var">VAR</option><option value="other">Other</option></select></label><label>Minute<input id="otherEventMinute" class="input" type="number" min="0" value="${m.minute||0}"></label><label>Detail<input id="otherEventDetail" class="input" placeholder="Optional detail"></label></div><div class="actions" style="margin-top:11px"><button class="btn" onclick="addOtherEvent()">Add event</button></div></div>
  <div class="admin-section-v2"><div class="section-head"><div><h3>Starting lineups</h3><p>Publish the XI for each side. Selections survive refreshes and live-clock updates.</p></div><span id="lineupDraftIndicator" class="pill">${lineupDraft.dirty?"Unsaved changes":"Saved"}</span></div><div class="lineup-builder">${adminLineupEditor(m,"home")}${adminLineupEditor(m,"away")}</div><div class="actions" style="margin-top:11px"><button class="btn primary" onclick="saveLineups()">Save lineups</button><button class="btn" onclick="resetCurrentLineupDraft()">Reset to saved</button><button class="btn" onclick="openMatch('${esc(m.id)}')">Preview</button></div></div>
@@ -676,57 +650,32 @@ async function persistStatus(id,status){
  }
 }
 
-async function setLiveClockState(m,mode){
- if(!m)return false;
- const meta=readMatchMetadata(m);
- const currentMinute=Math.max(0,Math.floor(liveMinute(m)));
- if(mode==="start"){
-  meta.clock={started_at:new Date().toISOString(),base_minute:currentMinute,base_stoppage:Number(m.stoppage||0)};
- }else{
-  delete meta.clock;
- }
- const ok=await updateMatch(m.id,{minute:currentMinute,metadata:meta});
- if(ok){m.minute=currentMinute;m.metadata=meta;}
- return ok;
-}
-
-function liveMinute(m){
- if(!m)return 0;
- const base=Math.max(0,Math.floor(Number(m.minute)||0));
- const clock=readMatchMetadata(m).clock;
- if(!isLive(m)||!clock?.started_at)return base;
- const started=Date.parse(clock.started_at);
- if(!Number.isFinite(started))return base;
- const elapsed=Math.max(0,Date.now()-started);
- return base+Math.floor(elapsed/60000);
-}
-
-function liveDisplayMinute(m){
- const minute=liveMinute(m);
- return `${minute}${Number(m?.stoppage||0)>0?`+${Math.floor(Number(m.stoppage)||0)}`:""}'`;
-}
-
 async function startSelected(){
  const id=selectedMatchId;if(!id)return;
  const m=matches.find(x=>String(x.id)===String(id));if(!m)return;
  if(isFinished(m)){showToast("This match is already finished");return}
- const ok=await persistStatus(id,"live");if(!ok)return;
- const clockOk=await setLiveClockState(m,"start");
- if(!clockOk){await persistStatus(id,String(m.status||"scheduled"));showToast("Match started, but the clock could not be initialized");return}
- m.status="live";startTimer();renderMatch();renderAdminPanel();showToast("Match is LIVE");
+ const current=liveMinute(m);
+ m.minute=current;
+ if(!await updateMatch(m.id,{minute:current}))return;
+ if(!await persistStatus(m.id,"live"))return;
+ if(!await setLiveClockState(m,"start")){
+  await persistStatus(m.id,String(m.status||"scheduled"));
+  return;
+ }
+ m.status="live";
+ startTimer();
+ renderAdminMatchList();renderAdminPanel();renderMatch();
+ showToast("Match is LIVE");
 }
-
 async function pauseSelected(){
  const m=matches.find(x=>String(x.id)===String(selectedMatchId));if(!m)return;
- const current=Math.max(0,Math.floor(liveMinute(m)));
- m.minute=current;
- const ok=await persistStatus(selectedMatchId,"halftime");
- if(!ok)return;
+ const current=liveMinute(m);m.minute=current;
+ if(!await updateMatch(m.id,{minute:current}))return;
+ if(!await persistStatus(m.id,"halftime"))return;
+ await setLiveClockState(m,"pause");
  stopTimer();
- const meta=readMatchMetadata(m);delete meta.clock;
- await updateMatch(m.id,{minute:current,metadata:meta});
- m.minute=current;m.metadata=meta;m.status="halftime";
- renderMatch();renderAdminPanel();showToast(`Half time • ${current}'`);
+ renderAdminMatchList();renderAdminPanel();renderMatch();
+ showToast("Half time — clock paused");
 }
 
 async function syncPlayerTotalsFromEvents(){
@@ -772,33 +721,71 @@ async function syncCompletedMatchStats(match){
   return false;
  }
 }
-async function finishSelected(){const m=matches.find(x=>String(x.id)===String(selectedMatchId));if(!m)return;const he=document.getElementById('admHomeScore'),ae=document.getElementById('admAwayScore'),me=document.getElementById('admMinute'),se=document.getElementById('admStoppage');const homeScore=he?Math.max(0,Math.floor(Number(he.value)||0)):Math.max(0,Math.floor(Number(m.score_home)||0)),awayScore=ae?Math.max(0,Math.floor(Number(ae.value)||0)):Math.max(0,Math.floor(Number(m.score_away)||0)),minute=me?Math.max(0,Math.floor(Number(me.value)||0)):Math.max(0,Math.floor(isLive(m)?liveMinute(m):Number(m.minute)||0)),stoppage=se?Math.max(0,Math.floor(Number(se.value)||0)):Math.max(0,Math.floor(Number(m.stoppage)||0));showToast('Saving final score…');if(!await updateMatch(m.id,{score_home:homeScore,score_away:awayScore,minute,stoppage})){showToast('Match was not finished because the final score could not be saved.');return}if(!await persistStatus(m.id,'finished'))return;stopTimer();m.score_home=homeScore;m.score_away=awayScore;m.minute=minute;m.stoppage=stoppage;m.status='finished';delete readMatchMetadata(m).clock;showToast('Match finished — syncing events and stats…');await syncCompletedMatchStats(m);await loadData();const fresh=matches.find(x=>String(x.id)===String(m.id));if(fresh&&isFinished(fresh))showToast(`Final saved: ${scoreOf(fresh)[0]}–${scoreOf(fresh)[1]} • FULL TIME`);else if(fresh)showToast('Score saved, but status verification failed — check Supabase.');}
+async function finishSelected(){const m=matches.find(x=>String(x.id)===String(selectedMatchId));if(!m)return;const he=document.getElementById('admHomeScore'),ae=document.getElementById('admAwayScore'),me=document.getElementById('admMinute'),se=document.getElementById('admStoppage');const homeScore=he?Math.max(0,Math.floor(Number(he.value)||0)):Math.max(0,Math.floor(Number(m.score_home)||0)),awayScore=ae?Math.max(0,Math.floor(Number(ae.value)||0)):Math.max(0,Math.floor(Number(m.score_away)||0)),minute=me?Math.max(0,Math.floor(Number(me.value)||0)):Math.max(0,Math.floor(Number(m.minute)||0)),stoppage=se?Math.max(0,Math.floor(Number(se.value)||0)):Math.max(0,Math.floor(Number(m.stoppage)||0));showToast('Saving final score…');if(!await updateMatch(m.id,{score_home:homeScore,score_away:awayScore,minute,stoppage})){showToast('Match was not finished because the final score could not be saved.');return}if(!await persistStatus(m.id,'finished'))return;stopTimer();await setLiveClockState(m,'finish');m.score_home=homeScore;m.score_away=awayScore;m.minute=minute;m.stoppage=stoppage;m.status='finished';showToast('Match finished — syncing events and stats…');await syncCompletedMatchStats(m);await loadData();const fresh=matches.find(x=>String(x.id)===String(m.id));if(fresh&&isFinished(fresh))showToast(`Final saved: ${scoreOf(fresh)[0]}–${scoreOf(fresh)[1]} • FULL TIME`);else if(fresh)showToast('Score saved, but status verification failed — check Supabase.');}
 
 
-/* ---------- CLOCK: NEVER REBUILD DIRTY LINEUP EDITOR ---------- */
+/* ---------- CLOCK: LOCAL LIVE CLOCK + LOW-FREQUENCY DB SYNC ---------- */
+function liveClockMeta(m){
+ const meta=readMatchMetadata(m);
+ const c=meta&&typeof meta.clock==='object'?meta.clock:null;
+ return c&&c.started_at?c:null;
+}
+function liveMinute(m){
+ if(!m)return 0;
+ const base=Math.max(0,Math.floor(Number(m.minute)||0));
+ const c=liveClockMeta(m);
+ if(!isLive(m)||!c)return base;
+ const started=Date.parse(c.started_at);
+ if(!Number.isFinite(started))return base;
+ return base+Math.max(0,Math.floor((Date.now()-started)/60000));
+}
+function liveDisplayMinute(m){
+ const minute=liveMinute(m),stop=Math.max(0,Math.floor(Number(m?.stoppage)||0));
+ return `${minute}${stop?`+${stop}`:""}'`;
+}
+function renderLiveClockUI(m){
+ if(!m)return;
+ const minute=liveMinute(m);
+ const ids=["admMinute","eventMinute","otherEventMinute"];
+ ids.forEach(id=>{const el=document.getElementById(id);if(el&&document.activeElement!==el)el.value=minute});
+ document.querySelectorAll(".live-minute-display").forEach(el=>el.textContent=liveDisplayMinute(m));
+}
+async function setLiveClockState(m,mode){
+ if(!m)return false;
+ const meta=readMatchMetadata(m);
+ if(mode==="start"){
+  const current=Math.max(0,Math.floor(Number(m.minute)||0));
+  meta.clock={started_at:new Date().toISOString(),base_minute:current};
+ }else delete meta.clock;
+ try{
+  const rows=await supabaseFetch(MATCHES_URL+"?id=eq."+encodeURIComponent(m.id),{method:"PATCH",body:JSON.stringify({metadata:meta,minute:liveMinute(m)}),headers:{Prefer:"return=representation"}});
+  const row=Array.isArray(rows)?rows[0]:rows;
+  if(row&&String(row.id)===String(m.id))Object.assign(m,row);
+  else{m.metadata=meta;if(mode!=="start")m.minute=liveMinute(m)}
+  return true;
+ }catch(e){console.error("MEFCO clock state update failed:",e);showToast("Clock could not be saved: "+(e?.message||"database error"));return false}
+}
 function startTimer(){
  stopTimer();
  const tick=async()=>{
   const m=matches.find(x=>String(x.id)===String(selectedMatchId));
-  if(!m||!isLive(m))return;
-  const minute=Math.max(0,Math.floor(liveMinute(m)));
-  const previous=Number(m.minute||0);
-  if(minute!==previous){
-   m.minute=minute;
-   try{
-    await supabaseFetch(MATCHES_URL+"?id=eq."+encodeURIComponent(m.id),{method:"PATCH",body:JSON.stringify({minute,status:"live"}),headers:{Prefer:"return=minimal"}});
-   }catch(e){console.warn("MEFCO clock persistence failed:",e)}
-  }
-  const min=document.getElementById("admMinute");if(min&&!document.activeElement?.matches?.("#admMinute"))min.value=minute;
-  const em=document.getElementById("eventMinute");if(em&&!document.activeElement?.matches?.("#eventMinute"))em.value=minute;
-  const om=document.getElementById("otherEventMinute");if(om&&!document.activeElement?.matches?.("#otherEventMinute"))om.value=minute;
+  if(!m||!isLive(m)){stopTimer();return}
+  renderLiveClockUI(m);
   renderTicker();
-  if(selectedMatchId)renderMatch();
+  if(String(selectedMatchId)===String(m.id))renderMatch();
+  const minute=liveMinute(m);
+  if(minute!==Number(m.minute||0)){
+   m.minute=minute;
+   if(!startTimer.lastPersist||Date.now()-startTimer.lastPersist>=30000){
+    startTimer.lastPersist=Date.now();
+    try{await supabaseFetch(MATCHES_URL+"?id=eq."+encodeURIComponent(m.id),{method:"PATCH",body:JSON.stringify({minute,status:"live"}),headers:{Prefer:"return=minimal"}})}catch(e){console.warn("MEFCO live minute sync failed",e)}
+   }
+  }
  };
  tick();
  timer=setInterval(tick,1000);
 }
-function stopTimer(){if(timer)clearInterval(timer);timer=null}
+function stopTimer(){if(timer)clearInterval(timer);timer=null;startTimer.lastPersist=0}
 function resumeLiveTimer(){const live=matches.find(m=>String(m.id)===String(selectedMatchId)&&isLive(m));if(live)startTimer()}
 
 /* ---------- EVENTS ---------- */
@@ -902,7 +889,7 @@ async function addGoalWithAssist(){
     m.score_home=oldHome;m.score_away=oldAway;
    }catch(re){console.error("Score rollback failed:",re)}
   }
-  try{await loadMatchEvents(selectedMatchId,true);renderAll()}catch(uiError){console.error("MEFCO rollback render failed:",uiError)}
+  try{await loadAllEvents();renderAll()}catch(uiError){console.error("MEFCO rollback render failed:",uiError)}
   const detail=[e?.message,e?.code?`code ${e.code}`:"",e?.hint?`hint: ${e.hint}`:""].filter(Boolean).join(" — ");
   showToast("Goal NOT saved: "+(detail||"database error"));
  }finally{
@@ -1030,9 +1017,9 @@ function setupRealtime(){
   const eventsChannel=realtimeClient.channel("mefco-watch-events").on("postgres_changes",{event:"INSERT",schema:"public",table:"matches-events"},payload=>{
    const e=payload.new,m=matches.find(x=>String(x.id)===String(e?.match_id));
    if(!m)return;
-   m.events=m.events||[];if(!m.events.some(x=>String(x.id)===String(e.id)))m.events.push(e);eventCache.set(String(m.id),m.events.slice());try{cacheData()}catch{}
+   m.events=m.events||[];if(!m.events.some(x=>String(x.id)===String(e.id)))m.events.push(e);
    notifyFavoriteEvent(m,e);
-   try{scheduleRender()}catch(err){console.error("MEFCO realtime render:",err)}
+   try{renderAll()}catch(err){console.error("MEFCO realtime render:",err)}
   }).subscribe();
   const matchesChannel=realtimeClient.channel("mefco-watch-matches").on("postgres_changes",{event:"UPDATE",schema:"public",table:"matches"},payload=>{
    const incoming=payload.new,old=payload.old||{},m=matches.find(x=>String(x.id)===String(incoming?.id));
@@ -1119,9 +1106,6 @@ window.addEventListener("keydown",e=>{
 window.addEventListener("beforeunload",e=>{if(lineupDraft.dirty){e.preventDefault();e.returnValue=""}});
 window.addEventListener("focus",()=>{if(document.visibilityState==="visible")renderTicker()});
 
-/* Keep the selected live match clock running after tab restore/refresh. */
-document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")resumeLiveTimer();});
-
 
 /* ==================== V2.5 PATCHES ==================== */
 /* ==================== MEFCO WATCH V2.5 ==================== */
@@ -1170,7 +1154,7 @@ function renderMatchStats(m){const s=matchStoredStats(m),rows=[['Possession','%'
 function renderMatch(){
  const m=matches.find(x=>String(x.id)===String(selectedMatchId)),el=document.getElementById('match-page');if(!m){el.innerHTML='<div class="empty">Match not found.</div>';return}
  const[a,b]=scoreOf(m),events=[...(m.events||[])].sort((x,y)=>(Number(x.minute||0)-Number(y.minute||0))||(Number(x.stoppage||0)-Number(y.stoppage||0))),ht=teamById(m.home_team_id),at=teamById(m.away_team_id),live=isLive(m),finished=isFinished(m),status=live?`LIVE • ${Number(m.minute||0)}${m.stoppage?`+${m.stoppage}`:""}'`:finished?'FULL TIME':String(m.status||'SCHEDULED').toUpperCase();
- el.innerHTML=`<div class="match-centre-shell"><div class="match-centre-bar"><button class="ghost" onclick="navFor('scores')">← Scores</button><div class="actions">${favoriteButton(m)}${ADMIN_MODE?`<button class="btn" onclick="openMatchEditor('${esc(m.id)}')">Edit match</button>`:''}</div></div><div class="card mc-hero"><div class="mc-topline"><span>${esc(competitionNameForMatch(m))}</span><span>${esc(fmtDate(matchDate(m),{weekday:'long',month:'long',day:'numeric',year:'numeric'}))}</span></div><div class="mc-scoreboard"><div class="mc-team">${ht&&teamFlag(ht)?`<img src="${esc(teamFlag(ht))}" alt="">`:''}<div class="mc-team-name"><button class="ghost" onclick="openTeam('${esc(m.home_team_id)}')">${esc(teamDisplayName(m,'home'))}</button></div><div class="mc-team-side">Home</div></div><div><div class="mc-big-score">${finished||live?a+'–'+b:'VS'}</div><span class="mc-status ${live?'live':finished?'done':''}">${esc(status)}</span></div><div class="mc-team">${at&&teamFlag(at)?`<img src="${esc(teamFlag(at))}" alt="">`:''}<div class="mc-team-name"><button class="ghost" onclick="openTeam('${esc(m.away_team_id)}')">${esc(teamDisplayName(m,'away'))}</button></div><div class="mc-team-side">Away</div></div></div><div class="mc-meta"><div>Kickoff <strong>${esc(fmtTime(matchTime(m)))}</strong></div>${m.venue?`<div>• <strong>${esc(m.venue)}</strong></div>`:''}${m.city?`<div>• ${esc(m.city)}</div>`:''}</div></div><div class="mc-tabs"><button class="mc-tab active" data-mctab="overview" onclick="switchMatchTab('overview')">Overview</button><button class="mc-tab" data-mctab="events" onclick="switchMatchTab('events')">Events (${events.length})</button><button class="mc-tab" data-mctab="stats" onclick="switchMatchTab('stats')">Stats</button><button class="mc-tab" data-mctab="lineups" onclick="switchMatchTab('lineups')">Lineups</button></div><div id="mc-overview" class="mc-tab-panel active"><div class="mc-columns"><div class="card mc-panel"><div class="mc-panel-title"><div><div class="eyebrow">Match timeline</div><h3>Latest events</h3></div><span>${events.length} logged</span></div>${events.length?`<div class="mc-event-list">${events.slice().reverse().slice(0,8).map(matchEventRow).join('')}</div>`:'<div class="mc-empty">No match events have been recorded yet.</div>'}</div><div class="card mc-panel"><div class="mc-panel-title"><div><div class="eyebrow">Match facts</div><h3>At a glance</h3></div></div>${matchStatsSummary(events)}<div style="margin-top:12px" class="table-wrap"><table class="table"><tbody><tr><td>Competition</td><td>${esc(competitionNameForMatch(m))}</td></tr><tr><td>Kickoff</td><td>${esc(fmtTime(matchTime(m)))}</td></tr><tr><td>Venue</td><td>${esc(m.venue||'—')}</td></tr><tr><td>Status</td><td>${esc(m.status||'scheduled')}</td></tr></tbody></table></div></div></div></div><div id="mc-events" class="mc-tab-panel"><div class="card mc-panel"><div class="mc-panel-title"><div><div class="eyebrow">Events</div><h3>Full timeline</h3></div></div>${events.length?`<div class="mc-event-list">${events.slice().reverse().map(matchEventRow).join('')}</div>`:'<div class="mc-empty">No events have been recorded.</div>'}</div></div><div id="mc-stats" class="mc-tab-panel">${renderMatchStats(m)}</div><div id="mc-lineups" class="mc-tab-panel"><div class="card mc-panel"><div class="mc-panel-title"><div><div class="eyebrow">Team sheets</div><h3>Starting lineups</h3></div><span>11 players per side</span></div><div class="mc-lineups">${renderLineupSide(m,'home')}${renderLineupSide(m,'away')}</div></div></div></div>`;
+ el.innerHTML=`<div class="match-centre-shell"><div class="match-centre-bar"><button class="ghost" onclick="navFor('scores')">← Scores</button><div class="actions">${favoriteButton(m)}${ADMIN_MODE?`<button class="btn" onclick="openMatchEditor('${esc(m.id)}')">Edit match</button>`:''}</div></div><div class="card mc-hero"><div class="mc-topline"><span>${esc(competitionNameForMatch(m))}</span><span>${esc(fmtDate(matchDate(m),{weekday:'long',month:'long',day:'numeric',year:'numeric'}))}</span></div><div class="mc-scoreboard"><div class="mc-team">${ht&&teamFlag(ht)?`<img src="${esc(teamFlag(ht))}" alt="">`:''}<div class="mc-team-name"><button class="ghost" onclick="openTeam('${esc(m.home_team_id)}')">${esc(teamDisplayName(m,'home'))}</button></div><div class="mc-team-side">Home</div></div><div><div class="mc-big-score">${finished||live?a+'–'+b:'VS'}</div><span class="mc-status ${live?'live':finished?'done':''}">${live?liveDisplayMinute(m):esc(status)}</span></div><div class="mc-team">${at&&teamFlag(at)?`<img src="${esc(teamFlag(at))}" alt="">`:''}<div class="mc-team-name"><button class="ghost" onclick="openTeam('${esc(m.away_team_id)}')">${esc(teamDisplayName(m,'away'))}</button></div><div class="mc-team-side">Away</div></div></div><div class="mc-meta"><div>Kickoff <strong>${esc(fmtTime(matchTime(m)))}</strong></div>${m.venue?`<div>• <strong>${esc(m.venue)}</strong></div>`:''}${m.city?`<div>• ${esc(m.city)}</div>`:''}</div></div><div class="mc-tabs"><button class="mc-tab active" data-mctab="overview" onclick="switchMatchTab('overview')">Overview</button><button class="mc-tab" data-mctab="events" onclick="switchMatchTab('events')">Events (${events.length})</button><button class="mc-tab" data-mctab="stats" onclick="switchMatchTab('stats')">Stats</button><button class="mc-tab" data-mctab="lineups" onclick="switchMatchTab('lineups')">Lineups</button></div><div id="mc-overview" class="mc-tab-panel active"><div class="mc-columns"><div class="card mc-panel"><div class="mc-panel-title"><div><div class="eyebrow">Match timeline</div><h3>Latest events</h3></div><span>${events.length} logged</span></div>${events.length?`<div class="mc-event-list">${events.slice().reverse().slice(0,8).map(matchEventRow).join('')}</div>`:'<div class="mc-empty">No match events have been recorded yet.</div>'}</div><div class="card mc-panel"><div class="mc-panel-title"><div><div class="eyebrow">Match facts</div><h3>At a glance</h3></div></div>${matchStatsSummary(events)}<div style="margin-top:12px" class="table-wrap"><table class="table"><tbody><tr><td>Competition</td><td>${esc(competitionNameForMatch(m))}</td></tr><tr><td>Kickoff</td><td>${esc(fmtTime(matchTime(m)))}</td></tr><tr><td>Venue</td><td>${esc(m.venue||'—')}</td></tr><tr><td>Status</td><td>${esc(m.status||'scheduled')}</td></tr></tbody></table></div></div></div></div><div id="mc-events" class="mc-tab-panel"><div class="card mc-panel"><div class="mc-panel-title"><div><div class="eyebrow">Events</div><h3>Full timeline</h3></div></div>${events.length?`<div class="mc-event-list">${events.slice().reverse().map(matchEventRow).join('')}</div>`:'<div class="mc-empty">No events have been recorded.</div>'}</div></div><div id="mc-stats" class="mc-tab-panel">${renderMatchStats(m)}</div><div id="mc-lineups" class="mc-tab-panel"><div class="card mc-panel"><div class="mc-panel-title"><div><div class="eyebrow">Team sheets</div><h3>Starting lineups</h3></div><span>11 players per side</span></div><div class="mc-lineups">${renderLineupSide(m,'home')}${renderLineupSide(m,'away')}</div></div></div></div>`;
 }
 function openPlayer(id){const p=playerById(id)||players.find(x=>x.name===id);if(!p){document.getElementById('player-page').innerHTML='<div class="empty">Player not found.</div>';showPage('player-page');return}const s=playerSeasonStats(p),photo=safeMediaUrl(playerImage(p)),ms=matches.filter(m=>(m.events||[]).some(e=>String(e.player_id)===String(p.id))).sort((a,b)=>matchDate(b).localeCompare(matchDate(a)));document.getElementById('player-page').innerHTML=`<button class="ghost" onclick="navFor('stats')">← Stats</button><div class="card player-header" style="margin-top:12px"><div class="player-avatar">${photo?`<img src="${esc(photo)}" alt="">`:'⚽'}</div><div class="profile-meta"><div class="eyebrow">Player profile</div><h1>${esc(p.name)}</h1><p>${esc(teamName(p.team_id,p.nationality||'Free'))} • ${esc(p.position||'Position not set')}</p></div><div class="profile-actions"><button class="btn small" onclick="togglePlayerFavorite('${esc(p.id)}')">${isPlayerFavorite(p.id)?'★ Following':'☆ Follow player'}</button></div></div><div class="profile-stat-grid"><div class="kpi"><strong>${s.goals}</strong><span>Goals</span></div><div class="kpi"><strong>${s.assists}</strong><span>Assists</span></div><div class="kpi"><strong>${s.yellow_cards}</strong><span>Yellow</span></div><div class="kpi"><strong>${s.red_cards}</strong><span>Red</span></div><div class="kpi"><strong>${p.overall??'—'}</strong><span>OVR</span></div></div><div class="section"><div class="section-head"><div><h2>Match activity</h2><p>Matches containing recorded events for this player.</p></div></div>${ms.length?`<div class="grid">${ms.map(matchCard).join('')}</div>`:'<div class="empty">No recorded match activity yet.</div>'}</div>`;showPage('player-page')}
 function isPlayerFavorite(id){try{return JSON.parse(localStorage.getItem('mefco_favorite_players')||'[]').map(String).includes(String(id))}catch{return false}}
@@ -1179,26 +1163,8 @@ function openTeam(id){const t=teamById(id)||teams.find(x=>x.name===id||x.short_n
 function isTeamFavorite(id){try{return JSON.parse(localStorage.getItem('mefco_favorite_teams')||'[]').map(String).includes(String(id))}catch{return false}}
 function toggleTeamFavorite(id){const a=new Set(JSON.parse(localStorage.getItem('mefco_favorite_teams')||'[]').map(String));if(a.has(String(id)))a.delete(String(id));else a.add(String(id));localStorage.setItem('mefco_favorite_teams',JSON.stringify([...a]));openTeam(id);showToast(a.has(String(id))?'Team followed':'Team unfollowed')}
 function renderSearch(){document.getElementById('search').innerHTML=`<div class="section-head"><div><div class="eyebrow">Search</div><h2>Search MEFCO Watch</h2><p>Teams, players, matches, competitions and news.</p></div></div><div class="searchbox"><input id="globalSearch" class="input" placeholder="Search a team, player, match, competition or news…" oninput="runSearch(this.value)"></div><div id="searchResults" class="search-results"></div>`}
-async function loadMatchEvents(matchId,force=false){
- const key=String(matchId||'');if(!key)return false;
- if(!force&&eventCache.has(key)){const m=matches.find(x=>String(x.id)===key);if(m)m.events=(eventCache.get(key)||[]).slice();return true;}
- if(eventLoading.has(key))return eventLoading.get(key);
- const task=(async()=>{try{
-  const data=await safeLoad(EVENTS_URL,{select:'*',match_id:'eq.'+key,order:'minute.asc,created_at.asc'});if(!Array.isArray(data))throw new Error('Invalid matches-events response');
-  eventCache.set(key,data.slice());const m=matches.find(x=>String(x.id)===key);if(m)m.events=data.slice();try{cacheData()}catch{}return true;
- }catch(e){console.error('MEFCO match events load failed:',e);const m=matches.find(x=>String(x.id)===key);if(m&&!Array.isArray(m.events))m.events=[];showToast('Could not load match events: '+(e?.message||'database error'));return false;}finally{eventLoading.delete(key)}})();
- eventLoading.set(key,task);return task;
-}
-async function loadEventsForMatchIds(ids){
- const unique=[...new Set((ids||[]).map(String).filter(Boolean))];if(!unique.length)return true;
- try{
-  const data=await safeLoad(EVENTS_URL,{select:'*',match_id:'in.('+unique.join(',')+')',order:'minute.asc,created_at.asc'});if(!Array.isArray(data))throw new Error('Invalid matches-events response');
-  const grouped=new Map(unique.map(id=>[id,[]]));for(const e of data){const k=String(e.match_id);if(grouped.has(k))grouped.get(k).push(e)}
-  for(const [id,evs] of grouped){eventCache.set(id,evs);const m=matches.find(x=>String(x.id)===id);if(m)m.events=evs.slice();}try{cacheData()}catch{}return true;
- }catch(e){console.error('MEFCO bulk event load failed:',e);showToast('Could not load match statistics: '+(e?.message||'database error'));return false;}
-}
-async function loadAllEvents(){if(eventsLoadedAll)return true;const ok=await loadEventsForMatchIds(matches.map(m=>m.id));if(ok)eventsLoadedAll=true;return ok;}
-
+async function loadAllEvents(){
+ if(!matches.length)return true; try{let all=[],offset=0;while(true){const batch=await safeLoad(EVENTS_URL,{select:'*',order:'minute.asc,created_at.asc',offset,limit:1000});if(!Array.isArray(batch))throw new Error('Supabase returned an invalid matches-events response');all.push(...batch);if(batch.length<1000)break;offset+=1000}for(const m of matches)m.events=all.filter(e=>String(e.match_id)===String(m.id));return true}catch(e){console.error('MEFCO matches-events load failed:',e);for(const m of matches)if(!Array.isArray(m.events))m.events=[];dbOnline=false;showToast('Could not load match events: '+(e?.message||'database error'));return false}}
 function getAuditLog(m){return Array.isArray(readMatchMetadata(m).audit_log)?readMatchMetadata(m).audit_log:[]}
 async function recordAudit(m,action,details=''){try{const meta=readMatchMetadata(m);const log=getAuditLog(m);log.unshift({at:new Date().toISOString(),action,details});meta.audit_log=log.slice(0,100);await supabaseFetch(MATCHES_URL+'?id=eq.'+encodeURIComponent(m.id),{method:'PATCH',body:JSON.stringify({metadata:meta}),headers:{Prefer:'return=minimal'}});m.metadata=meta}catch(e){console.warn('Audit log save failed',e)}}
 const _postEventV25=postEvent;
@@ -1376,13 +1342,7 @@ renderHome=function(){_renderHomeV3();const el=document.getElementById('home');i
 
 /* Preserve the existing admin UI. These hooks only add background data work. */
 const _loadDataV3=loadData;
-loadData=async function(){
- await _loadDataV3();
- renderAll();
- /* Lineups and reports are background work. They must never hold the UI hostage. */
- setTimeout(()=>{ensureAutomaticLineups().then(()=>scheduleRender()).catch(e=>console.warn('Automatic lineups:',e));},0);
- setTimeout(()=>{autoPublishFinishedReports().catch(e=>console.warn('Automatic reports:',e));},0);
-};
+loadData=async function(){await _loadDataV3();await ensureAutomaticLineups();await autoPublishFinishedReports();renderAll();};
 
 loadData().then(()=>{
  setupRealtime();
@@ -1589,248 +1549,19 @@ loadData=async function(){await _v9LoadDataBase();await v9ConsistencySweep();ren
   const _baseRenderHome=renderHome;
   renderHome=function(){_baseRenderHome();const home=document.getElementById('home');if(!home)return;const old=document.getElementById('homeRecords');if(old)old.remove();const box=document.createElement('div');box.id='homeRecords';box.innerHTML=renderRecords();home.appendChild(box);};
 })();
-
+</script>
+<script>
+/* V10 reliability layer: delegated handlers survive every re-render. */
+document.addEventListener("click",function(ev){
+ const adminBtn=ev.target.closest?.(".admin-match-btn[data-admin-match-id]");
+ if(adminBtn){ev.preventDefault();ev.stopPropagation();selectAdminMatch(adminBtn.dataset.adminMatchId);return}
+ const centreBtn=ev.target.closest?.(".match-centre-btn[data-match-id]");
+ if(centreBtn){ev.preventDefault();ev.stopPropagation();openMatch(centreBtn.dataset.matchId);return}
+});
 </script>
 <style id="mefco-intelligence-css">
 .match-intelligence{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px}.mi-panel{padding:18px}.mi-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}.mi-head h3{margin:3px 0 0}.mi-head p{margin:5px 0 0}.mi-muted{color:var(--muted);font-size:13px;padding:12px 0}.predict-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:15px}.predict-grid>div{text-align:center;padding:12px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.025)}.predict-grid strong{display:block;font-size:24px}.predict-grid span{display:block;color:var(--muted);font-size:11px;margin-top:4px}.predict-bar{height:8px;display:flex;overflow:hidden;border-radius:99px;background:var(--line);margin-top:12px}.predict-bar i{display:block;height:100%}.predict-bar i:nth-child(1){background:var(--accent)}.predict-bar i:nth-child(2){background:#7a8590}.predict-bar i:nth-child(3){background:#4aa9ff}.predict-detail{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:11px;margin-top:9px}.momentum-chart{height:150px;display:grid;grid-template-columns:repeat(19,1fr);gap:3px;align-items:center;margin-top:15px;padding:0 4px;position:relative}.momentum-chart:before{content:"";position:absolute;left:0;right:0;top:50%;border-top:1px dashed var(--line)}.momentum-col{height:100%;position:relative;display:flex;align-items:center;justify-content:center}.momentum-fill{position:absolute;width:70%;border-radius:3px;min-height:3px;z-index:1}.momentum-fill.home{bottom:50%;background:var(--accent)}.momentum-fill.away{top:50%;background:#4aa9ff}.momentum-col span{position:absolute;bottom:-17px;font-size:8px;color:var(--muted)}.momentum-scale{display:flex;justify-content:space-between;color:var(--muted);font-size:10px;margin-top:24px}.mi-legend{display:flex;gap:10px;color:var(--muted);font-size:10px;white-space:nowrap}.potm-mark{font-size:10px;font-weight:900;letter-spacing:.08em;border:1px solid var(--accent);color:var(--accent);border-radius:999px;padding:5px 8px}.potm-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:15px 0}.potm-stats>div{text-align:center;padding:10px;border:1px solid var(--line);border-radius:9px}.potm-stats strong{display:block;font-size:18px}.potm-stats span{font-size:9px;color:var(--muted);text-transform:uppercase}.records-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.record-item{display:grid;grid-template-columns:1fr auto;gap:5px 10px;padding:14px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.02)}.record-item span{grid-column:1/-1;color:var(--muted);font-size:10px;text-transform:uppercase}.record-item strong{font-size:13px}.record-item b{font-size:18px;text-align:right}.milestones{margin-top:14px;padding:14px;border:1px solid var(--line);border-radius:10px}.milestones h3{margin:0 0 8px}.milestone-row{width:100%;display:flex;justify-content:space-between;gap:12px;padding:9px 0;background:none;border:0;border-bottom:1px solid var(--line);color:var(--text);text-align:left;cursor:pointer}.milestone-row:last-child{border-bottom:0}.milestone-row b{color:var(--accent)}
 @media(max-width:900px){.match-intelligence{grid-template-columns:1fr}}@media(max-width:600px){.predict-grid,.records-grid{grid-template-columns:1fr}.predict-detail{flex-direction:column}.potm-stats{grid-template-columns:repeat(2,1fr)}.mi-head{flex-direction:column}.mi-legend{white-space:normal}}
 </style>
-<script>
-/* ==================== MEFCO WATCH V11 RELIABILITY + DATA LAYER ==================== */
-window.MEFCO_V11={version:'11.0'};
-(function(){
-  const CACHE_KEY='mefco_watch_cache_v11';
-  let loadBusy=false, loadSeq=0, cacheWriteTimer=null;
-  /* Loading overlay removed: the shell is interactive immediately. */
-  function hideBoot(){}
-  function bootMessage(){}
-
-  /* Network timeout: prevents Safari/iOS/slow mobile connections from hanging forever. */
-  const _fetch=window.fetch.bind(window);
-  window.fetch=async function(input,init={}){
-    const ctl=new AbortController();
-    const timer=setTimeout(()=>ctl.abort(),18000);
-    const opts={...init,signal:init.signal||ctl.signal};
-    try{return await _fetch(input,opts)}catch(e){if(e?.name==='AbortError')throw new Error('Network request timed out');throw e}finally{clearTimeout(timer)}
-  };
-
-  /* Cross-device-safe local cache. Events are cached only for matches already loaded. */
-  function cacheDataNow(){try{
-    const cachedEvents={};let count=0;
-    for(const [id,evs] of eventCache){if(count>=3000)break;const a=Array.isArray(evs)?evs.slice(0,3000-count):[];cachedEvents[id]=a;count+=a.length;}
-    localStorage.setItem(CACHE_KEY,JSON.stringify({savedAt:Date.now(),matches,news:news.slice(0,100),teams,players,competitions,events:cachedEvents}));
-  }catch{}}
-  function cacheData(){
-    if(cacheWriteTimer)return;
-    const run=()=>{cacheWriteTimer=null;cacheDataNow()};
-    if('requestIdleCallback' in window)cacheWriteTimer=requestIdleCallback(run,{timeout:1500});
-    else cacheWriteTimer=setTimeout(run,300);
-  }
-  function restoreCache(){try{
-    const x=JSON.parse(localStorage.getItem(CACHE_KEY)||'null');if(!x||Date.now()-Number(x.savedAt)>1000*60*60*24*7)return false;
-    if(Array.isArray(x.matches)&&!matches.length)matches=x.matches;if(Array.isArray(x.news)&&!news.length)news=x.news;if(Array.isArray(x.teams)&&!teams.length)teams=x.teams;if(Array.isArray(x.players)&&!players.length)players=x.players;if(Array.isArray(x.competitions)&&!competitions.length)competitions=x.competitions;
-    if(x.events&&typeof x.events==='object')for(const [id,evs] of Object.entries(x.events))if(Array.isArray(evs))eventCache.set(String(id),evs);
-    for(const m of matches){const ev=eventCache.get(String(m.id));if(ev)m.events=ev.slice();}
-    return matches.length>0||teams.length>0;
-  }catch{return false}}
-
-  /* Protect refresh from overlapping requests. */
-  const _baseLoad=loadData;
-  loadData=async function(){
-    const seq=++loadSeq;
-    if(loadBusy){return false}
-    loadBusy=true;
-    try{
-      if(!matches.length)restoreCache();
-      if(matches.length||teams.length) { try{renderAll()}catch{} }
-      bootMessage(dbOnline?'Updating MEFCO data…':'Connecting to MEFCO…');
-      const result=await _baseLoad();
-      if(seq!==loadSeq)return false;
-      cacheData();
-      hideBoot();
-      window.dispatchEvent(new Event('mefco:data-ready'));
-      /* Generate missing lineups after the first usable render, never during it. */
-      if(!window._mefcoLineupsQueued){
-        window._mefcoLineupsQueued=true;
-        setTimeout(()=>ensureAutomaticLineups().then(()=>scheduleRender()).catch(e=>console.warn('Automatic lineups:',e)),0);
-      }
-      return result;
-    }catch(e){
-      console.error('MEFCO V11 load:',e);
-      const had=restoreCache();
-      if(had){dbOnline=false;try{renderAll()}catch{};hideBoot();window.dispatchEvent(new Event('mefco:data-ready'));showToast('Showing saved data — database connection is unavailable')}else{bootMessage('MEFCO could not connect to the database.',true);window.dispatchEvent(new Event('mefco:data-ready'));showToast('MEFCO database connection failed')}
-      return false;
-    }finally{loadBusy=false}
-  };
-
-  const _refresh=refreshData;
-  refreshData=async function(){if(loadBusy){showToast('A refresh is already running');return}showToast('Refreshing MEFCO data…');const ok=await loadData();if(ok!==false)showToast('Data refreshed');};
-
-  /* Player ratings: transparent event/result formula, not an official football statistic. */
-  window.mefcoPlayerRating=function(p,m){
-    if(!p||!m)return null;
-    const ev=(m.events||[]).filter(e=>String(e.player_id)===String(p.id));
-    const started=new Set(readMatchLineups(m).home.concat(readMatchLineups(m).away).map(String)).has(String(p.id));
-    let r=6.0;
-    ev.forEach(e=>{const t=eventType(e);if(t==='goal')r+=1.5;else if(t==='assist')r+=0.8;else if(t==='yellow')r-=0.4;else if(t==='red')r-=1.8});
-    if(started)r+=0.5; else if(ev.length)r+=0.2;
-    const [h,a]=scoreOf(m),tid=String(p.team_id),home=String(m.home_team_id)===tid,won=home?h>a:a>h,draw=h===a;
-    if(won)r+=.4; else if(draw)r+=.15; else r-=.15;
-    return Math.max(4,Math.min(10,Math.round(r*10)/10));
-  };
-  window.mefcoRatingClass=r=>Number(r)>=8?'rating-high':Number(r)>=6.5?'rating-mid':'rating-low';
-
-  /* Add ratings to the match centre without changing the admin UI. */
-  const _renderMatch=renderMatch;
-  renderMatch=function(){_renderMatch();const m=matches.find(x=>String(x.id)===String(selectedMatchId)),el=document.getElementById('match-page');if(!m||!el)return;const box=document.getElementById('mefcoV11Ratings');if(box)box.remove();if(!isFinished(m)&&!isLive(m))return;const ids=new Set((m.events||[]).map(e=>String(e.player_id)).filter(Boolean));const line=readMatchLineups(m);line.home.concat(line.away).forEach(id=>ids.add(String(id)));const rows=[...ids].map(id=>playerById(id)).filter(Boolean).map(p=>({p,r:mefcoPlayerRating(p,m)})).filter(x=>x.r!==null).sort((a,b)=>b.r-a.r).slice(0,8);const div=document.createElement('div');div.id='mefcoV11Ratings';div.className='card mi-panel';div.innerHTML=`<div class="mi-head"><div><div class="eyebrow">Player ratings</div><h3>MEFCO match ratings</h3><p class="muted">Calculated from recorded lineups, events and result.</p></div><span class="muted">Indicative</span></div>${rows.length?`<div class="table-wrap"><table class="table"><thead><tr><th>Player</th><th>Team</th><th>Rating</th></tr></thead><tbody>${rows.map(x=>`<tr><td><button class="ghost" onclick="openPlayer('${esc(x.p.id)}')">${esc(x.p.short_name||x.p.name)}</button></td><td>${esc(teamName(x.p.team_id,''))}</td><td><span class="rating-chip ${mefcoRatingClass(x.r)}">${x.r.toFixed(1)}</span></td></tr>`).join('')}</tbody></table></div>`:'<div class="mi-muted">No lineup or player events are recorded.</div>'}`;el.appendChild(div)};
-
-  /* Stronger records + milestones: uses cumulative totals and streaks. */
-  window.mefcoRecords=function(){
-    const finished=matches.filter(isFinished), stats=collectPlayerStats();
-    const topGoals=stats.slice().sort((a,b)=>b.goals-a.goals)[0],topAssists=stats.slice().sort((a,b)=>b.assists-a.assists)[0];
-    let biggest=null,highestTeam=null,clean=null;
-    finished.forEach(m=>{const [h,a]=scoreOf(m),sum=h+a;const diff=Math.abs(h-a);if(!biggest||sum>biggest.sum||sum===biggest.sum&&diff>biggest.diff)biggest={m,sum,diff};if(!highestTeam||Math.max(h,a)>highestTeam.n)highestTeam={m,n:Math.max(h,a)};if(h===0||a===0){if(!clean||sum>clean.sum)clean={m,sum}}});
-    const streaks=[];
-    teams.forEach(t=>{const ms=matches.filter(m=>(String(m.home_team_id)===String(t.id)||String(m.away_team_id)===String(t.id))&&isFinished(m)).sort((a,b)=>(matchDate(a)+matchTime(a)).localeCompare(matchDate(b)+matchTime(b)));let w=0,l=0;for(let i=ms.length-1;i>=0;i--){const[h,a]=scoreOf(ms[i]),home=String(ms[i].home_team_id)===String(t.id),gf=home?h:a,ga=home?a:h;if(gf>ga)w++;else break}for(let i=ms.length-1;i>=0;i--){const[h,a]=scoreOf(ms[i]),home=String(ms[i].home_team_id)===String(t.id),gf=home?h:a,ga=home?a:h;if(gf<ga)l++;else break}if(w)streaks.push({t,type:'Winning',n:w});if(l)streaks.push({t,type:'Losing',n:l})});
-    const milestoneRows=stats.flatMap(p=>{const n=Number(p.goals||0);return [5,10,25,50,100].filter(x=>n>=x).slice(-1).map(x=>({p,n,x}))}).sort((a,b)=>b.x-a.x||b.n-a.n);
-    return {topGoals,topAssists,biggest,highestTeam,clean,streaks:streaks.sort((a,b)=>b.n-a.n).slice(0,8),milestoneRows};
-  };
-  const _renderStats=renderStatsV3;
-  renderStatsV3=function(){_renderStats();const el=document.getElementById('stats');if(!el)return;const old=document.getElementById('v11Records');if(old)old.remove();const r=mefcoRecords(),box=document.createElement('div');box.id='v11Records';box.innerHTML=`<div class="section"><div class="section-head"><div><div class="eyebrow">Records</div><h2>Records & milestones</h2><p>Calculated from completed MEFCO Watch matches.</p></div></div><div class="records-grid">${r.topGoals?`<div class="record-item"><span>Top scorer</span><strong>${esc(r.topGoals.name)}</strong><b>${r.topGoals.goals} goals</b></div>`:''}${r.topAssists?`<div class="record-item"><span>Assist leader</span><strong>${esc(r.topAssists.name)}</strong><b>${r.topAssists.assists} assists</b></div>`:''}${r.biggest?`<div class="record-item"><span>Highest-scoring match</span><strong>${esc(teamDisplayName(r.biggest.m,'home'))} ${scoreOf(r.biggest.m)[0]}–${scoreOf(r.biggest.m)[1]} ${esc(teamDisplayName(r.biggest.m,'away'))}</strong><b>${r.biggest.sum} total goals</b></div>`:''}${r.highestTeam?`<div class="record-item"><span>Most goals by one team</span><strong>${esc(teamDisplayName(r.highestTeam.m,scoreOf(r.highestTeam.m)[0]>=scoreOf(r.highestTeam.m)[1]?'home':'away'))}</strong><b>${r.highestTeam.n} goals</b></div>`:''}</div><div class="milestones"><h3>Current milestones</h3>${r.milestoneRows.length?r.milestoneRows.slice(0,12).map(x=>`<button class="milestone-row" onclick="openPlayer('${esc(x.p.id)}')"><span>${esc(x.p.name||x.p.short_name)} reached ${x.x} goals</span><b>${x.n} total</b></button>`).join(''):'<div class="mi-muted">No 5/10/25/50/100-goal milestones yet.</div>'}</div><div class="milestones"><h3>Current streaks</h3>${r.streaks.length?r.streaks.map(x=>`<div class="milestone-row"><span>${esc(x.t.name)} ${x.type.toLowerCase()} streak</span><b>${x.n}</b></div>`).join(''):'<div class="mi-muted">No active winning or losing streaks.</div>'}</div></div>`;el.appendChild(box)};
-
-  /* Database health: score/event/lineup integrity checks. */
-  window.runV11Health=async function(){
-    const card=document.createElement('div');card.className='card health-card';card.id='v11Health';card.innerHTML='<div class="section-head"><div><div class="eyebrow">Database health</div><h3>Running integrity checks…</h3></div></div>';document.getElementById('home')?.appendChild(card);window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
-    const issues=[];
-    for(const m of matches){const [h,a]=scoreOf(m),goals=(m.events||[]).filter(e=>eventType(e)==='goal').length;if(isFinished(m)&&h+a!==goals)issues.push(`${teamDisplayName(m,'home')} ${h}–${a} ${teamDisplayName(m,'away')}: score has ${h+a} goals but ${goals} goal events.`);for(const e of(m.events||[])){if(!['goal','assist','yellow','red','substitution','var'].includes(eventType(e)))issues.push(`${m.id}: unknown event type ${eventType(e)}`);if(e.player_id&&!playerById(e.player_id))issues.push(`${m.id}: event references missing player ${e.player_id}`);if(e.team_id&&!teamById(e.team_id))issues.push(`${m.id}: event references missing team ${e.team_id}`)}const lu=readMatchLineups(m);for(const id of [...lu.home,...lu.away])if(!playerById(id))issues.push(`${m.id}: lineup references missing player ${id}`)}
-    const endpoints=[['Matches',MATCHES_URL],['Events',EVENTS_URL],['Teams',TEAMS_URL],['Players',PLAYERS_URL],['Competitions',COMPETITIONS_URL],['News',NEWS_URL]];const reach=[];for(const [name,url] of endpoints){try{await supabaseFetch(url+'?select=id&limit=1');reach.push([name,true])}catch{reach.push([name,false])}}
-    card.innerHTML=`<div class="section-head"><div><div class="eyebrow">Database health</div><h3>${issues.length?'Integrity warnings found':'MEFCO data checks passed'}</h3><p class="muted">Read-only diagnostics. No database records were changed.</p></div><button class="btn small" onclick="document.getElementById('v11Health')?.remove()">Close</button></div><div class="health-grid">${reach.map(x=>`<div class="health-item"><strong class="${x[1]?'health-ok':'health-warn'}">${x[1]?'✓':'✕'} ${esc(x[0])}</strong><span>${x[1]?'Reachable':'Unavailable'}</span></div>`).join('')}</div><div class="mini-grid" style="margin-top:12px"><div class="mini-stat"><strong>${matches.filter(isFinished).length}</strong><span>Finished</span></div><div class="mini-stat"><strong>${matches.filter(isLive).length}</strong><span>Live</span></div><div class="mini-stat"><strong>${matches.filter(m=>!isFinished(m)&&!isLive(m)).length}</strong><span>Other</span></div><div class="mini-stat"><strong>${issues.length}</strong><span>Warnings</span></div></div>${issues.length?`<div class="section">${issues.slice(0,50).map(x=>`<div class="health-issue">${esc(x)}</div>`).join('')}</div>`:'<div class="section v9-note v9-ok">No score, event, lineup or reference-integrity problems were detected in the loaded data.</div>'}`;
-  };
-
-  /* Replace the old health button target with the stronger checks. */
-  const _home=renderHome;
-  renderHome=function(){_home();const b=[...document.querySelectorAll('#home button')].find(x=>/system health/i.test(x.textContent||''));if(b)b.onclick=runV11Health};
-
-  /* Small usability fixes: preserve selected scores date and make date navigation resilient. */
-  const _change=changeScoreDate;changeScoreDate=function(n){const base=/^\d{4}-\d{2}-\d{2}$/.test(scoreDate)?scoreDate:todayISO();scoreDate=shiftISO(base,Number(n)||0);renderScores();};
-  const _jump=jumpScoreDate;jumpScoreDate=function(v){if(/^\d{4}-\d{2}-\d{2}$/.test(String(v||''))){scoreDate=String(v);renderScores();}};
-
-  /* Add a compact status indicator to the home page. */
-  const _home2=renderHome;
-  renderHome=function(){_home2();const el=document.getElementById('home');if(!el)return;const hero=el.querySelector('.hero-side');if(hero&&!hero.querySelector('.v11-net')){hero.insertAdjacentHTML('beforeend',`<div class="v11-net muted" style="margin-top:10px;font-size:11px">${dbOnline?'Live database':'Saved/local data'} • ${navigator.onLine?'Online':'Offline'}</div>`);}};
-
-  /* Initial boot call: the existing app call may already be in flight, so wait briefly and then refresh through the guarded loader. */
-  setTimeout(()=>{if(!dbOnline&&!matches.length)loadData();},50);
-})();
-</script>
-<style id="mefco-v13-match-upgrades">
-.visual-lineup{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.visual-lineup-side{min-width:0}.vl-head{display:flex;justify-content:space-between;gap:10px;margin-bottom:10px}.vl-head strong{font-size:15px}.vl-head span{font-size:11px;color:var(--muted)}
-.vl-pitch{position:relative;min-height:500px;border:1px solid rgba(255,255,255,.12);border-radius:14px;overflow:hidden;background:linear-gradient(90deg,rgba(20,115,70,.16),rgba(15,80,50,.22))}.vl-pitch:before{content:"";position:absolute;inset:8px;border:1px solid rgba(255,255,255,.23);border-radius:10px}.vl-pitch:after{content:"";position:absolute;left:50%;top:8px;bottom:8px;border-left:1px solid rgba(255,255,255,.2)}.vl-half{position:absolute;left:50%;top:50%;width:90px;height:90px;border:1px solid rgba(255,255,255,.2);border-radius:50%;transform:translate(-50%,-50%)}.vl-player{position:absolute;transform:translate(-50%,-50%);width:78px;text-align:center;z-index:2}.vl-dot{width:32px;height:32px;margin:auto;border-radius:50%;display:grid;place-items:center;background:rgba(8,15,18,.95);border:2px solid var(--accent);font-size:10px;font-weight:900}.vl-player.away .vl-dot{border-color:#4aa9ff}.vl-name{margin-top:4px;font-size:10px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.vl-pos{font-size:9px;color:var(--muted)}.vl-bench{margin-top:10px;border:1px solid var(--line);border-radius:10px;padding:10px}.vl-bench-title{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:7px}.vl-bench-list{display:flex;flex-wrap:wrap;gap:6px}.vl-bench-player{font-size:11px;padding:6px 8px;border:1px solid var(--line);border-radius:7px}.predict-method{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.predict-method span{padding:5px 8px;border:1px solid var(--line);border-radius:7px;color:var(--muted);font-size:10px}.predict-score{margin-top:14px;padding:11px;border:1px solid var(--line);border-radius:9px;display:flex;justify-content:space-between;align-items:center}.predict-score strong{font-size:18px}.predict-confidence{font-size:11px;color:var(--muted)}.mc-table-panel{padding:18px}.mc-table-note{color:var(--muted);font-size:12px;margin-top:5px}@media(max-width:760px){.visual-lineup{grid-template-columns:1fr}.vl-pitch{min-height:450px}}
-</style>
-<script>
-(function(){
- const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
- const poisson=(k,l)=>{let r=Math.exp(-l);for(let i=1;i<=k;i++)r*=l/i;return r};
- function predMatches(m){let ms=[];try{ms=competitionMatches(m.competition_id??m.competition,competitionNameForMatch(m))}catch{};return (ms&&ms.length?ms:matches).filter(isFinished)}
- function stats(id,ms){const r=ms.filter(x=>String(x.home_team_id)===String(id)||String(x.away_team_id)===String(id)).sort((a,b)=>(matchDate(b)+matchTime(b)).localeCompare(matchDate(a)+matchTime(a))).slice(0,12);let gf=0,ga=0,pts=0,hgf=0,hga=0,agf=0,aga=0,hn=0,an=0;r.forEach(x=>{const[h,a]=scoreOf(x),home=String(x.home_team_id)===String(id),f=home?h:a,g=home?a:h;gf+=f;ga+=g;pts+=f>g?3:f===g?1:0;if(home){hgf+=h;hga+=a;hn++}else{agf+=a;aga+=h;an++}});const n=r.length||1;return{n,gf:gf/n,ga:ga/n,form:pts/(3*n),hgf:hn?hgf/hn:gf/n,hga:hn?hga/hn:ga/n,agf:an?agf/an:gf/n,aga:an?aga/an:ga/n}}
- function realisticPredict(m){const ms=predMatches(m),h=stats(m.home_team_id,ms),a=stats(m.away_team_id,ms);let lg=1.35;if(ms.length){let g=0;ms.forEach(x=>{const[z,y]=scoreOf(x);g+=z+y});lg=clamp(g/(ms.length*2),.75,2.2)}const sh=(v,n)=>((v*n)+(lg*4))/(n+4);let lh=lg*(sh(h.hgf,h.n)/lg)*(sh(a.aga,a.n)/lg)*1.08,la=lg*(sh(a.agf,a.n)/lg)*(sh(h.hga,h.n)/lg)*.94;const fd=h.form-a.form;lh*=1+clamp(fd*.12,-.12,.12);la*=1-clamp(fd*.10,-.10,.10);lh=clamp(lh,.2,3.8);la=clamp(la,.2,3.8);let hp=0,dp=0,ap=0,best={p:0,h:0,a:0};for(let i=0;i<=6;i++)for(let j=0;j<=6;j++){const p=poisson(i,lh)*poisson(j,la);if(i>j)hp+=p;else if(i===j)dp+=p;else ap+=p;if(p>best.p)best={p,h:i,a:j}}const t=hp+dp+ap;hp/=t;dp/=t;ap/=t;return{home:hp,draw:dp,away:ap,best,lh,la,sample:ms.length,confidence:clamp(45+Math.abs(hp-ap)*80+(ms.length>=8?8:0),45,86)}}
- function predictor(m){if(isFinished(m)||isLive(m))return `<div class="card mi-panel"><div class="mi-head"><div><div class="eyebrow">Match Predictor</div><h3>Pre-match projection</h3></div><span class="muted">Closed after kick-off</span></div><div class="mi-muted">The prediction is intentionally hidden once the match begins.</div></div>`;const p=realisticPredict(m),hp=Math.round(p.home*100),dp=Math.round(p.draw*100),ap=Math.round(p.away*100);return `<div class="card mi-panel"><div class="mi-head"><div><div class="eyebrow">Match Predictor</div><h3>Statistical projection</h3><p class="muted">Competition results, home/away scoring, defence and recent form.</p></div><span class="pill">${p.sample} matches</span></div><div class="predict-grid"><div><strong>${hp}%</strong><span>${esc(teamDisplayName(m,'home'))}</span></div><div><strong>${dp}%</strong><span>Draw</span></div><div><strong>${ap}%</strong><span>${esc(teamDisplayName(m,'away'))}</span></div></div><div class="predict-bar"><i style="width:${hp}%"></i><i style="width:${dp}%"></i><i style="width:${ap}%"></i></div><div class="predict-score"><div><span class="predict-confidence">Most likely exact score</span><br><strong>${p.best.h}–${p.best.a}</strong></div><span class="predict-confidence">Model confidence ${Math.round(p.confidence)}%</span></div><div class="predict-method"><span>Home expected goals ${p.lh.toFixed(2)}</span><span>Away expected goals ${p.la.toFixed(2)}</span><span>Poisson model</span></div></div>`}
- function pos(p,i){const x=String(p.position||'').toLowerCase();if(/gk|goal/.test(x))return'GK';if(/cb|lb|rb|def|back/.test(x))return'DEF';if(/mid|dm|cm|am|wing/.test(x))return'MID';if(/st|cf|fw|forward|striker/.test(x))return'FWD';return['GK','DEF','DEF','DEF','DEF','MID','MID','MID','FWD','FWD','FWD'][i]}
- function coords(p,i){const g={GK:[[50,91]],DEF:[[18,72],[39,78],[61,78],[82,72]],MID:[[20,48],[40,58],[60,58],[80,48]],FWD:[[25,24],[50,18],[75,24]]};return(g[p]||g.MID)[i]||(g[p]||g.MID)[(g[p]||g.MID).length-1]}
- function side(m,side){const tid=side==='home'?m.home_team_id:m.away_team_id,t=teamById(tid),ids=readMatchLineups(m)[side]||[],ps=ids.map(playerById).filter(Boolean).slice(0,11),bench=players.filter(p=>String(p.team_id)===String(tid)&&!ids.map(String).includes(String(p.id))).sort((a,b)=>Number(b.overall||0)-Number(a.overall||0)).slice(0,7);const used={GK:0,DEF:0,MID:0,FWD:0};const marks=ps.map((p,i)=>{const q=pos(p,i),[x,y]=coords(q,used[q]++);return `<div class="vl-player ${side==='away'?'away':''}" style="left:${x}%;top:${y}%"><div class="vl-dot">${esc(p.shirt_number??'')}</div><div class="vl-name">${esc(p.short_name||p.name)}</div><div class="vl-pos">${q}</div></div>`}).join('');return `<div class="visual-lineup-side"><div class="vl-head"><strong>${esc(t?.name||teamDisplayName(m,side))}</strong><span>Starting XI • ${ps.length}</span></div>${ps.length?`<div class="vl-pitch"><div class="vl-half"></div>${marks}</div>`:'<div class="mc-empty">No starting XI available yet.</div>'}<div class="vl-bench"><div class="vl-bench-title">Squad / substitutes</div><div class="vl-bench-list">${bench.length?bench.map(p=>`<span class="vl-bench-player">${esc(p.short_name||p.name)}</span>`).join(''):'<span class="vl-bench-player">No additional players</span>'}</div></div></div>`}
- function lineups(m){return `<div class="card mc-panel"><div class="mc-panel-title"><div><div class="eyebrow">Team sheets</div><h3>Starting lineups</h3><p class="muted">Visual XI generated from the saved lineup and player positions.</p></div><span>11 players per side</span></div><div class="visual-lineup">${side(m,'home')}${side(m,'away')}</div></div>`}
- function table(m){const rows=buildLeagueTable(predMatches(m));return `<div class="card mc-table-panel"><div class="mc-panel-title"><div><div class="eyebrow">Competition table</div><h3>${esc(competitionNameForMatch(m))}</h3><div class="mc-table-note">Completed matches in this competition only.</div></div><span class="pill">${rows.length} teams</span></div>${rows.length?`<div class="standings-wrap"><table class="standings"><thead><tr><th>#</th><th>Team</th><th>PL</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>PTS</th></tr></thead><tbody>${rows.map((r,i)=>`<tr class="${String(r.id)===String(m.home_team_id)||String(r.id)===String(m.away_team_id)?'leader':''}"><td class="pos">${i+1}</td><td class="team-cell">${esc(r.name)}</td><td>${r.p}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td><td>${r.gf}</td><td>${r.ga}</td><td>${r.gd>0?'+':''}${r.gd}</td><td class="pts">${r.pts}</td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">No completed matches are available for this competition.</div>'}</div>`}
- const rr=window.renderMatch;window.renderMatch=function(){rr();const m=matches.find(x=>String(x.id)===String(selectedMatchId)),el=document.getElementById('match-page');if(!m||!el)return;const tabs=el.querySelector('.mc-tabs');if(tabs&&!el.querySelector('[data-mctab="table"]')){const b=document.createElement('button');b.className='mc-tab';b.dataset.mctab='table';b.textContent='Table';b.onclick=()=>switchMatchTab('table');tabs.appendChild(b)}if(!el.querySelector('#mc-table')){const d=document.createElement('div');d.id='mc-table';d.className='mc-tab-panel';d.innerHTML=table(m);el.appendChild(d)}const l=el.querySelector('#mc-lineups');if(l)l.innerHTML=lineups(m);const mi=el.querySelector('#match-intelligence');if(mi){const cards=mi.querySelectorAll('.mi-panel');if(cards.length)cards[cards.length-1].outerHTML=predictor(m)}};
-})();
-</script>
-
-<script>
-/* MEFCO Watch V14 — performance-only patch
-   No UI, data model, match logic, or feature changes. This only coalesces
-   repeated renders so realtime/database updates cannot block button clicks. */
-(function(){
-  const __mefcoOriginalRenderAll=renderAll;
-  let __renderPending=false;
-  let __renderTimer=0;
-  let __lastRender=0;
-  const __MIN_RENDER_GAP=80;
-
-  function __runRender(){
-    __renderPending=false;
-    __renderTimer=0;
-    const now=performance.now();
-    const wait=Math.max(0,__MIN_RENDER_GAP-(now-__lastRender));
-    if(wait>0){
-      __renderPending=true;
-      __renderTimer=setTimeout(__runRender,wait);
-      return;
-    }
-    __lastRender=performance.now();
-    try{__mefcoOriginalRenderAll()}catch(e){console.error('MEFCO render:',e)}
-  }
-
-  renderAll=function(){
-    if(__renderPending)return;
-    __renderPending=true;
-    if(typeof requestIdleCallback==='function'){
-      requestIdleCallback(__runRender,{timeout:120});
-    }else{
-      requestAnimationFrame(__runRender);
-    }
-  };
-
-  /* Prevent rapid repeated refresh clicks from launching overlapping database loads. */
-  const __originalRefreshData=refreshData;
-  let __refreshBusy=false;
-  refreshData=async function(){
-    if(__refreshBusy){showToast('Refresh already in progress…');return}
-    __refreshBusy=true;
-    try{await __originalRefreshData()}finally{__refreshBusy=false}
-  };
-
-  /* News search: do not rebuild the entire newsroom on every keystroke. */
-  let __newsSearchTimer=0;
-  const __originalRenderNewsV3=typeof renderNewsV3==='function'?renderNewsV3:null;
-  if(__originalRenderNewsV3){
-    renderNewsV3=function(){
-      __originalRenderNewsV3();
-      const input=document.getElementById('newsSearch');
-      if(input&&!input.dataset.perfBound){
-        input.dataset.perfBound='1';
-        input.oninput=function(){
-          clearTimeout(__newsSearchTimer);
-          const value=this.value;
-          __newsSearchTimer=setTimeout(()=>{
-            window.newsQuery=value;
-            __originalRenderNewsV3();
-          },120);
-        };
-      }
-    };
-  }
-
-  /* Avoid repeatedly doing the same expensive lineup background pass. */
-  let __lineupPassRunning=false;
-  const __originalEnsureLineups=typeof ensureAutomaticLineups==='function'?ensureAutomaticLineups:null;
-  if(__originalEnsureLineups){
-    ensureAutomaticLineups=async function(){
-      if(__lineupPassRunning)return;
-      __lineupPassRunning=true;
-      try{return await __originalEnsureLineups()}
-      finally{__lineupPassRunning=false}
-    };
-  }
-
-  /* Batch rapid realtime INSERT/UPDATE bursts into one UI render. */
-  let __realtimeTimer=0;
-  const __originalScheduleRender=typeof scheduleRender==='function'?scheduleRender:null;
-  if(__originalScheduleRender){
-    scheduleRender=function(){
-      clearTimeout(__realtimeTimer);
-      __realtimeTimer=setTimeout(()=>__originalScheduleRender(),50);
-    };
-  }
-})();
-</script>
 </body>
 </html>
