@@ -56,26 +56,19 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:10
 @media(max-width:600px){.stat-kpi-grid{grid-template-columns:1fr}.stats-filters .select{width:100%}}
 
 /* V11 responsive/loading/performance polish */
-html,body{min-width:320px;overflow-x:hidden}body{-webkit-text-size-adjust:100%;text-rendering:optimizeLegibility}.topbar-inner{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}.main{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}.nav{scrollbar-width:none}.nav::-webkit-scrollbar{display:none}.btn,.nav button,.ghost{min-height:38px}.input,.select,textarea{min-height:42px}.card{overflow:hidden}.match-card,.news-card,.leaderboard-card,.profile-panel{contain:layout paint}.app-boot{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#071014;color:var(--text);transition:opacity .28s ease,visibility .28s ease}.app-boot.hide{opacity:0;visibility:hidden;pointer-events:none}.boot-shell{width:min(88vw,430px);padding:30px 0;text-align:center}.boot-brand{font-weight:950;font-size:30px;letter-spacing:-.06em}.boot-brand span{color:var(--accent)}.boot-rule{height:2px;width:min(300px,72vw);margin:28px auto 16px;background:#1b2a31;border-radius:99px;overflow:hidden}.boot-rule i{display:block;height:100%;width:18%;background:var(--accent);border-radius:99px;animation:bootProgress 1.25s ease-in-out infinite}.boot-status{font-size:14px;font-weight:800;letter-spacing:-.01em}.boot-detail{margin-top:5px;color:var(--muted);font-size:12px}.boot-retry{margin-top:16px}@keyframes bootProgress{0%{transform:translateX(-130%);width:18%}50%{width:42%}100%{transform:translateX(650%);width:18%}}.loading-skeleton{min-height:140px;background:linear-gradient(90deg,#0e181d,#15242b,#0e181d);background-size:200% 100%;animation:mefcoShimmer 1.4s infinite}@keyframes mefcoShimmer{to{background-position:-200% 0}}.mi-panel{padding:18px;margin-top:14px}.mi-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.mi-muted{color:var(--muted);padding:14px 0}.predict-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px}.predict-grid>div{padding:15px;border:1px solid var(--line);border-radius:12px;text-align:center;background:#0b151a}.predict-grid strong{display:block;font-size:25px}.predict-grid span{font-size:11px;color:var(--muted)}.predict-bar{display:flex;height:10px;border-radius:99px;overflow:hidden;background:#17242a;margin:14px 0}.predict-bar i{display:block}.predict-bar i:nth-child(1){background:var(--accent)}.predict-bar i:nth-child(2){background:var(--warn)}.predict-bar i:nth-child(3){background:var(--accent2)}.predict-detail{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:11px}.mi-legend{display:flex;gap:10px;color:var(--muted);font-size:11px}.momentum-chart{height:180px;display:grid;grid-template-columns:repeat(19,1fr);gap:4px;align-items:center;margin-top:12px;border-bottom:1px solid var(--line)}.momentum-col{height:100%;position:relative;display:flex;align-items:center;justify-content:center}.momentum-zero{position:absolute;left:0;right:0;top:50%;border-top:1px dashed #2b3c44}.momentum-fill{position:absolute;width:70%;border-radius:4px}.momentum-fill.home{bottom:50%;background:var(--accent)}.momentum-fill.away{top:50%;background:var(--accent2)}.momentum-col span{position:absolute;bottom:-20px;font-size:9px;color:var(--muted)}.momentum-scale{display:flex;justify-content:space-between;color:var(--muted);font-size:10px;margin-top:24px}.potm-mark{padding:5px 8px;border:1px solid var(--accent);border-radius:999px;color:var(--accent);font-weight:900;font-size:10px}.potm-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0}.potm-stats div{padding:11px;border:1px solid var(--line);border-radius:10px}.potm-stats strong{display:block;font-size:20px}.potm-stats span{font-size:10px;color:var(--muted)}.records-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.record-item{padding:15px;border:1px solid var(--line);border-radius:12px;background:#0b151a}.record-item span,.record-item b{display:block;color:var(--muted);font-size:11px}.record-item strong{display:block;margin:7px 0;font-size:15px}.milestones{margin-top:12px;padding:16px;border:1px solid var(--line);border-radius:14px}.milestone-row{width:100%;display:flex;justify-content:space-between;text-align:left;background:transparent;color:var(--text);border:0;border-bottom:1px solid var(--line);padding:11px 0}.milestone-row:last-child{border-bottom:0}.rating-chip{display:inline-flex;align-items:center;justify-content:center;min-width:38px;padding:4px 7px;border-radius:999px;border:1px solid var(--line);font-weight:900;font-size:11px}.rating-high{color:var(--accent);border-color:#285c4d}.rating-mid{color:var(--warn)}.rating-low{color:var(--danger)}.health-issue{padding:9px 11px;border-left:3px solid var(--warn);background:#17140b;margin-top:6px;border-radius:6px;font-size:12px}
+html,body{min-width:320px;overflow-x:hidden}body{-webkit-text-size-adjust:100%;text-rendering:optimizeLegibility}.topbar-inner{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}.main{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}.nav{scrollbar-width:none}.nav::-webkit-scrollbar{display:none}.btn,.nav button,.ghost{min-height:38px}.input,.select,textarea{min-height:42px}.card{overflow:hidden}.match-card,.news-card,.leaderboard-card,.profile-panel{contain:layout paint}.app-boot{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#081014;color:var(--text);transition:opacity .25s ease,visibility .25s ease}.app-boot.hide{opacity:0;visibility:hidden;pointer-events:none}.boot-card{width:min(92vw,380px);padding:28px;text-align:center;border:1px solid var(--line);border-radius:18px;background:#0e181d;box-shadow:var(--shadow)}.boot-mark{font-weight:950;font-size:25px;letter-spacing:-.05em}.boot-mark span{color:var(--accent)}.boot-spinner{width:28px;height:28px;margin:20px auto 12px;border:3px solid #223038;border-top-color:var(--accent);border-radius:50%;animation:mefcoSpin .8s linear infinite}.boot-card small{display:block;color:var(--muted);margin-top:5px}@keyframes mefcoSpin{to{transform:rotate(360deg)}}.loading-skeleton{min-height:140px;background:linear-gradient(90deg,#0e181d,#15242b,#0e181d);background-size:200% 100%;animation:mefcoShimmer 1.4s infinite}@keyframes mefcoShimmer{to{background-position:-200% 0}}.mi-panel{padding:18px;margin-top:14px}.mi-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.mi-muted{color:var(--muted);padding:14px 0}.predict-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px}.predict-grid>div{padding:15px;border:1px solid var(--line);border-radius:12px;text-align:center;background:#0b151a}.predict-grid strong{display:block;font-size:25px}.predict-grid span{font-size:11px;color:var(--muted)}.predict-bar{display:flex;height:10px;border-radius:99px;overflow:hidden;background:#17242a;margin:14px 0}.predict-bar i{display:block}.predict-bar i:nth-child(1){background:var(--accent)}.predict-bar i:nth-child(2){background:var(--warn)}.predict-bar i:nth-child(3){background:var(--accent2)}.predict-detail{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:11px}.mi-legend{display:flex;gap:10px;color:var(--muted);font-size:11px}.momentum-chart{height:180px;display:grid;grid-template-columns:repeat(19,1fr);gap:4px;align-items:center;margin-top:12px;border-bottom:1px solid var(--line)}.momentum-col{height:100%;position:relative;display:flex;align-items:center;justify-content:center}.momentum-zero{position:absolute;left:0;right:0;top:50%;border-top:1px dashed #2b3c44}.momentum-fill{position:absolute;width:70%;border-radius:4px}.momentum-fill.home{bottom:50%;background:var(--accent)}.momentum-fill.away{top:50%;background:var(--accent2)}.momentum-col span{position:absolute;bottom:-20px;font-size:9px;color:var(--muted)}.momentum-scale{display:flex;justify-content:space-between;color:var(--muted);font-size:10px;margin-top:24px}.potm-mark{padding:5px 8px;border:1px solid var(--accent);border-radius:999px;color:var(--accent);font-weight:900;font-size:10px}.potm-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0}.potm-stats div{padding:11px;border:1px solid var(--line);border-radius:10px}.potm-stats strong{display:block;font-size:20px}.potm-stats span{font-size:10px;color:var(--muted)}.records-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.record-item{padding:15px;border:1px solid var(--line);border-radius:12px;background:#0b151a}.record-item span,.record-item b{display:block;color:var(--muted);font-size:11px}.record-item strong{display:block;margin:7px 0;font-size:15px}.milestones{margin-top:12px;padding:16px;border:1px solid var(--line);border-radius:14px}.milestone-row{width:100%;display:flex;justify-content:space-between;text-align:left;background:transparent;color:var(--text);border:0;border-bottom:1px solid var(--line);padding:11px 0}.milestone-row:last-child{border-bottom:0}.rating-chip{display:inline-flex;align-items:center;justify-content:center;min-width:38px;padding:4px 7px;border-radius:999px;border:1px solid var(--line);font-weight:900;font-size:11px}.rating-high{color:var(--accent);border-color:#285c4d}.rating-mid{color:var(--warn)}.rating-low{color:var(--danger)}.health-issue{padding:9px 11px;border-left:3px solid var(--warn);background:#17140b;margin-top:6px;border-radius:6px;font-size:12px}
 @media(max-width:1100px){.hero{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.admin-shell{grid-template-columns:280px 1fr}.records-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:760px){.topbar-inner{align-items:flex-start;flex-wrap:wrap;gap:8px}.brand{width:auto}.nav{order:3;flex-basis:100%;width:100%;padding-bottom:2px}.nav button{white-space:nowrap}.notificationButton{margin-left:auto}.grid,.grid.two,.mc-columns,.mc-lineups,.team-profile-grid,.profile-two{grid-template-columns:1fr}.date-nav{margin-left:0;width:100%;justify-content:space-between}.date-control{flex:1}.date-control .input{min-width:0}.mc-scoreboard{padding:24px 0;gap:6px}.mc-team img{width:54px;height:54px}.mc-team-name{font-size:15px}.mc-big-score{font-size:38px}.mc-meta{flex-wrap:wrap}.mc-tabs{overflow:auto}.mc-tab{white-space:nowrap}.admin-shell{grid-template-columns:1fr}.admin-list-v2{position:static}.admin-match-list{max-height:42vh}.form-grid,.form-grid.three{grid-template-columns:1fr}.profile-hero-main{align-items:flex-start;flex-wrap:wrap}.profile-actions{margin-left:0}.profile-stat-grid,.mini-grid,.kpis{grid-template-columns:repeat(2,1fr)}.news-feature{grid-template-columns:1fr}.news-feature-image{min-height:180px}.article h1{font-size:32px}.predict-grid,.records-grid{grid-template-columns:1fr}.predict-detail{flex-direction:column}.momentum-chart{height:145px}.potm-stats{grid-template-columns:repeat(2,1fr)}.mc-event{grid-template-columns:34px 25px 1fr}.mc-event-team{display:none}.standings{min-width:650px}.toolbar{align-items:stretch}.toolbar>.btn{flex:0 0 auto}}
 @media(max-width:430px){body{font-size:13px}.main{padding-top:16px}.hero-main{padding:24px}.hero h1{font-size:36px}.section{margin-top:22px}.profile-stat-grid,.mini-grid,.kpis{grid-template-columns:1fr 1fr}.mc-scoreboard{grid-template-columns:1fr 90px 1fr}.mc-big-score{font-size:32px}.mc-team-name{font-size:13px}.topbar-inner{padding-top:9px}.ticker{font-size:10px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
 @media(prefers-contrast:more){.card,.input,.select,.btn{border-width:2px}}
+.app-boot{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#071014;color:var(--text);transition:opacity .22s ease,visibility .22s ease}.app-boot.hide{opacity:0;visibility:hidden;pointer-events:none}.boot-shell{width:min(88vw,430px);padding:30px 0;text-align:center}.boot-brand{font-weight:950;font-size:30px;letter-spacing:-.06em}.boot-brand span{color:var(--accent)}.boot-rule{height:2px;width:min(300px,72vw);margin:28px auto 16px;background:#1b2a31;border-radius:99px;overflow:hidden}.boot-rule i{display:block;height:100%;width:18%;background:var(--accent);border-radius:99px;animation:bootProgress 1.25s ease-in-out infinite}.boot-status{font-size:14px;font-weight:800}.boot-detail{margin-top:5px;color:var(--muted);font-size:12px}.boot-retry{margin-top:16px}@keyframes bootProgress{0%{transform:translateX(-130%);width:18%}50%{width:42%}100%{transform:translateX(650%);width:18%}}
 </style>
 
 
 </head>
 <body>
-<div id="appBoot" class="app-boot" aria-live="polite">
-  <div class="boot-shell">
-    <div class="boot-brand">MEFCO <span>WATCH</span></div>
-    <div class="boot-rule"><i id="bootProgress"></i></div>
-    <div id="bootText" class="boot-status">Loading MEFCO Watch…</div>
-    <div id="bootDetail" class="boot-detail">Connecting to live data</div>
-    <button id="bootRetry" class="btn small boot-retry" style="display:none" onclick="location.reload()">Retry</button>
-  </div>
-</div>
+<div id="appBoot" class="app-boot" aria-live="polite"><div class="boot-shell"><div class="boot-brand">MEFCO <span>WATCH</span></div><div class="boot-rule"><i id="bootProgress"></i></div><div id="bootText" class="boot-status">Loading MEFCO Watch…</div><div id="bootDetail" class="boot-detail">Connecting to live data</div><button id="bootRetry" class="btn small boot-retry" style="display:none" onclick="location.reload()">Retry</button></div></div>
 <div class="app">
 <header class="topbar">
  <div class="topbar-inner">
@@ -322,23 +315,31 @@ function showPage(id,button=null){
  const p=document.getElementById(id);if(p)p.classList.add("active");
  document.querySelectorAll("#nav button").forEach(b=>b.classList.remove("active"));
  if(button)button.classList.add("active");
- window.scrollTo({top:0,behavior:"smooth"});
+ window.scrollTo({top:0,behavior:"auto"});
  const fn={home:renderHome,scores:renderScores,news:renderNews,competitions:renderCompetitions,stats:renderStats,search:renderSearch,admin:renderAdmin}[id];
  if(fn)fn();
+ if(id==='match-page'&&selectedMatchId)renderMatch();
 }
 function navFor(page){const b=document.querySelector('#nav button[data-page="'+page+'"]');showPage(page,b)}
 
-function renderAll(){
- renderHome();renderScores();renderNews();renderCompetitions();renderStats();renderSearch();
- /* Critical V2 behavior: a dirty lineup editor must not be rebuilt by refresh/event/score updates. */
- if(ADMIN_MODE&&lineupDraft.dirty&&String(lineupDraft.matchId)===String(selectedMatchId)&&document.getElementById("adminPanel")){
-  renderAdminMatchList();
-  updateLineupDraftIndicator();
- }else{
-  renderAdmin();
- }
+let renderQueued=false,rendering=false;
+function activePageId(){return document.querySelector('.page.active')?.id||'home'}
+function renderCurrentPage(){
+ const id=activePageId();
+ const fn={home:renderHome,scores:renderScores,news:renderNews,competitions:renderCompetitions,stats:renderStats,search:renderSearch,admin:renderAdmin}[id];
+ if(fn)fn();
+ if(selectedMatchId&&id==='match-page')renderMatch();
  renderTicker();
- if(selectedMatchId)renderMatch();
+}
+function renderAll(){
+ if(rendering)return;
+ rendering=true;
+ try{renderCurrentPage()}finally{rendering=false}
+}
+function scheduleRender(){
+ if(renderQueued)return;
+ renderQueued=true;
+ requestAnimationFrame(()=>{renderQueued=false;renderAll()});
 }
 function renderTicker(){
  const live=matches.filter(isLive),finished=matches.filter(isFinished).slice(-4);
@@ -948,7 +949,7 @@ function setupRealtime(){
    if(!m)return;
    m.events=m.events||[];if(!m.events.some(x=>String(x.id)===String(e.id)))m.events.push(e);
    notifyFavoriteEvent(m,e);
-   try{renderAll()}catch(err){console.error("MEFCO realtime render:",err)}
+   try{scheduleRender()}catch(err){console.error("MEFCO realtime render:",err)}
   }).subscribe();
   const matchesChannel=realtimeClient.channel("mefco-watch-matches").on("postgres_changes",{event:"UPDATE",schema:"public",table:"matches"},payload=>{
    const incoming=payload.new,old=payload.old||{},m=matches.find(x=>String(x.id)===String(incoming?.id));
@@ -1271,7 +1272,13 @@ renderHome=function(){_renderHomeV3();const el=document.getElementById('home');i
 
 /* Preserve the existing admin UI. These hooks only add background data work. */
 const _loadDataV3=loadData;
-loadData=async function(){await _loadDataV3();await ensureAutomaticLineups();await autoPublishFinishedReports();renderAll();};
+loadData=async function(){
+ await _loadDataV3();
+ renderAll();
+ /* Lineups and reports are background work. They must never hold the UI hostage. */
+ setTimeout(()=>{ensureAutomaticLineups().then(()=>scheduleRender()).catch(e=>console.warn('Automatic lineups:',e));},0);
+ setTimeout(()=>{autoPublishFinishedReports().catch(e=>console.warn('Automatic reports:',e));},0);
+};
 
 loadData().then(()=>{
  setupRealtime();
@@ -1490,23 +1497,15 @@ window.MEFCO_V11={version:'11.0'};
 (function(){
   const CACHE_KEY='mefco_watch_cache_v11';
   let loadingDone=false, loadBusy=false, loadSeq=0;
-  const boot=()=>document.getElementById('appBoot');
-  const bootText=()=>document.getElementById('bootText');
-  const bootDetail=()=>document.getElementById('bootDetail');
-  function hideBoot(){const b=boot();if(!b)return;loadingDone=true;b.classList.add('hide');setTimeout(()=>{if(b.parentNode)b.remove()},420)}
-  function bootMessage(msg,showRetry=false,detail='Connecting to live data'){const t=bootText();const d=bootDetail();const r=document.getElementById('bootRetry');if(t)t.textContent=msg;if(d)d.textContent=detail;if(r)r.style.display=showRetry?'inline-block':'none'}
-  function bootReady(){if(!loadingDone)hideBoot()}
-  window.addEventListener('mefco:data-ready',bootReady,{once:true});
-  /* The original startup load can begin before the V11 reliability layer wraps loadData.
-     Never leave the overlay covering a usable app just because that first promise was already in flight. */
-  const bootStarted=Date.now();
-  const bootWatch=setInterval(()=>{
-    if(loadingDone){clearInterval(bootWatch);return}
-    const hasRendered=!!document.querySelector('.page.active:not(:empty)')||matches.length||teams.length||news.length;
-    if(hasRendered){clearInterval(bootWatch);bootReady();return}
-    if(Date.now()-bootStarted>10000){clearInterval(bootWatch);bootMessage('MEFCO is ready',false,'Using available data — you can continue while the connection retries');bootReady();}
-  },120);
-  setTimeout(()=>{if(!loadingDone)bootMessage('Still connecting…',true,'The database is taking longer than usual')},6500);
+const boot=()=>document.getElementById('appBoot');
+const bootText=()=>document.getElementById('bootText');
+const bootDetail=()=>document.getElementById('bootDetail');
+function hideBoot(){const b=boot();if(!b)return;loadingDone=true;b.classList.add('hide');setTimeout(()=>b.remove(),260)}
+function bootMessage(msg,showRetry=false,detail='Connecting to live data'){const t=bootText(),d=bootDetail(),r=document.getElementById('bootRetry');if(t)t.textContent=msg;if(d)d.textContent=detail;if(r)r.style.display=showRetry?'inline-block':'none'}
+window.addEventListener('mefco:data-ready',()=>hideBoot(),{once:true});
+const bootStarted=Date.now();
+const bootWatch=setInterval(()=>{if(loadingDone){clearInterval(bootWatch);return}if(matches.length||teams.length||players.length||news.length){hideBoot();clearInterval(bootWatch);return}if(Date.now()-bootStarted>9000){bootMessage('Still connecting…',true,'You can retry if the database is unavailable')}},120);
+setTimeout(()=>{if(!loadingDone)bootMessage('Still connecting…',true,'The database is taking longer than usual')},6000);
 
   /* Network timeout: prevents Safari/iOS/slow mobile connections from hanging forever. */
   const _fetch=window.fetch.bind(window);
@@ -1536,11 +1535,16 @@ window.MEFCO_V11={version:'11.0'};
       cacheData();
       hideBoot();
       window.dispatchEvent(new Event('mefco:data-ready'));
+      /* Generate missing lineups after the first usable render, never during it. */
+      if(!window._mefcoLineupsQueued){
+        window._mefcoLineupsQueued=true;
+        setTimeout(()=>ensureAutomaticLineups().then(()=>scheduleRender()).catch(e=>console.warn('Automatic lineups:',e)),0);
+      }
       return result;
     }catch(e){
       console.error('MEFCO V11 load:',e);
       const had=restoreCache();
-      if(had){dbOnline=false;try{renderAll()}catch{};hideBoot();window.dispatchEvent(new Event('mefco:data-ready'));showToast('Showing saved data — database connection is unavailable')}else{bootMessage('MEFCO could not connect to the database.',true,'Check your connection or retry.');window.dispatchEvent(new Event('mefco:data-ready'));showToast('MEFCO database connection failed')}
+      if(had){dbOnline=false;try{renderAll()}catch{};hideBoot();window.dispatchEvent(new Event('mefco:data-ready'));showToast('Showing saved data — database connection is unavailable')}else{bootMessage('MEFCO could not connect to the database.',true);window.dispatchEvent(new Event('mefco:data-ready'));showToast('MEFCO database connection failed')}
       return false;
     }finally{loadBusy=false}
   };
@@ -1603,6 +1607,26 @@ window.MEFCO_V11={version:'11.0'};
 
   /* Initial boot call: the existing app call may already be in flight, so wait briefly and then refresh through the guarded loader. */
   setTimeout(()=>{if(!dbOnline&&!matches.length)loadData();},50);
+})();
+</script>
+<style id="mefco-v13-match-upgrades">
+.visual-lineup{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.visual-lineup-side{min-width:0}.vl-head{display:flex;justify-content:space-between;gap:10px;margin-bottom:10px}.vl-head strong{font-size:15px}.vl-head span{font-size:11px;color:var(--muted)}
+.vl-pitch{position:relative;min-height:500px;border:1px solid rgba(255,255,255,.12);border-radius:14px;overflow:hidden;background:linear-gradient(90deg,rgba(20,115,70,.16),rgba(15,80,50,.22))}.vl-pitch:before{content:"";position:absolute;inset:8px;border:1px solid rgba(255,255,255,.23);border-radius:10px}.vl-pitch:after{content:"";position:absolute;left:50%;top:8px;bottom:8px;border-left:1px solid rgba(255,255,255,.2)}.vl-half{position:absolute;left:50%;top:50%;width:90px;height:90px;border:1px solid rgba(255,255,255,.2);border-radius:50%;transform:translate(-50%,-50%)}.vl-player{position:absolute;transform:translate(-50%,-50%);width:78px;text-align:center;z-index:2}.vl-dot{width:32px;height:32px;margin:auto;border-radius:50%;display:grid;place-items:center;background:rgba(8,15,18,.95);border:2px solid var(--accent);font-size:10px;font-weight:900}.vl-player.away .vl-dot{border-color:#4aa9ff}.vl-name{margin-top:4px;font-size:10px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.vl-pos{font-size:9px;color:var(--muted)}.vl-bench{margin-top:10px;border:1px solid var(--line);border-radius:10px;padding:10px}.vl-bench-title{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:7px}.vl-bench-list{display:flex;flex-wrap:wrap;gap:6px}.vl-bench-player{font-size:11px;padding:6px 8px;border:1px solid var(--line);border-radius:7px}.predict-method{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.predict-method span{padding:5px 8px;border:1px solid var(--line);border-radius:7px;color:var(--muted);font-size:10px}.predict-score{margin-top:14px;padding:11px;border:1px solid var(--line);border-radius:9px;display:flex;justify-content:space-between;align-items:center}.predict-score strong{font-size:18px}.predict-confidence{font-size:11px;color:var(--muted)}.mc-table-panel{padding:18px}.mc-table-note{color:var(--muted);font-size:12px;margin-top:5px}@media(max-width:760px){.visual-lineup{grid-template-columns:1fr}.vl-pitch{min-height:450px}}
+</style>
+<script>
+(function(){
+ const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
+ const poisson=(k,l)=>{let r=Math.exp(-l);for(let i=1;i<=k;i++)r*=l/i;return r};
+ function predMatches(m){let ms=[];try{ms=competitionMatches(m.competition_id??m.competition,competitionNameForMatch(m))}catch{};return (ms&&ms.length?ms:matches).filter(isFinished)}
+ function stats(id,ms){const r=ms.filter(x=>String(x.home_team_id)===String(id)||String(x.away_team_id)===String(id)).sort((a,b)=>(matchDate(b)+matchTime(b)).localeCompare(matchDate(a)+matchTime(a))).slice(0,12);let gf=0,ga=0,pts=0,hgf=0,hga=0,agf=0,aga=0,hn=0,an=0;r.forEach(x=>{const[h,a]=scoreOf(x),home=String(x.home_team_id)===String(id),f=home?h:a,g=home?a:h;gf+=f;ga+=g;pts+=f>g?3:f===g?1:0;if(home){hgf+=h;hga+=a;hn++}else{agf+=a;aga+=h;an++}});const n=r.length||1;return{n,gf:gf/n,ga:ga/n,form:pts/(3*n),hgf:hn?hgf/hn:gf/n,hga:hn?hga/hn:ga/n,agf:an?agf/an:gf/n,aga:an?aga/an:ga/n}}
+ function realisticPredict(m){const ms=predMatches(m),h=stats(m.home_team_id,ms),a=stats(m.away_team_id,ms);let lg=1.35;if(ms.length){let g=0;ms.forEach(x=>{const[z,y]=scoreOf(x);g+=z+y});lg=clamp(g/(ms.length*2),.75,2.2)}const sh=(v,n)=>((v*n)+(lg*4))/(n+4);let lh=lg*(sh(h.hgf,h.n)/lg)*(sh(a.aga,a.n)/lg)*1.08,la=lg*(sh(a.agf,a.n)/lg)*(sh(h.hga,h.n)/lg)*.94;const fd=h.form-a.form;lh*=1+clamp(fd*.12,-.12,.12);la*=1-clamp(fd*.10,-.10,.10);lh=clamp(lh,.2,3.8);la=clamp(la,.2,3.8);let hp=0,dp=0,ap=0,best={p:0,h:0,a:0};for(let i=0;i<=6;i++)for(let j=0;j<=6;j++){const p=poisson(i,lh)*poisson(j,la);if(i>j)hp+=p;else if(i===j)dp+=p;else ap+=p;if(p>best.p)best={p,h:i,a:j}}const t=hp+dp+ap;hp/=t;dp/=t;ap/=t;return{home:hp,draw:dp,away:ap,best,lh,la,sample:ms.length,confidence:clamp(45+Math.abs(hp-ap)*80+(ms.length>=8?8:0),45,86)}}
+ function predictor(m){if(isFinished(m)||isLive(m))return `<div class="card mi-panel"><div class="mi-head"><div><div class="eyebrow">Match Predictor</div><h3>Pre-match projection</h3></div><span class="muted">Closed after kick-off</span></div><div class="mi-muted">The prediction is intentionally hidden once the match begins.</div></div>`;const p=realisticPredict(m),hp=Math.round(p.home*100),dp=Math.round(p.draw*100),ap=Math.round(p.away*100);return `<div class="card mi-panel"><div class="mi-head"><div><div class="eyebrow">Match Predictor</div><h3>Statistical projection</h3><p class="muted">Competition results, home/away scoring, defence and recent form.</p></div><span class="pill">${p.sample} matches</span></div><div class="predict-grid"><div><strong>${hp}%</strong><span>${esc(teamDisplayName(m,'home'))}</span></div><div><strong>${dp}%</strong><span>Draw</span></div><div><strong>${ap}%</strong><span>${esc(teamDisplayName(m,'away'))}</span></div></div><div class="predict-bar"><i style="width:${hp}%"></i><i style="width:${dp}%"></i><i style="width:${ap}%"></i></div><div class="predict-score"><div><span class="predict-confidence">Most likely exact score</span><br><strong>${p.best.h}–${p.best.a}</strong></div><span class="predict-confidence">Model confidence ${Math.round(p.confidence)}%</span></div><div class="predict-method"><span>Home expected goals ${p.lh.toFixed(2)}</span><span>Away expected goals ${p.la.toFixed(2)}</span><span>Poisson model</span></div></div>`}
+ function pos(p,i){const x=String(p.position||'').toLowerCase();if(/gk|goal/.test(x))return'GK';if(/cb|lb|rb|def|back/.test(x))return'DEF';if(/mid|dm|cm|am|wing/.test(x))return'MID';if(/st|cf|fw|forward|striker/.test(x))return'FWD';return['GK','DEF','DEF','DEF','DEF','MID','MID','MID','FWD','FWD','FWD'][i]}
+ function coords(p,i){const g={GK:[[50,91]],DEF:[[18,72],[39,78],[61,78],[82,72]],MID:[[20,48],[40,58],[60,58],[80,48]],FWD:[[25,24],[50,18],[75,24]]};return(g[p]||g.MID)[i]||(g[p]||g.MID)[(g[p]||g.MID).length-1]}
+ function side(m,side){const tid=side==='home'?m.home_team_id:m.away_team_id,t=teamById(tid),ids=readMatchLineups(m)[side]||[],ps=ids.map(playerById).filter(Boolean).slice(0,11),bench=players.filter(p=>String(p.team_id)===String(tid)&&!ids.map(String).includes(String(p.id))).sort((a,b)=>Number(b.overall||0)-Number(a.overall||0)).slice(0,7);const used={GK:0,DEF:0,MID:0,FWD:0};const marks=ps.map((p,i)=>{const q=pos(p,i),[x,y]=coords(q,used[q]++);return `<div class="vl-player ${side==='away'?'away':''}" style="left:${x}%;top:${y}%"><div class="vl-dot">${esc(p.shirt_number??'')}</div><div class="vl-name">${esc(p.short_name||p.name)}</div><div class="vl-pos">${q}</div></div>`}).join('');return `<div class="visual-lineup-side"><div class="vl-head"><strong>${esc(t?.name||teamDisplayName(m,side))}</strong><span>Starting XI • ${ps.length}</span></div>${ps.length?`<div class="vl-pitch"><div class="vl-half"></div>${marks}</div>`:'<div class="mc-empty">No starting XI available yet.</div>'}<div class="vl-bench"><div class="vl-bench-title">Squad / substitutes</div><div class="vl-bench-list">${bench.length?bench.map(p=>`<span class="vl-bench-player">${esc(p.short_name||p.name)}</span>`).join(''):'<span class="vl-bench-player">No additional players</span>'}</div></div></div>`}
+ function lineups(m){return `<div class="card mc-panel"><div class="mc-panel-title"><div><div class="eyebrow">Team sheets</div><h3>Starting lineups</h3><p class="muted">Visual XI generated from the saved lineup and player positions.</p></div><span>11 players per side</span></div><div class="visual-lineup">${side(m,'home')}${side(m,'away')}</div></div>`}
+ function table(m){const rows=buildLeagueTable(predMatches(m));return `<div class="card mc-table-panel"><div class="mc-panel-title"><div><div class="eyebrow">Competition table</div><h3>${esc(competitionNameForMatch(m))}</h3><div class="mc-table-note">Completed matches in this competition only.</div></div><span class="pill">${rows.length} teams</span></div>${rows.length?`<div class="standings-wrap"><table class="standings"><thead><tr><th>#</th><th>Team</th><th>PL</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>PTS</th></tr></thead><tbody>${rows.map((r,i)=>`<tr class="${String(r.id)===String(m.home_team_id)||String(r.id)===String(m.away_team_id)?'leader':''}"><td class="pos">${i+1}</td><td class="team-cell">${esc(r.name)}</td><td>${r.p}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td><td>${r.gf}</td><td>${r.ga}</td><td>${r.gd>0?'+':''}${r.gd}</td><td class="pts">${r.pts}</td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">No completed matches are available for this competition.</div>'}</div>`}
+ const rr=window.renderMatch;window.renderMatch=function(){rr();const m=matches.find(x=>String(x.id)===String(selectedMatchId)),el=document.getElementById('match-page');if(!m||!el)return;const tabs=el.querySelector('.mc-tabs');if(tabs&&!el.querySelector('[data-mctab="table"]')){const b=document.createElement('button');b.className='mc-tab';b.dataset.mctab='table';b.textContent='Table';b.onclick=()=>switchMatchTab('table');tabs.appendChild(b)}if(!el.querySelector('#mc-table')){const d=document.createElement('div');d.id='mc-table';d.className='mc-tab-panel';d.innerHTML=table(m);el.appendChild(d)}const l=el.querySelector('#mc-lineups');if(l)l.innerHTML=lineups(m);const mi=el.querySelector('#match-intelligence');if(mi){const cards=mi.querySelectorAll('.mi-panel');if(cards.length)cards[cards.length-1].outerHTML=predictor(m)}};
 })();
 </script>
 </body>
