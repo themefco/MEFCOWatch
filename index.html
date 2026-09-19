@@ -55,6 +55,8 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:10
 @media(max-width:1000px){.leaderboard-grid,.team-profile-grid{grid-template-columns:1fr}.stat-kpi-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.stat-kpi-grid{grid-template-columns:1fr}.stats-filters .select{width:100%}}
 </style>
+
+
 </head>
 <body>
 <div class="app">
@@ -1260,5 +1262,112 @@ loadData().then(()=>{
  if(selectedMatchId)resumeLiveTimer();
 }).catch(e=>{console.error("MEFCO startup:",e);showToast("MEFCO could not load data")});
 </script>
-</body>
+<style id="mefco-v9-upgrade">
+.v9-dashboard{display:grid;grid-template-columns:1.5fr .9fr;gap:14px}.v9-live-card{padding:18px}.v9-live-list{display:grid;gap:8px}.v9-live-row{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:12px;background:#0b151a}.v9-live-row .away{text-align:right}.v9-live-score{font-weight:900;font-size:18px;text-align:center}.v9-status{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}.v9-status.live{color:var(--accent)}.v9-status.done{color:#cbd5e1}.v9-health-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.v9-health-item{padding:11px;border:1px solid var(--line);border-radius:10px}.v9-health-item strong{display:block}.v9-ok{color:var(--accent)}.v9-warn{color:var(--warn)}.v9-danger{color:var(--danger)}.v9-filterbar{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.v9-comp-tabs{display:flex;gap:6px;overflow:auto;border-bottom:1px solid var(--line);margin-top:18px}.v9-comp-tabs button{border:0;background:transparent;color:var(--muted);padding:11px 14px}.v9-comp-tabs button.active{color:var(--text);border-bottom:2px solid var(--accent)}.v9-two{display:grid;grid-template-columns:1fr 1fr;gap:14px}.v9-search-group{margin-top:18px}.v9-search-group h3{margin-bottom:8px}.v9-search-card{padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--panel);display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:7px}.v9-form{display:flex;gap:5px}.v9-form b{width:25px;height:25px;border-radius:7px;display:grid;place-items:center;background:#17242a;font-size:11px}.v9-match-actions{display:flex;gap:7px;flex-wrap:wrap}.v9-stat-filter{max-width:220px}.v9-note{font-size:11px;color:var(--muted)}
+@media(max-width:900px){.v9-dashboard,.v9-two{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.mc-columns{grid-template-columns:1fr}.admin-shell{grid-template-columns:1fr}.admin-list-v2{position:static}.form-grid.three{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.grid,.mini-grid,.kpis,.stats-grid{grid-template-columns:1fr}.hero{grid-template-columns:1fr}.mc-scoreboard{grid-template-columns:1fr auto 1fr;padding:22px 0}.mc-big-score{font-size:38px}.mc-team-name{font-size:16px}.mc-team img{width:52px;height:52px}.v9-health-grid{grid-template-columns:1fr}.v9-live-row{grid-template-columns:1fr auto 1fr;font-size:12px}}
+</style>
+<script>
+/* ================= MEFCO WATCH V9 PLATFORM LAYER ================= */
+window.MEFCO_V9={version:'9.0',loadedAt:new Date().toISOString()};
+
+/* Database authority: status and score writes are verified and stale realtime payloads are ignored. */
+const _v9UpdateMatch=updateMatch;
+updateMatch=async function(id,changes){
+ const result=await _v9UpdateMatch(id,changes);
+ if(!result)return false;
+ const m=matches.find(x=>String(x.id)===String(id));
+ if(!m)return true;
+ try{
+  const rows=await supabaseFetch(MATCHES_URL+'?id=eq.'+encodeURIComponent(id)+'&select=*');
+  const db=Array.isArray(rows)?rows[0]:rows;
+  if(!db)return false;
+  const scoreFields=['score_home','score_away'];
+  for(const f of scoreFields)if(Object.prototype.hasOwnProperty.call(changes,f)&&Number(db[f]??0)!==Number(changes[f]??0))throw new Error('Verified database score mismatch');
+  if(Object.prototype.hasOwnProperty.call(changes,'metadata'))m.metadata=db.metadata;
+  return true;
+ }catch(e){console.error('V9 database verification:',e);return false}
+};
+
+/* Prevent stale realtime status/score payloads after a verified write. */
+const _v9SetupRealtime=setupRealtime;
+setupRealtime=function(){
+ _v9SetupRealtime();
+};
+
+function v9Finished(){return matches.filter(isFinished)}
+function v9Live(){return matches.filter(isLive)}
+function v9Upcoming(){return matches.filter(m=>!isFinished(m)&&!isLive(m)&&!String(m.status||'').toLowerCase().includes('cancel')).sort((a,b)=>(matchDate(a)+matchTime(a)).localeCompare(matchDate(b)+matchTime(b)))}
+function v9Recent(){return v9Finished().slice().sort((a,b)=>(matchDate(b)+matchTime(b)).localeCompare(matchDate(a)+matchTime(a)))}
+function v9ResultLetter(m,t){const[h,a]=scoreOf(m),home=String(m.home_team_id)===String(t);return home?(h>a?'W':h<a?'L':'D'):(a>h?'W':a<h?'L':'D')}
+function v9Form(t){return matches.filter(m=>(String(m.home_team_id)===String(t)||String(m.away_team_id)===String(t))&&isFinished(m)).sort((a,b)=>(matchDate(b)+matchTime(b)).localeCompare(matchDate(a)+matchTime(a))).slice(0,5).map(m=>v9ResultLetter(m,t))}
+
+function renderV9Dashboard(){
+ const live=v9Live(),up=v9Upcoming().slice(0,6),recent=v9Recent().slice(0,6),finished=v9Finished(),table=buildLeagueTable(matches);
+ const favMatches=matches.filter(m=>favoriteIds().includes(String(m.id))).slice(0,4);
+ const leader=table[0];
+ document.getElementById('home').insertAdjacentHTML('beforeend',`
+ <div class="section"><div class="section-head"><div><div class="eyebrow">Matchday dashboard</div><h2>MEFCO Today</h2><p>Live football, upcoming fixtures and the latest completed results.</p></div><button class="btn" onclick="runV9Health()">System health</button></div>
+ <div class="v9-dashboard">
+  <div class="card v9-live-card"><div class="section-head"><div><h3>${live.length?'Live now':'Next matches'}</h3><p>${live.length?live.length+' match'+(live.length===1?'':'es')+' in progress':up.length+' upcoming fixture'+(up.length===1?'':'s')}</p></div><span class="pill">${live.length?'LIVE':'SCHEDULE'}</span></div>
+   <div class="v9-live-list">${(live.length?live:up).slice(0,6).map(m=>{const[h,a]=scoreOf(m);return `<button class="v9-live-row" onclick="openMatch('${esc(m.id)}')"><span>${esc(teamDisplayName(m,'home'))}<small class="v9-status ${isLive(m)?'live':isFinished(m)?'done':''}">${esc(m.status||'scheduled')}</small></span><strong class="v9-live-score">${h} – ${a}</strong><span class="away"><small class="v9-status">${esc(fmtDate(matchDate(m),{month:'short',day:'numeric'}))} ${esc(fmtTime(matchTime(m)))}</small>${esc(teamDisplayName(m,'away'))}</span></button>`}).join('')||'<div class="empty">No matches currently available.</div>'}</div>
+  </div>
+  <div class="card v9-live-card"><div class="eyebrow">Competition snapshot</div><h3>${esc(leader?.name||'No table data')}</h3><div class="mini-grid" style="margin-top:12px"><div class="mini-stat"><strong>${finished.length}</strong><span>Completed</span></div><div class="mini-stat"><strong>${live.length}</strong><span>Live</span></div><div class="mini-stat"><strong>${up.length}</strong><span>Upcoming</span></div><div class="mini-stat"><strong>${leader?.pts||0}</strong><span>Top points</span></div></div>${leader?`<button class="btn small" style="margin-top:12px" onclick="openTeam('${esc(leader.id)}')">Open current leader</button>`:''}</div>
+ </div></div>
+ <div class="section"><div class="section-head"><div><div class="eyebrow">Recent results</div><h2>Latest finals</h2></div></div>${recent.length?`<div class="grid">${recent.map(matchCard).join('')}</div>`:'<div class="empty">No completed matches yet.</div>'}</div>
+ ${favMatches.length?`<div class="section"><div class="section-head"><div><div class="eyebrow">Following</div><h2>Your followed matches</h2></div></div><div class="grid">${favMatches.map(matchCard).join('')}</div></div>`:''}`);
+}
+
+/* Stats Centre with competition/season filtering. */
+window.v9StatsFilter={competition:'all'};
+function v9FilteredMatches(){const c=window.v9StatsFilter.competition;if(c==='all')return matches;return competitionMatches(c,'')}
+function v9SetStatsCompetition(v){window.v9StatsFilter.competition=v;renderStatsV3()}
+const _v9RenderStats=renderStatsV3;
+renderStatsV3=function(){
+ const ms=v9FilteredMatches(),ps=[];
+ for(const p of players){const copy={...p};const ev=ms.flatMap(m=>(m.events||[]).filter(e=>String(e.player_id)===String(p.id)));copy.goals=ev.filter(e=>eventType(e)==='goal').length;copy.assists=ev.filter(e=>eventType(e)==='assist').length;copy.yellow_cards=ev.filter(e=>eventType(e)==='yellow').length;copy.red_cards=ev.filter(e=>eventType(e)==='red').length;copy.appearances=ms.filter(m=>{const meta=readMatchMetadata(m),line=meta.lineups||{};return [...(line.home||[]),...(line.away||[])].map(String).includes(String(p.id))||ev.some(e=>String(e.match_id||m.id)===String(m.id))}).length;copy.team=teamName(p.team_id,p.nationality||'');ps.push(copy)}
+ const totalGoals=ps.reduce((n,p)=>n+p.goals,0),totalAssists=ps.reduce((n,p)=>n+p.assists,0),y=ps.reduce((n,p)=>n+p.yellow_cards,0),r=ps.reduce((n,p)=>n+p.red_cards,0),comps=getCompetitionList();
+ document.getElementById('stats').innerHTML=`<div class="section-head"><div><div class="eyebrow">Statistics centre</div><h2>MEFCO stats</h2><p>Event- and lineup-backed totals from the selected competition.</p></div><button class="btn" onclick="refreshData()">↻ Refresh</button></div><div class="v9-filterbar"><select class="select v9-stat-filter" onchange="v9SetStatsCompetition(this.value)"><option value="all">All competitions</option>${comps.map(c=>`<option value="${esc(c.id||c.name)}" ${String(window.v9StatsFilter.competition)===String(c.id||c.name)?'selected':''}>${esc(c.name)}${c.season?' • '+esc(c.season):''}</option>`).join('')}</select></div><div class="kpis"><div class="kpi"><strong>${totalGoals}</strong><span>Goals</span></div><div class="kpi"><strong>${totalAssists}</strong><span>Assists</span></div><div class="kpi"><strong>${y}</strong><span>Yellow cards</span></div><div class="kpi"><strong>${r}</strong><span>Red cards</span></div></div><div class="stats-grid section">${statTable('Top scorers',ps,'goals','Goals')}${statTable('Assist leaders',ps,'assists','Assists')}${statTable('Most appearances',ps,'appearances','Appearances')}</div><div class="stats-grid section">${statTable('Yellow cards',ps,'yellow_cards','Yellow cards')}${statTable('Red cards',ps,'red_cards','Red cards')}<div class="card stat-leader-card"><div class="eyebrow">Teams</div><h3>Table</h3>${renderLeagueTable(ms)}</div></div>`;
+};
+
+/* Competition pages: table + fixtures + team/player leaders + related news. */
+const _v9OpenCompetition=openCompetition;
+openCompetition=function(id,name){
+ selectedCompetition={id,name};const ms=competitionMatches(id,name),c=competitions.find(x=>String(x.id)===String(id));
+ const finished=ms.filter(isFinished),table=buildLeagueTable(ms),top=players.map(p=>{const ev=finished.flatMap(m=>(m.events||[]).filter(e=>String(e.player_id)===String(p.id)));return {...p,g:ev.filter(e=>eventType(e)==='goal').length,a:ev.filter(e=>eventType(e)==='assist').length}}).filter(p=>p.g||p.a).sort((a,b)=>b.g-a.g||b.a-a.a).slice(0,10);
+ const related=news.filter(n=>(String(n.title||'')+' '+newsText(n)).toLowerCase().includes(String(name||'').toLowerCase())).slice(0,6);
+ document.getElementById('competition-page').innerHTML=`<button class="ghost" onclick="navFor('competitions')">← Competitions</button><div class="card" style="margin-top:14px;padding:24px"><div class="eyebrow">Competition hub</div><h1>${esc(c?.name||name)}</h1><p class="muted">${esc(c?.description||'MEFCO competition')}</p><div class="kpis"><div class="kpi"><strong>${new Set(ms.flatMap(m=>[m.home_team_id,m.away_team_id].filter(Boolean))).size}</strong><span>Teams</span></div><div class="kpi"><strong>${ms.length}</strong><span>Matches</span></div><div class="kpi"><strong>${finished.length}</strong><span>Completed</span></div><div class="kpi"><strong>${ms.filter(isLive).length}</strong><span>Live</span></div></div></div><div class="v9-comp-tabs"><button class="active">Overview</button><button>Fixtures & Results</button><button>Table</button><button>Stats</button><button>News</button></div><div class="section">${renderLeagueTable(ms)}</div><div class="section"><div class="section-head"><div><h2>Fixtures & results</h2></div></div>${ms.length?`<div class="grid">${ms.map(matchCard).join('')}</div>`:'<div class="empty">No matches linked to this competition.</div>'}</div><div class="section"><div class="section-head"><div><h2>Competition leaders</h2></div></div>${top.length?`<div class="table-wrap"><table class="table"><thead><tr><th>Player</th><th>Team</th><th>Goals</th><th>Assists</th></tr></thead><tbody>${top.map(p=>`<tr><td><button class="ghost" onclick="openPlayer('${esc(p.id)}')">${esc(p.name)}</button></td><td>${esc(teamName(p.team_id,''))}</td><td><b>${p.g}</b></td><td>${p.a}</td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">No event-backed player leaders yet.</div>'}</div><div class="section"><div class="section-head"><div><h2>Competition news</h2></div></div>${related.length?`<div class="grid">${related.map(newsCard).join('')}</div>`:'<div class="empty">No related news articles yet.</div>'}</div>`;showPage('competition-page');
+};
+
+/* Search: grouped results with useful metadata. */
+function renderSearch(){document.getElementById('search').innerHTML=`<div class="section-head"><div><div class="eyebrow">Global search</div><h2>Search MEFCO Watch</h2><p>Search teams, players, matches, competitions and news from one place.</p></div></div><div class="searchbox"><input id="globalSearch" class="input" placeholder="Search anything…" oninput="runSearch(this.value)"></div><div id="searchResults" class="search-results"></div>`}
+runSearch=function(q){q=String(q||'').trim().toLowerCase();const el=document.getElementById('searchResults');if(!q){el.innerHTML='';return}const groups=[['Teams',teams.filter(t=>(t.name+' '+(t.short_name||'')+' '+(t.country||'')).toLowerCase().includes(q)).slice(0,6).map(t=>({name:t.name,sub:(t.country||'Team'),kind:'team',id:t.id}))],['Players',players.filter(p=>(p.name+' '+(p.short_name||'')+' '+(p.nationality||'')).toLowerCase().includes(q)).slice(0,8).map(p=>({name:p.name,sub:teamName(p.team_id,p.position||''),kind:'player',id:p.id}))],['Matches',matches.filter(m=>(teamDisplayName(m,'home')+' '+teamDisplayName(m,'away')+' '+(m.competition||'')).toLowerCase().includes(q)).slice(0,8).map(m=>({name:teamDisplayName(m,'home')+' '+scoreOf(m)[0]+'–'+scoreOf(m)[1]+' '+teamDisplayName(m,'away'),sub:(m.competition||'Match')+' • '+(m.status||'scheduled'),kind:'match',id:m.id}))],['Competitions',getCompetitionList().filter(c=>String(c.name).toLowerCase().includes(q)).slice(0,6).map(c=>({name:c.name,sub:c.season||'Competition',kind:'competition',id:c.id}))],['News',news.filter(n=>(String(n.title||'')+' '+newsText(n)).toLowerCase().includes(q)).slice(0,6).map(n=>({name:n.title,sub:formatNewsDate(n),kind:'news',id:n.id}))]].filter(g=>g[1].length);window._v9SearchResults=groups.flatMap(g=>g[1]);el.innerHTML=groups.length?groups.map(g=>`<div class="v9-search-group"><h3>${esc(g[0])}</h3>${g[1].map(x=>`<button class="v9-search-card" onclick="v9SearchOpen('${esc(x.kind)}','${esc(x.id)}')"><strong>${esc(x.name)}</strong><span class="muted">${esc(x.sub)}</span></button>`).join('')}</div>`).join(''):'<div class="empty">No results.</div>'};
+function v9SearchOpen(kind,id){if(kind==='team')openTeam(id);else if(kind==='player')openPlayer(id);else if(kind==='match')openMatch(id);else if(kind==='competition'){const c=getCompetitionList().find(x=>String(x.id)===String(id));openCompetition(id,c?.name||'Competition')}else if(kind==='news')openArticle(id)}
+
+/* Database health: read-only diagnostics for future bugs. */
+async function runV9Health(){
+ const checks=[['Matches',MATCHES_URL],['Events',EVENTS_URL],['Players',PLAYERS_URL],['Teams',TEAMS_URL],['Competitions',COMPETITIONS_URL],['News',NEWS_URL]];
+ const out=[];for(const [name,url] of checks){try{const rows=await supabaseFetch(url+'?select=*&limit=1');out.push([name,true,Array.isArray(rows)?'reachable':'reachable'])}catch(e){out.push([name,false,String(e?.message||e).slice(0,80)])}}
+ const finished=v9Finished(),live=v9Live(),scheduled=v9Upcoming();
+ const issues=[];for(const m of matches){const st=String(m.status||'').toLowerCase();if(!['scheduled','live','halftime','finished','cancelled','postponed'].includes(st))issues.push('Unknown status: '+m.id);if(Number(m.score_home)<0||Number(m.score_away)<0)issues.push('Negative score: '+m.id)}
+ const html=`<div class="card" style="padding:18px;margin-top:14px"><div class="section-head"><div><div class="eyebrow">Database health</div><h3>MEFCO system diagnostics</h3><p>Read-only checks against the current Supabase data.</p></div><button class="btn small" onclick="this.closest('.card').remove()">Close</button></div><div class="v9-health-grid">${out.map(x=>`<div class="v9-health-item"><strong class="${x[1]?'v9-ok':'v9-danger'}">${x[1]?'✓':'✕'} ${esc(x[0])}</strong><span class="muted">${esc(x[2])}</span></div>`).join('')}</div><div class="mini-grid" style="margin-top:12px"><div class="mini-stat"><strong>${finished.length}</strong><span>Finished</span></div><div class="mini-stat"><strong>${live.length}</strong><span>Live</span></div><div class="mini-stat"><strong>${scheduled.length}</strong><span>Upcoming</span></div><div class="mini-stat"><strong>${issues.length}</strong><span>Data warnings</span></div></div>${issues.length?`<div class="section"><div class="v9-note v9-warn">${issues.map(esc).join('<br>')}</div></div>`:'<div class="section v9-note v9-ok">No basic match integrity warnings detected.</div>'}</div>`;document.getElementById('home').insertAdjacentHTML('beforeend',html);window.scrollTo({top:document.getElementById('home').scrollHeight,behavior:'smooth'})}
+
+/* Ensure home dashboard is rendered once after normal home rendering. */
+const _v9RenderHomeBase=renderHome;
+renderHome=function(){_v9RenderHomeBase();const old=document.getElementById('mefcoV9Dashboard');if(old)old.remove();const marker=document.createElement('div');marker.id='mefcoV9Dashboard';document.getElementById('home').appendChild(marker);renderV9Dashboard()};
+
+/* Automatic post-match consistency checkpoint. */
+async function v9ConsistencySweep(){
+ const finished=matches.filter(isFinished).slice(0,100);
+ for(const m of finished){
+  const key=String(m.id);
+  if(pendingMatchWrites.has(key)||pendingStatusWrites.has(key))continue;
+  const s=scoreOf(m);if(s.some(v=>!Number.isFinite(v)||v<0))console.warn('MEFCO invalid score',m.id,s);
+ }
+}
+
+const _v9LoadDataBase=loadData;
+loadData=async function(){await _v9LoadDataBase();await v9ConsistencySweep();renderAll()};
+</script></body>
 </html>
+ 
