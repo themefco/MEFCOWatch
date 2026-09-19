@@ -1629,5 +1629,94 @@ setTimeout(()=>{if(!loadingDone)bootMessage('Still connecting…',true,'The data
  const rr=window.renderMatch;window.renderMatch=function(){rr();const m=matches.find(x=>String(x.id)===String(selectedMatchId)),el=document.getElementById('match-page');if(!m||!el)return;const tabs=el.querySelector('.mc-tabs');if(tabs&&!el.querySelector('[data-mctab="table"]')){const b=document.createElement('button');b.className='mc-tab';b.dataset.mctab='table';b.textContent='Table';b.onclick=()=>switchMatchTab('table');tabs.appendChild(b)}if(!el.querySelector('#mc-table')){const d=document.createElement('div');d.id='mc-table';d.className='mc-tab-panel';d.innerHTML=table(m);el.appendChild(d)}const l=el.querySelector('#mc-lineups');if(l)l.innerHTML=lineups(m);const mi=el.querySelector('#match-intelligence');if(mi){const cards=mi.querySelectorAll('.mi-panel');if(cards.length)cards[cards.length-1].outerHTML=predictor(m)}};
 })();
 </script>
+
+<script>
+/* MEFCO Watch V14 — performance-only patch
+   No UI, data model, match logic, or feature changes. This only coalesces
+   repeated renders so realtime/database updates cannot block button clicks. */
+(function(){
+  const __mefcoOriginalRenderAll=renderAll;
+  let __renderPending=false;
+  let __renderTimer=0;
+  let __lastRender=0;
+  const __MIN_RENDER_GAP=80;
+
+  function __runRender(){
+    __renderPending=false;
+    __renderTimer=0;
+    const now=performance.now();
+    const wait=Math.max(0,__MIN_RENDER_GAP-(now-__lastRender));
+    if(wait>0){
+      __renderPending=true;
+      __renderTimer=setTimeout(__runRender,wait);
+      return;
+    }
+    __lastRender=performance.now();
+    try{__mefcoOriginalRenderAll()}catch(e){console.error('MEFCO render:',e)}
+  }
+
+  renderAll=function(){
+    if(__renderPending)return;
+    __renderPending=true;
+    if(typeof requestIdleCallback==='function'){
+      requestIdleCallback(__runRender,{timeout:120});
+    }else{
+      requestAnimationFrame(__runRender);
+    }
+  };
+
+  /* Prevent rapid repeated refresh clicks from launching overlapping database loads. */
+  const __originalRefreshData=refreshData;
+  let __refreshBusy=false;
+  refreshData=async function(){
+    if(__refreshBusy){showToast('Refresh already in progress…');return}
+    __refreshBusy=true;
+    try{await __originalRefreshData()}finally{__refreshBusy=false}
+  };
+
+  /* News search: do not rebuild the entire newsroom on every keystroke. */
+  let __newsSearchTimer=0;
+  const __originalRenderNewsV3=typeof renderNewsV3==='function'?renderNewsV3:null;
+  if(__originalRenderNewsV3){
+    renderNewsV3=function(){
+      __originalRenderNewsV3();
+      const input=document.getElementById('newsSearch');
+      if(input&&!input.dataset.perfBound){
+        input.dataset.perfBound='1';
+        input.oninput=function(){
+          clearTimeout(__newsSearchTimer);
+          const value=this.value;
+          __newsSearchTimer=setTimeout(()=>{
+            window.newsQuery=value;
+            __originalRenderNewsV3();
+          },120);
+        };
+      }
+    };
+  }
+
+  /* Avoid repeatedly doing the same expensive lineup background pass. */
+  let __lineupPassRunning=false;
+  const __originalEnsureLineups=typeof ensureAutomaticLineups==='function'?ensureAutomaticLineups:null;
+  if(__originalEnsureLineups){
+    ensureAutomaticLineups=async function(){
+      if(__lineupPassRunning)return;
+      __lineupPassRunning=true;
+      try{return await __originalEnsureLineups()}
+      finally{__lineupPassRunning=false}
+    };
+  }
+
+  /* Batch rapid realtime INSERT/UPDATE bursts into one UI render. */
+  let __realtimeTimer=0;
+  const __originalScheduleRender=typeof scheduleRender==='function'?scheduleRender:null;
+  if(__originalScheduleRender){
+    scheduleRender=function(){
+      clearTimeout(__realtimeTimer);
+      __realtimeTimer=setTimeout(()=>__originalScheduleRender(),50);
+    };
+  }
+})();
+</script>
 </body>
 </html>
