@@ -156,26 +156,24 @@ function eventTeam(e){return teamById(e?.team_id)?.name||e?.team||""}
 function showToast(msg){const t=document.getElementById("toast");if(!t)return;t.textContent=msg;t.classList.add("show");clearTimeout(showToast.t);showToast.t=setTimeout(()=>t.classList.remove("show"),2600)}
 
 async function supabaseFetch(url,options={}){
- const r=await fetch(url,{...options,headers:{
-  apikey:SUPABASE_KEY,
-  Authorization:"Bearer "+SUPABASE_KEY,
-  "Content-Type":"application/json",
-  Prefer:"return=representation",
-  ...(options.headers||{})
- }});
+ const controller=new AbortController();
+ const timeout=setTimeout(()=>controller.abort(),15000);
+ if(options.signal)options.signal.addEventListener("abort",()=>controller.abort(),{once:true});
+ let r;
+ try{r=await fetch(url,{...options,signal:controller.signal,headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+SUPABASE_KEY,"Content-Type":"application/json",Prefer:"return=representation",...(options.headers||{})}})}
+ catch(e){if(e?.name==="AbortError")throw new Error("Supabase request timed out after 15 seconds");throw new Error("Supabase connection failed: "+(e?.message||"network error"))}
+ finally{clearTimeout(timeout)}
  const raw=await r.text();
- if(!r.ok){
-  let info={};
-  try{info=raw?JSON.parse(raw):{}}catch{}
-  const err=new Error(info.message||raw||(`HTTP ${r.status}`));
-  err.status=r.status;err.code=info.code||"";err.hint=info.hint||"";err.details=info.details||"";err.url=url;
-  throw err;
- }
- if(!raw)return null;
- try{return JSON.parse(raw)}catch{return raw}
+ if(!r.ok){let info={};try{info=raw?JSON.parse(raw):{}}catch{}const err=new Error(info.message||raw||(`HTTP ${r.status}`));err.status=r.status;err.code=info.code||"";err.hint=info.hint||"";err.details=info.details||"";err.url=url;throw err}
+ if(!raw)return null;try{return JSON.parse(raw)}catch{return raw}
 }
 async function safeLoad(url,params){return supabaseFetch(url+"?"+new URLSearchParams(params||{}))}
-async function loadTable(url,params={},fallbackParams={select:"*"}){try{return await safeLoad(url,params)}catch(first){if(JSON.stringify(params)===JSON.stringify(fallbackParams))throw first;try{return await safeLoad(url,fallbackParams)}catch{return[]}}}
+async function loadTable(url,params={},fallbackParams={select:"*"}){
+ try{return await safeLoad(url,params)}catch(first){
+  if(JSON.stringify(params)===JSON.stringify(fallbackParams))throw first;
+  try{return await safeLoad(url,fallbackParams)}catch(second){second.cause=first;throw second}
+ }
+}
 
 /* ---------- LINEUP V2 HELPERS ---------- */
 function readMatchMetadata(m){
@@ -317,7 +315,9 @@ async function loadData(){
  players.sort((a,b)=>String(a.name||a.short_name||"").localeCompare(String(b.name||b.short_name||"")));
  competitions.sort((a,b)=>competitionName(a).localeCompare(competitionName(b)));
  news.sort((a,b)=>new Date(b.created_at||b.updated_at||0)-new Date(a.created_at||a.updated_at||0));
- dbOnline=jobs[0].status==="fulfilled"&&jobs[2].status==="fulfilled";
+ dbOnline=jobs.every(j=>j.status==="fulfilled");
+ const failedTables=jobs.map((j,i)=>j.status==="rejected"?["matches","news","teams","players","competitions"][i]+": "+(j.reason?.message||"database error"):null).filter(Boolean);
+ if(failedTables.length){console.error("MEFCO Supabase load errors:",failedTables);showToast("Database connection issue: "+failedTables.join(" • "));}
 
  /* Never destroy an active lineup draft during refresh. */
  if(lineupDraft.matchId){
@@ -982,7 +982,7 @@ async function saveAdminMatch(){
  const home=teamById(document.getElementById("admHomeTeam").value),away=teamById(document.getElementById("admAwayTeam").value);
  if(!home||!away||String(home.id)===String(away.id)){showToast("Choose two different teams");return}
  const cs=document.getElementById("admCompetition"),changes={home_team_id:home.id,away_team_id:away.id,home:home.name,away:away.name,match_date:document.getElementById("admDate").value,match_time:document.getElementById("admTime").value,competition_id:cs.value||null};
- for(const[k,v]of Object.entries({venue:document.getElementById("admVenue").value.trim(),round:document.getElementById("admRound").value.trim(),matchday:Number(document.getElementById("admRound").value)||null}))if(Object.prototype.hasOwnProperty.call(m,k))changes[k]=v;
+ for(const[k,v]of Object.entries({venue:document.getElementById("admVenue").value.trim()||null,round:document.getElementById("admRound").value.trim()||null,matchday:Number(document.getElementById("admRound").value)||null}))changes[k]=v;
  if(Object.prototype.hasOwnProperty.call(m,"home_flag"))changes.home_flag=teamFlag(home);
  if(Object.prototype.hasOwnProperty.call(m,"away_flag"))changes.away_flag=teamFlag(away);
  const teamsChanged=String(home.id)!==String(m.home_team_id)||String(away.id)!==String(m.away_team_id);
@@ -1000,7 +1000,16 @@ function showCreateMatch(){
 async function createMatch(){
  const cs=document.getElementById("createCompetition"),h=teamById(document.getElementById("createHomeTeam").value),a=teamById(document.getElementById("createAwayTeam").value);if(!h||!a||String(h.id)===String(a.id)){showToast("Select two different teams");return}
  const c=cs.options[cs.selectedIndex],match={competition_id:cs.value&&!String(cs.value).startsWith("legacy-")?cs.value:null,home:h.name,away:a.name,home_team_id:h.id,away_team_id:a.id,match_date:document.getElementById("createDate").value,match_time:document.getElementById("createKickoff").value,home_flag:document.getElementById("createHomeFlag").value.trim()||null,away_flag:document.getElementById("createAwayFlag").value.trim()||null,status:"scheduled",minute:0,score_home:0,score_away:0,stoppage:0,stats:{},metadata:{lineups:{home:[],away:[]}}};
- try{const result=await supabaseFetch(MATCHES_URL,{method:"POST",body:JSON.stringify(strictDbPayload("matches",match))});matches.push(Array.isArray(result)?result[0]:result);showToast("Match created");renderAll()}catch(e){console.error(e);showToast("Could not create match")}
+ try{
+  const result=await supabaseFetch(MATCHES_URL,{method:"POST",body:JSON.stringify(strictDbPayload("matches",match))});
+  const created=Array.isArray(result)?result[0]:result;
+  if(!created?.id)throw new Error("Match was not returned by Supabase after INSERT. Check matches INSERT/SELECT policies.");
+  const verified=await safeLoad(MATCHES_URL,{select:"*",id:"eq."+encodeURIComponent(created.id)});
+  const row=Array.isArray(verified)?verified[0]:verified;
+  if(!row?.id)throw new Error("Match was inserted but could not be read back from Supabase.");
+  matches.push(row);selectedMatchId=row.id;
+  showToast("Match created and verified in database");renderAll();
+ }catch(e){console.error("MEFCO create match failed",e);showToast("Could not create match: "+(e?.message||"database error"))}
 }
 async function refreshData(){showToast("Refreshing MEFCO data…");try{await loadData();showToast("Data refreshed")}catch(e){console.error(e);showToast("Data refresh failed")}}
 function startAutoRefresh(){/* Intentionally disabled. Data reloads on page load or explicit Refresh only. */}
