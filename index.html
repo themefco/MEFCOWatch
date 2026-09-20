@@ -11,7 +11,7 @@
  --shadow:0 18px 50px rgba(0,0,0,.24);--radius:16px
 }
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 10% -10%,#123039 0,transparent 34%),var(--bg);color:var(--text);font:14px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:100%}
+button,input,select,textarea{font:inherit}button{cursor:pointer;pointer-events:auto;touch-action:manipulation}img{max-width:100%}
 .app{min-height:100vh}.topbar{position:sticky;top:0;z-index:50;background:rgba(8,16,20,.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
 .topbar-inner{max-width:1450px;margin:auto;padding:12px 20px;display:flex;align-items:center;gap:18px}
 .brand{font-weight:900;font-size:20px;letter-spacing:-.04em;white-space:nowrap}.brand span{color:var(--accent)}
@@ -54,6 +54,9 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:10
 .stats-dashboard{display:grid;gap:16px}.stats-hero{padding:22px}.stats-filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.stats-filters .select{min-width:180px;width:auto}.stat-kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.stat-kpi-grid .kpi{padding:16px}.leaderboard-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.leaderboard-card{padding:16px}.leaderboard-card .rank-row{display:grid;grid-template-columns:28px 1fr auto;gap:8px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}.leaderboard-card .rank-row:last-child{border-bottom:0}.rank-row button{text-align:left}.rank-num{color:var(--muted);font-weight:800}.profile-actions{flex-wrap:wrap}.profile-link{color:var(--accent);text-decoration:none}.team-profile-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}.squad-player{display:flex;align-items:center;gap:9px}.squad-player img{width:34px;height:34px;object-fit:cover;border-radius:50%;background:#17242a}.match-report-card{padding:18px}.report-badge{display:inline-flex;padding:4px 8px;border:1px solid var(--line);border-radius:999px;color:var(--accent);font-size:10px;text-transform:uppercase;font-weight:900;letter-spacing:.08em}.auto-lineup-note{font-size:11px;color:var(--muted);margin-top:8px}.news-card.ai-report{border-color:#285c4d}.news-card.ai-report .news-category{color:var(--accent)}
 @media(max-width:1000px){.leaderboard-grid,.team-profile-grid{grid-template-columns:1fr}.stat-kpi-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.stat-kpi-grid{grid-template-columns:1fr}.stats-filters .select{width:100%}}
+
+/* V10 ADMIN CONTROL ROOM REBUILD */
+.admin-pro-shell{display:grid;gap:16px}.admin-pro-head{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;padding:22px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(135deg,#101e24,#0b1418);box-shadow:var(--shadow)}.admin-pro-head h1{margin:3px 0;font-size:32px;letter-spacing:-.04em}.admin-pro-head p{margin:4px 0 0;color:var(--muted)}.admin-head-actions{display:flex;gap:8px;align-items:center}.admin-network{display:inline-flex;align-items:center;gap:7px;padding:8px 10px;border:1px solid var(--line);border-radius:999px;font-size:10px;font-weight:900;letter-spacing:.08em}.admin-network i,.admin-live-label i{width:7px;height:7px;border-radius:50%;display:inline-block;background:var(--danger)}.admin-network.online i,.admin-live-label.on i{background:var(--accent);box-shadow:0 0 10px var(--accent)}.admin-commandbar{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.admin-command{border:1px solid var(--line);background:#0d171c;color:var(--muted);padding:12px;text-align:left;border-radius:13px;display:grid;grid-template-columns:30px 1fr;gap:1px 8px}.admin-command b{grid-row:span 2;color:#52656e}.admin-command span{font-weight:800;color:var(--text)}.admin-command small{font-size:10px}.admin-command.active{border-color:#3c6e61;background:#11231f}.admin-pro-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.admin-pro-kpis button{border:1px solid var(--line);background:#0d171c;color:var(--text);border-radius:13px;padding:13px;text-align:left}.admin-pro-kpis strong{display:block;font-size:21px}.admin-pro-kpis span{color:var(--muted);font-size:11px}.admin-pro-layout{display:grid;grid-template-columns:340px minmax(0,1fr);gap:14px;min-height:650px}.admin-pro-sidebar{border:1px solid var(--line);border-radius:16px;background:#0a1317;overflow:hidden}.admin-sidebar-top{display:flex;justify-content:space-between;align-items:center;padding:15px;border-bottom:1px solid var(--line)}.admin-search-wrap{display:flex;align-items:center;gap:7px;margin:12px}.admin-search-wrap .input{width:100%}.admin-filter-row{display:flex;gap:5px;padding:0 12px 10px}.admin-filter-row button{border:0;background:#111d22;color:var(--muted);padding:6px 8px;border-radius:8px;font-size:10px}.admin-filter-row button.active{background:#1c332e;color:var(--accent)}.admin-pro-list{max-height:580px;overflow:auto}.admin-pro-match{width:100%;border:0;border-top:1px solid #17252b;background:transparent;color:var(--text);padding:13px;text-align:left}.admin-pro-match:hover{background:#122027}.admin-pro-match.selected{background:#15302b;box-shadow:inset 3px 0 0 var(--accent)}.admin-pro-match-top{display:grid;grid-template-columns:1fr auto 1fr;gap:7px;align-items:center}.admin-pro-match-top strong{text-align:center}.admin-pro-match-top b:last-child{text-align:right}.admin-pro-match-meta{display:block;margin-top:7px;color:var(--muted);font-size:10px}.admin-status-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#53646c;margin-right:5px}.admin-status-dot.live{background:var(--accent);box-shadow:0 0 9px var(--accent)}.admin-status-dot.finished{background:#8b9aa0}.admin-status-dot.halftime{background:var(--warn)}.admin-empty,.admin-welcome{padding:25px;color:var(--muted)}.admin-pro-workspace{min-width:0}.admin-match-hero{display:flex;justify-content:space-between;gap:18px;padding:20px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(135deg,#111f25,#0b1519)}.admin-match-hero.is-live{border-color:#315c50}.admin-live-label{font-size:10px;font-weight:900;letter-spacing:.1em;color:var(--muted)}.admin-live-label.on{color:var(--accent)}.admin-match-hero h2{margin:7px 0 3px;font-size:24px}.admin-match-hero h2 em{font-style:normal;color:#50616a;font-weight:500}.admin-match-hero p{margin:0;color:var(--muted);font-size:11px}.admin-hero-score{display:grid;grid-template-columns:auto auto auto;gap:7px;align-items:center;text-align:center}.admin-hero-score strong{font-size:40px;line-height:1}.admin-hero-score span{color:var(--muted);font-size:24px}.admin-hero-score small{grid-column:1/-1;color:var(--accent);font-weight:900;font-size:9px;letter-spacing:.1em}.admin-work-nav{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-top:10px;overflow:auto}.admin-work-nav button{border:0;background:transparent;color:var(--muted);padding:11px 13px;border-bottom:2px solid transparent}.admin-work-nav button.active{color:var(--text);border-color:var(--accent)}.admin-work-content{padding-top:12px}.admin-section-title{margin-bottom:14px}.admin-section-title h2{margin:2px 0}.admin-section-title p{margin:0;color:var(--muted)}.admin-grid-2,.admin-lineup-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.admin-card{border:1px solid var(--line);border-radius:15px;background:#0d171c;padding:17px;margin-bottom:12px}.admin-card-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:13px}.admin-card-head h3{margin:0}.admin-score-inputs{display:grid;grid-template-columns:1fr auto 1fr;align-items:end;gap:12px;margin-bottom:13px}.admin-score-inputs label{display:grid;gap:6px;color:var(--muted);font-size:11px}.admin-score-inputs input{text-align:center;font-size:28px;font-weight:900}.admin-big-actions{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:7px;margin-bottom:8px}.admin-big-actions .btn{min-height:44px}.admin-stat-grid,.admin-health-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.admin-stat-grid>div,.admin-health-grid>div{padding:13px;border:1px solid var(--line);border-radius:11px}.admin-stat-grid b,.admin-health-grid b{display:block;font-size:20px}.admin-stat-grid span,.admin-health-grid span{font-size:10px;color:var(--muted)}.admin-action-list{margin-top:12px;border-top:1px solid var(--line)}.admin-action-list button{width:100%;display:flex;justify-content:space-between;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--text);padding:12px 2px;text-align:left}.admin-action-list button span{color:var(--muted)}.full{width:100%;margin-top:12px}.span-2{grid-column:span 2}.admin-event-list{display:grid;gap:5px}.admin-event-row{display:grid;grid-template-columns:42px 28px 1fr auto;align-items:center;gap:8px;padding:9px;border:1px solid var(--line);border-radius:10px;background:#0a1317}.admin-event-row>b{color:var(--accent);font-size:11px}.admin-event-row>i{font-style:normal;text-align:center}.admin-event-row strong,.admin-event-row small{display:block}.admin-event-row small{color:var(--muted);font-size:10px}.admin-lineup-grid .lineup-editor{margin:0}.admin-sticky-actions{display:flex;justify-content:flex-end;align-items:center;gap:8px;padding:10px 0;position:sticky;bottom:0;background:linear-gradient(transparent,#0a1317 22%);z-index:3}.admin-sticky-actions>span{margin-right:auto;color:var(--muted);font-size:11px}.admin-health-result{margin-top:12px;padding:12px;border:1px dashed var(--line);border-radius:10px;color:var(--muted);font-size:11px}.admin-welcome{min-height:580px;border:1px solid var(--line);border-radius:16px;background:radial-gradient(circle at 90% 10%,#163a34 0,transparent 30%),#0b1519}.admin-welcome-mark{font-weight:1000;font-size:58px;letter-spacing:-.08em;color:#183c35;margin-bottom:20px}.admin-welcome-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:24px}.admin-welcome-grid>div{border:1px solid var(--line);border-radius:12px;padding:14px;background:#0d171c}.admin-welcome-grid b,.admin-welcome-grid span{display:block}.admin-welcome-grid span{color:var(--muted);font-size:11px;margin-top:4px}@media(max-width:1000px){.admin-pro-layout{grid-template-columns:1fr}.admin-pro-list{max-height:300px}.admin-commandbar{grid-template-columns:repeat(3,1fr)}}@media(max-width:700px){.admin-pro-head,.admin-match-hero{display:block}.admin-head-actions{margin-top:12px}.admin-commandbar{grid-template-columns:1fr 1fr}.admin-pro-kpis{grid-template-columns:1fr 1fr}.admin-grid-2,.admin-lineup-grid{grid-template-columns:1fr}.admin-big-actions{grid-template-columns:1fr}.admin-welcome-grid{grid-template-columns:1fr}.admin-hero-score{margin-top:16px}.span-2{grid-column:auto}}
 </style>
 
 
@@ -93,7 +96,6 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}img{max-width:10
 <footer class="footer">MEFCO WATCH • Football, live.</footer>
 <div id="toast" class="toast"></div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const SUPABASE_URL="https://qpokxolcdjxtmxrrqlgw.supabase.co";
 const SUPABASE_KEY="sb_publishable_7hKSyu9jxd65IA7zfyZy2w_O0maaXdC";
@@ -145,13 +147,18 @@ function eventTeam(e){return teamById(e?.team_id)?.name||e?.team||""}
 function showToast(msg){const t=document.getElementById("toast");if(!t)return;t.textContent=msg;t.classList.add("show");clearTimeout(showToast.t);showToast.t=setTimeout(()=>t.classList.remove("show"),2600)}
 
 async function supabaseFetch(url,options={}){
- const r=await fetch(url,{...options,headers:{
+ const {timeoutMs=8000,...fetchOptions}=options;
+ const controller=new AbortController();
+ const timeout=setTimeout(()=>controller.abort(),timeoutMs);
+ let r;
+ try{r=await fetch(url,{...fetchOptions,signal:controller.signal,headers:{
   apikey:SUPABASE_KEY,
   Authorization:"Bearer "+SUPABASE_KEY,
   "Content-Type":"application/json",
   Prefer:"return=representation",
-  ...(options.headers||{})
- }});
+  ...(fetchOptions.headers||{})
+ }});}catch(e){clearTimeout(timeout);const err=new Error(e?.name==='AbortError'?'Network timeout — using cached data where available':(e?.message||'Network unavailable'));err.network=true;throw err}
+ clearTimeout(timeout);
  const raw=await r.text();
  if(!r.ok){
   let info={};
@@ -225,6 +232,8 @@ function lineupIdsFromEditor(side){return[...document.querySelectorAll("."+side+
 function getDraftSide(m,side){ensureLineupDraft(m);return lineupDraft[side]||[]}
 
 /* ---------- DATA ---------- */
+function saveOfflineSnapshot(){try{localStorage.setItem('mefco_offline_snapshot',JSON.stringify({savedAt:new Date().toISOString(),matches,news,teams,players,competitions}))}catch(e){}}
+function loadOfflineSnapshot(){try{const x=JSON.parse(localStorage.getItem('mefco_offline_snapshot')||'null');if(!x)return false;if(Array.isArray(x.matches))matches=x.matches;if(Array.isArray(x.news))news=x.news;if(Array.isArray(x.teams))teams=x.teams;if(Array.isArray(x.players))players=x.players;if(Array.isArray(x.competitions))competitions=x.competitions;dbOnline=false;return true}catch{return false}}
 async function loadData(){
  if(ADMIN_MODE&&lineupDraft.dirty)snapshotLineupDraftFromDOM();
  const previousMatches=matches.map(m=>({...m,events:[...(m.events||[])]}));
@@ -269,6 +278,7 @@ async function loadData(){
  competitions.sort((a,b)=>competitionName(a).localeCompare(competitionName(b)));
  news.sort((a,b)=>new Date(b.created_at||b.published_at||0)-new Date(a.created_at||a.published_at||0));
  dbOnline=jobs[0].status==="fulfilled"&&jobs[2].status==="fulfilled";
+ if(!dbOnline&&matches.length===0){loadOfflineSnapshot();}
 
  /* Never destroy an active lineup draft during refresh. */
  if(lineupDraft.matchId){
@@ -277,6 +287,7 @@ async function loadData(){
  }
  await loadAllEvents();
  notifyFavoriteChanges(previousMatches);
+ saveOfflineSnapshot();
  renderAll();
 }
 async function loadAllEvents(){
@@ -477,55 +488,94 @@ function renderMatch(){
 }
 function switchMatchTab(tab){document.querySelectorAll(".mc-tab").forEach(b=>b.classList.toggle("active",b.dataset.mctab===tab));document.querySelectorAll(".mc-tab-panel").forEach(p=>p.classList.remove("active"));document.getElementById("mc-"+tab)?.classList.add("active")}
 
-/* ---------- ADMIN ---------- */
-function adminStatusClass(m){return isLive(m)?"live":isFinished(m)?"finished":""}
-function renderAdmin(){
- const el=document.getElementById("admin");
- if(!ADMIN_MODE){el.innerHTML='<div class="empty">Admin mode is not enabled. Open the site with <code>?admin=1</code>.</div>';return}
- el.innerHTML=`<div class="section-head"><div><div class="eyebrow">Admin</div><h2>Match control room</h2><p>Run live matches, publish events, build lineups and manage fixtures.</p></div><button type="button" class="btn" onclick="refreshData()">↻ Reload database</button></div><div class="admin-shell"><aside class="card admin-list-v2"><div class="admin-list-tools"><input id="adminMatchSearch" class="input admin-search" placeholder="Search teams or competition"><button type="button" class="btn small" onclick="setAdminFilter('all')">All</button><button type="button" class="btn small" onclick="setAdminFilter('live')">Live</button><button type="button" class="btn small" onclick="setAdminFilter('scheduled')">Upcoming</button><button type="button" class="btn small" onclick="setAdminFilter('finished')">Finished</button></div><div id="adminMatchList" class="admin-match-list"></div><button type="button" class="btn primary" style="width:100%;margin-top:10px" onclick="showCreateMatch()">+ Create match</button></aside><section id="adminPanel" class="card admin-panel-v2"><div class="empty">Select a match to control it.</div></section></div>`;
- const search=document.getElementById("adminMatchSearch");if(search)search.addEventListener("input",renderAdminMatchList);
- renderAdminMatchList();if(selectedMatchId)renderAdminPanel();
+/* ---------- ADMIN CONTROL ROOM — V10 REBUILD ---------- */
+let adminSection='control';
+let adminBusy=false;
+function adminStatusClass(m){return isLive(m)?'live':isFinished(m)?'finished':String(m.status||'').toLowerCase()==='halftime'?'halftime':''}
+function adminVisibleMatches(){
+ const q=(document.getElementById('adminMatchSearch')?.value||'').trim().toLowerCase();
+ return matches.filter(m=>{
+  const text=(teamDisplayName(m,'home')+' '+teamDisplayName(m,'away')+' '+competitionNameForMatch(m)).toLowerCase();
+  const f=adminFilter==='live'?isLive(m):adminFilter==='finished'?isFinished(m):adminFilter==='scheduled'?(!isLive(m)&&!isFinished(m)):true;
+  return f&&(!q||text.includes(q));
+ }).sort((a,b)=>(isLive(b)-isLive(a))||matchDate(a).localeCompare(matchDate(b))||matchTime(a).localeCompare(matchTime(b)));
 }
-function setAdminFilter(f){adminFilter=f;renderAdminMatchList()}
+function adminNav(section){adminSection=section;renderAdmin();}
+function setAdminFilter(f){adminFilter=f;renderAdmin();}
+function renderAdmin(){
+ const el=document.getElementById('admin');
+ if(!ADMIN_MODE){el.innerHTML='<div class="empty">Admin mode is not enabled. Open the site with <code>?admin=1</code>.</div>';return}
+ const live=matches.filter(isLive),finished=matches.filter(isFinished),upcoming=matches.filter(m=>!isLive(m)&&!isFinished(m)&&!['cancelled','postponed','abandoned'].includes(String(m.status||'').toLowerCase()));
+ el.innerHTML=`<div class="admin-pro-shell">
+  <div class="admin-pro-head"><div><div class="eyebrow">MEFCO OPERATIONS</div><h1>Control Room</h1><p>One place to run matches, publish events, build lineups and maintain fixtures.</p></div><div class="admin-head-actions"><span class="admin-network ${dbOnline?'online':'offline'}"><i></i>${dbOnline?'DATABASE ONLINE':'OFFLINE MODE'}</span><button type="button" class="btn" data-admin-action="refresh">↻ Sync</button></div></div>
+  <div class="admin-commandbar"><button type="button" class="admin-command ${adminSection==='control'?'active':''}" data-admin-section="control"><b>01</b><span>Match Control</span><small>Scores & status</small></button><button type="button" class="admin-command ${adminSection==='events'?'active':''}" data-admin-section="events"><b>02</b><span>Event Studio</span><small>Goals & cards</small></button><button type="button" class="admin-command ${adminSection==='lineups'?'active':''}" data-admin-section="lineups"><b>03</b><span>Lineups</span><small>Starting XI</small></button><button type="button" class="admin-command ${adminSection==='fixture'?'active':''}" data-admin-section="fixture"><b>04</b><span>Fixture</span><small>Match details</small></button><button type="button" class="admin-command ${adminSection==='health'?'active':''}" data-admin-section="health"><b>05</b><span>Health</span><small>Network & data</small></button></div>
+  <div class="admin-pro-kpis"><button type="button" data-admin-filter="live"><strong>${live.length}</strong><span>Live</span></button><button type="button" data-admin-filter="scheduled"><strong>${upcoming.length}</strong><span>Upcoming</span></button><button type="button" data-admin-filter="finished"><strong>${finished.length}</strong><span>Finished</span></button><button type="button" data-admin-action="create"><strong>＋</strong><span>New Match</span></button></div>
+  <div class="admin-pro-layout"><aside class="admin-pro-sidebar"><div class="admin-sidebar-top"><div><div class="eyebrow">MATCH QUEUE</div><strong>${adminVisibleMatches().length} visible</strong></div><button type="button" class="ghost" data-admin-filter="all">All</button></div><div class="admin-search-wrap"><span>⌕</span><input id="adminMatchSearch" class="input" placeholder="Search match or competition" autocomplete="off"></div><div class="admin-filter-row"><button type="button" data-admin-filter="all" class="${adminFilter==='all'?'active':''}">All</button><button type="button" data-admin-filter="live" class="${adminFilter==='live'?'active':''}">Live</button><button type="button" data-admin-filter="scheduled" class="${adminFilter==='scheduled'?'active':''}">Upcoming</button><button type="button" data-admin-filter="finished" class="${adminFilter==='finished'?'active':''}">Finished</button></div><div id="adminMatchList" class="admin-pro-list"></div></aside><section id="adminPanel" class="admin-pro-workspace"></section></div>
+ </div>`;
+ const search=document.getElementById('adminMatchSearch'); if(search){search.value=window._adminSearch||'';search.addEventListener('input',()=>{window._adminSearch=search.value;renderAdmin()});}
+ const root=el.querySelector('.admin-pro-shell');
+ root.addEventListener('click',e=>{
+  const section=e.target.closest('[data-admin-section]');if(section){adminSection=section.dataset.adminSection;renderAdmin();return}
+  const filter=e.target.closest('[data-admin-filter]');if(filter){adminFilter=filter.dataset.adminFilter;renderAdmin();return}
+  const action=e.target.closest('[data-admin-action]');if(action){const a=action.dataset.adminAction;if(a==='refresh')refreshData();if(a==='create')showCreateMatch();return}
+  const match=e.target.closest('[data-admin-match-id]');if(match){selectAdminMatch(match.dataset.adminMatchId);return}
+ });
+ renderAdminMatchList(); renderAdminPanel();
+}
 function renderAdminMatchList(){
- const el=document.getElementById("adminMatchList");if(!el)return;
- const q=(document.getElementById("adminMatchSearch")?.value||"").toLowerCase().trim();
- const list=matches.filter(m=>{const text=(teamDisplayName(m,"home")+" "+teamDisplayName(m,"away")+" "+competitionNameForMatch(m)).toLowerCase();const f=adminFilter==="live"?isLive(m):adminFilter==="finished"?isFinished(m):adminFilter==="scheduled"?(!isLive(m)&&!isFinished(m)):true;return f&&(!q||text.includes(q))}).sort((a,b)=>matchDate(a).localeCompare(matchDate(b))||matchTime(a).localeCompare(matchTime(b)));
- el.innerHTML=list.length?list.map(m=>`<button type="button" class="admin-match-btn ${String(m.id)===String(selectedMatchId)?"selected":""}" data-admin-match-id="${esc(m.id)}"><div class="am-top"><strong>${esc(teamDisplayName(m,"home"))} ${scoreOf(m)[0]}–${scoreOf(m)[1]} ${esc(teamDisplayName(m,"away"))}</strong><span class="admin-status-dot ${adminStatusClass(m)}"></span></div><small>${esc(fmtDate(matchDate(m),{month:"short",day:"numeric"}))} • ${esc(fmtTime(matchTime(m)))} • ${esc(competitionNameForMatch(m))}</small></button>`).join(""):'<div class="mc-empty">No matches match this filter.</div>';
- bindAdminMatchSelection();
+ const el=document.getElementById('adminMatchList');if(!el)return;
+ const list=adminVisibleMatches();
+ el.innerHTML=list.length?list.map(m=>{const [h,a]=scoreOf(m),sel=String(m.id)===String(selectedMatchId),st=String(m.status||'scheduled').toLowerCase();return `<button type="button" class="admin-pro-match ${sel?'selected':''}" data-admin-match-id="${esc(m.id)}"><span class="admin-pro-match-top"><b>${esc(teamDisplayName(m,'home'))}</b><strong>${h} : ${a}</strong><b>${esc(teamDisplayName(m,'away'))}</b></span><span class="admin-pro-match-meta"><i class="admin-status-dot ${adminStatusClass(m)}"></i>${esc(st.toUpperCase())} · ${esc(fmtDate(matchDate(m),{month:'short',day:'numeric'}))} · ${esc(fmtTime(matchTime(m)))}</span></button>`}).join(''):'<div class="admin-empty">No matches in this queue.</div>';
 }
 function selectAdminMatch(id){
- const normalized=String(id??""),m=matches.find(x=>String(x.id)===normalized);
- if(!m){showToast("Match could not be selected");return false}
- if(String(selectedMatchId)!==normalized&&lineupDraft.dirty)snapshotLineupDraftFromDOM();
- selectedMatchId=m.id;resetLineupDraft(m);renderAdminMatchList();renderAdminPanel();
- const active=document.querySelector('#adminMatchList [data-admin-match-id="'+CSS.escape(normalized)+'"]');
- if(active){active.classList.add("selected");active.focus({preventScroll:true})}
+ const m=matches.find(x=>String(x.id)===String(id));if(!m){showToast('Match could not be selected');return false}
+ if(String(selectedMatchId)!==String(m.id)&&lineupDraft.dirty)snapshotLineupDraftFromDOM();
+ selectedMatchId=m.id;resetLineupDraft(m);adminSection=adminSection||'control';renderAdmin();
+ requestAnimationFrame(()=>document.querySelector('#adminMatchList [data-admin-match-id="'+CSS.escape(String(m.id))+'"]')?.scrollIntoView({block:'nearest'}));
  return true;
 }
-function bindAdminMatchSelection(){
- const list=document.getElementById("adminMatchList");if(!list||list.dataset.bound==="1")return;
- list.dataset.bound="1";
- list.addEventListener("click",function(ev){const btn=ev.target.closest?.("[data-admin-match-id]");if(!btn||!list.contains(btn))return;ev.preventDefault();ev.stopPropagation();selectAdminMatch(btn.getAttribute("data-admin-match-id"));});
-}
-function adminLineupEditor(m,side){
- ensureLineupDraft(m);
- const teamId=side==="home"?m.home_team_id:m.away_team_id,t=teamById(teamId),selected=getDraftSide(m,side).map(String),ps=players.filter(p=>String(p.team_id)===String(teamId));
- return`<div class="lineup-editor"><h4>${t?esc(t.name):side}</h4><div class="xi-grid">${Array.from({length:11},(_,i)=>`<div class="xi-row"><b>${i+1}</b><select class="select lineup-select ${side}-lineup" data-side="${side}" data-slot="${i}" onchange="handleLineupChange()"><option value="">Select player</option>${ps.map(p=>`<option value="${esc(p.id)}" ${String(selected[i]||"")===String(p.id)?"selected":""}>${esc(p.short_name||p.name)} • ${esc(p.position||"")}</option>`).join("")}</select></div>`).join("")}</div></div>`;
-}
+function adminSectionHeader(kicker,title,desc){return `<div class="admin-section-title"><div><div class="eyebrow">${esc(kicker)}</div><h2>${esc(title)}</h2><p>${esc(desc)}</p></div></div>`}
+function adminMatchHero(m){const[h,a]=scoreOf(m);const live=isLive(m),finished=isFinished(m);return `<div class="admin-match-hero ${live?'is-live':''}"><div class="admin-match-hero-main"><span class="admin-live-label ${live?'on':''}"><i></i>${live?'LIVE':'CONTROL'}</span><h2>${esc(teamDisplayName(m,'home'))} <em>vs</em> ${esc(teamDisplayName(m,'away'))}</h2><p>${esc(competitionNameForMatch(m))} · ${esc(fmtDate(matchDate(m),{weekday:'short',month:'short',day:'numeric',year:'numeric'}))} · ${esc(fmtTime(matchTime(m)))}</p></div><div class="admin-hero-score"><strong>${h}</strong><span>:</span><strong>${a}</strong><small>${finished?'FULL TIME':live?liveClockDisplay(m):String(m.status||'SCHEDULED').toUpperCase()}</small></div></div>`}
 function renderAdminPanel(){
- const m=matches.find(x=>String(x.id)===String(selectedMatchId)),el=document.getElementById("adminPanel");if(!m||!el)return;
+ const el=document.getElementById('adminPanel');if(!el)return;
+ const m=matches.find(x=>String(x.id)===String(selectedMatchId));
+ if(!m){el.innerHTML=`<div class="admin-welcome"><div class="admin-welcome-mark">MW</div>${adminSectionHeader('CONTROL ROOM','Select a match','Choose a fixture from the queue to begin.')}<div class="admin-welcome-grid"><div><b>Match Control</b><span>Start, pause and finish matches without leaving the page.</span></div><div><b>Event Studio</b><span>Record goals with assists, cards and substitutions.</span></div><div><b>Lineups</b><span>Publish and edit both starting XIs.</span></div><div><b>Offline resilience</b><span>Keep working with the latest locally cached data when the network drops.</span></div></div></div>`;return}
  ensureLineupDraft(m);
- const[a,b]=scoreOf(m),compList=getCompetitionList();
- el.innerHTML=`<div class="admin-v2-header"><div class="eyebrow">Live match editor</div><h2>${esc(teamDisplayName(m,"home"))} <span style="color:#68747b">vs</span> ${esc(teamDisplayName(m,"away"))}</h2><div class="admin-v2-sub"><span class="pill ${isLive(m)?"live":isFinished(m)?"done":""}">${esc(m.status||"scheduled")}</span><span class="pill">ID ${esc(m.id)}</span></div></div>
- <div class="admin-section-v2"><div class="section-head"><div><h3>Live score</h3><p>Change the score, minute and match state.</p></div></div><div class="admin-score-control"><div class="admin-score-box"><label>${esc(teamDisplayName(m,"home"))}<input id="admHomeScore" class="input" type="number" min="0" value="${a[0]}"></label></div><div class="admin-score-vs">VS</div><div class="admin-score-box"><label>${esc(teamDisplayName(m,"away"))}<input id="admAwayScore" class="input" type="number" min="0" value="${b}"></label></div></div><div class="form-grid three" style="margin-top:10px"><label>Minute<input id="admMinute" class="input" type="number" min="0" value="${m.minute||0}"></label><label>Stoppage<input id="admStoppage" class="input" type="number" min="0" value="${m.stoppage||0}"></label><div class="public-note">Status is controlled by Start, Half time and Finish. Saving the score will not change it.</div></div><div class="actions" style="margin-top:11px"><button class="btn primary" onclick="saveScoreOnly()">Save score</button><button class="btn" onclick="startSelected()">▶ Start</button><button class="btn" onclick="pauseSelected()">Ⅱ Half time</button><button class="btn danger" onclick="finishSelected()">■ Finish</button><button class="btn" onclick="openMatch('${esc(m.id)}')">View centre</button></div></div>
- <div class="admin-section-v2"><div class="section-head"><div><h3>Goal + assist</h3><p>Log a goal and optional assist together.</p></div></div><div class="form-grid three"><label>Scoring team<select id="eventTeamSelect" class="select" onchange="refreshEventPlayers()"><option value="">Select team</option><option value="${esc(m.home_team_id)}">${esc(teamDisplayName(m,"home"))}</option><option value="${esc(m.away_team_id)}">${esc(teamDisplayName(m,"away"))}</option></select></label><label>Scorer<select id="eventPlayerSelect" class="select"><option value="">Select team first</option></select></label><label>Minute<input id="eventMinute" class="input" type="number" min="0" value="${m.minute||0}"></label></div><div class="goal-assist"><label>Assisting player<select id="eventAssistPlayerSelect" class="select"><option value="">No assist</option></select></label><label>Stoppage<input id="eventStoppage" class="input" type="number" min="0" value="0"></label></div><div class="actions" style="margin-top:11px"><button class="btn primary" onclick="addGoalWithAssist()">⚽ Add goal</button><button class="btn" onclick="addAssistOnly()">＋ Log assist</button></div></div>
- <div class="admin-section-v2"><div class="section-head"><div><h3>Other event</h3><p>Cards, substitutions, VAR and other entries.</p></div></div><div class="form-grid three"><label>Team<select id="otherEventTeam" class="select" onchange="refreshOtherEventPlayers()"><option value="">Match event</option><option value="${esc(m.home_team_id)}">${esc(teamDisplayName(m,"home"))}</option><option value="${esc(m.away_team_id)}">${esc(teamDisplayName(m,"away"))}</option></select></label><label>Player<select id="otherEventPlayer" class="select"><option value="">No player</option></select></label><label>Type<select id="otherEventType" class="select"><option value="yellow">Yellow card</option><option value="red">Red card</option><option value="substitution">Substitution</option><option value="var">VAR</option><option value="other">Other</option></select></label><label>Minute<input id="otherEventMinute" class="input" type="number" min="0" value="${m.minute||0}"></label><label>Detail<input id="otherEventDetail" class="input" placeholder="Optional detail"></label></div><div class="actions" style="margin-top:11px"><button class="btn" onclick="addOtherEvent()">Add event</button></div></div>
- <div class="admin-section-v2"><div class="section-head"><div><h3>Starting lineups</h3><p>Publish the XI for each side. Selections survive refreshes and live-clock updates.</p></div><span id="lineupDraftIndicator" class="pill">${lineupDraft.dirty?"Unsaved changes":"Saved"}</span></div><div class="lineup-builder">${adminLineupEditor(m,"home")}${adminLineupEditor(m,"away")}</div><div class="actions" style="margin-top:11px"><button class="btn primary" onclick="saveLineups()">Save lineups</button><button class="btn" onclick="resetCurrentLineupDraft()">Reset to saved</button><button class="btn" onclick="openMatch('${esc(m.id)}')">Preview</button></div></div>
- <div class="admin-section-v2"><div class="section-head"><div><h3>Fixture details</h3><p>Public match-centre information.</p></div></div><div class="form-grid three"><label>Competition<select id="admCompetition" class="select"><option value="">No competition</option>${compList.map(c=>`<option value="${esc(c.id)}" ${String(c.id)===String(m.competition_id)?"selected":""}>${esc(c.name)}</option>`).join("")}</select></label><label>Date<input id="admDate" class="input" type="date" value="${esc(matchDate(m))}"></label><label>Kickoff<input id="admTime" class="input" type="time" value="${esc(fmtTime(matchTime(m)))}"></label><label>Home team<select id="admHomeTeam" class="select">${teams.map(t=>`<option value="${esc(t.id)}" ${String(t.id)===String(m.home_team_id)?"selected":""}>${esc(t.name)}</option>`).join("")}</select></label><label>Away team<select id="admAwayTeam" class="select">${teams.map(t=>`<option value="${esc(t.id)}" ${String(t.id)===String(m.away_team_id)?"selected":""}>${esc(t.name)}</option>`).join("")}</select></label><label>Venue<input id="admVenue" class="input" value="${esc(m.venue||"")}"></label><label>City<input id="admCity" class="input" value="${esc(m.city||"")}"></label><label>Round / matchday<input id="admRound" class="input" value="${esc(m.round||m.matchday||"")}"></label></div><div class="actions" style="margin-top:11px"><button class="btn primary" onclick="saveAdminMatch()">Save fixture</button></div></div>
- <div class="admin-section-v2"><div class="section-head"><div><h3>Event log</h3><p>Everything currently recorded for this match.</p></div><span>${(m.events||[]).length} events</span></div><div class="admin-event-log">${(m.events||[]).slice().sort((x,y)=>Number(y.minute||0)-Number(x.minute||0)).map(e=>`<div class="admin-log-row"><div class="minute">${esc(e.minute||0)}${e.stoppage?`+${esc(e.stoppage)}`:""}'</div><div class="icon">${eventIcon(e.type)}</div><div><strong>${esc(eventPlayer(e)||eventTeam(e)||"Match event")}</strong><small>${esc(eventType(e))}${e.detail?" • "+esc(e.detail):""}</small></div><button class="btn danger delete-event" onclick="deleteEvent('${esc(e.id||"")}')">Delete</button></div>`).join("")||'<div class="mc-empty">No events yet.</div>'}</div></div>`;
- refreshEventPlayers();refreshOtherEventPlayers();updateLineupDraftIndicator();
+ const content=adminSection==='events'?renderAdminEvents(m):adminSection==='lineups'?renderAdminLineups(m):adminSection==='fixture'?renderAdminFixture(m):adminSection==='health'?renderAdminHealth(m):renderAdminControl(m);
+ el.innerHTML=adminMatchHero(m)+`<div class="admin-work-nav"><button type="button" class="${adminSection==='control'?'active':''}" data-admin-section="control">Control</button><button type="button" class="${adminSection==='events'?'active':''}" data-admin-section="events">Events</button><button type="button" class="${adminSection==='lineups'?'active':''}" data-admin-section="lineups">Lineups</button><button type="button" class="${adminSection==='fixture'?'active':''}" data-admin-section="fixture">Fixture</button><button type="button" class="${adminSection==='health'?'active':''}" data-admin-section="health">Health</button></div><div class="admin-work-content">${content}</div>`;
 }
+function renderAdminControl(m){const[h,a]=scoreOf(m);return `<div class="admin-grid-2"><section class="admin-card admin-score-editor"><div class="admin-card-head"><div><div class="eyebrow">MATCH STATE</div><h3>Live control</h3></div><span class="pill ${isLive(m)?'live':''}">${esc(m.status||'scheduled')}</span></div><div class="admin-score-inputs"><label>${esc(teamDisplayName(m,'home'))}<input id="admHomeScore" class="input" type="number" min="0" value="${h}"></label><div>:</div><label>${esc(teamDisplayName(m,'away'))}<input id="admAwayScore" class="input" type="number" min="0" value="${a}"></label></div><div class="form-grid two"><label>Minute<input id="admMinute" class="input" type="number" min="0" value="${Math.floor(Number(m.minute)||0)}"></label><label>Stoppage<input id="admStoppage" class="input" type="number" min="0" value="${Math.floor(Number(m.stoppage)||0)}"></label></div><div class="admin-big-actions"><button type="button" class="btn primary" data-admin-start>${isLive(m)?'● MATCH LIVE':'▶ START MATCH'}</button><button type="button" class="btn" data-admin-half>Ⅱ HALF TIME</button><button type="button" class="btn danger" data-admin-finish>■ FINISH</button></div><button type="button" class="btn" data-admin-save-score>Save score & time</button></section><section class="admin-card"><div class="admin-card-head"><div><div class="eyebrow">QUICK VIEW</div><h3>Match status</h3></div></div><div class="admin-stat-grid"><div><b>${(m.events||[]).length}</b><span>Events</span></div><div><b>${readMatchLineups(m).home.length}</b><span>Home XI</span></div><div><b>${readMatchLineups(m).away.length}</b><span>Away XI</span></div><div><b>${isFinished(m)?'FINAL':isLive(m)?liveClockDisplay(m):'—'}</b><span>Clock</span></div></div><div class="admin-action-list"><button type="button" data-admin-section="events">＋ Add match event <span>→</span></button><button type="button" data-admin-section="lineups">♙ Manage lineups <span>→</span></button><button type="button" data-admin-section="fixture">✎ Edit fixture <span>→</span></button></div></section></div>`}
+function renderAdminEvents(m){return `${adminSectionHeader('EVENT STUDIO','Build the timeline','Every action below writes directly through the existing Supabase event pipeline.')}<div class="admin-grid-2"><section class="admin-card"><div class="admin-card-head"><div><div class="eyebrow">GOAL</div><h3>Goal + assist</h3></div><span class="pill">Recommended</span></div><div class="form-grid two"><label>Team<select id="eventTeamSelect" class="select" onchange="refreshEventPlayers()"><option value="${esc(m.home_team_id)}">${esc(teamDisplayName(m,'home'))}</option><option value="${esc(m.away_team_id)}">${esc(teamDisplayName(m,'away'))}</option></select></label><label>Scorer<select id="eventPlayerSelect" class="select"></select></label><label>Assist<select id="eventAssistPlayerSelect" class="select"></select></label><label>Minute<input id="eventMinute" class="input" type="number" min="0" value="${Math.floor(Number(liveClockMinute(m))||Number(m.minute)||0)}"></label><label>Stoppage<input id="eventStoppage" class="input" type="number" min="0" value="0"></label></div><button type="button" class="btn primary full" data-admin-goal>⚽ Save goal</button></section><section class="admin-card"><div class="admin-card-head"><div><div class="eyebrow">OTHER EVENT</div><h3>Cards & substitutions</h3></div></div><div class="form-grid two"><label>Type<select id="otherEventType" class="select"><option value="yellow">Yellow card</option><option value="red">Red card</option><option value="substitution">Substitution</option><option value="var">VAR</option><option value="other">Other</option></select></label><label>Team<select id="otherEventTeam" class="select" onchange="refreshOtherEventPlayers()"><option value="${esc(m.home_team_id)}">${esc(teamDisplayName(m,'home'))}</option><option value="${esc(m.away_team_id)}">${esc(teamDisplayName(m,'away'))}</option></select></label><label>Player<select id="otherEventPlayer" class="select"></select></label><label>Minute<input id="otherEventMinute" class="input" type="number" min="0" value="${Math.floor(Number(liveClockMinute(m))||Number(m.minute)||0)}"></label><label class="span-2">Detail<input id="otherEventDetail" class="input" placeholder="Optional detail"></label></div><button type="button" class="btn full" data-admin-other>＋ Add event</button></section></div><section class="admin-card"><div class="admin-card-head"><div><div class="eyebrow">TIMELINE</div><h3>${(m.events||[]).length} recorded events</h3></div></div><div class="admin-event-list">${(m.events||[]).slice().sort((x,y)=>Number(y.minute||0)-Number(x.minute||0)).map(e=>`<div class="admin-event-row"><b>${esc(e.minute||0)}${e.stoppage?`+${esc(e.stoppage)}`:''}'</b><i>${eventIcon(e.type)}</i><span><strong>${esc(eventPlayer(e)||eventTeam(e)||'Match event')}</strong><small>${esc(eventType(e))}${e.detail?' · '+esc(e.detail):''}</small></span><button type="button" class="btn danger small" data-delete-event="${esc(e.id||'')}">Delete</button></div>`).join('')||'<div class="admin-empty">No events recorded yet.</div>'}</div></section>`}
+function renderAdminLineups(m){const saved=readMatchLineups(m);return `${adminSectionHeader('TEAM SHEETS','Starting XI','Edit both lineups locally, then publish once. Live clock updates will not destroy your draft.')}<div class="admin-lineup-grid"><section class="admin-card"><div class="admin-card-head"><h3>${esc(teamDisplayName(m,'home'))}</h3><span class="pill">${lineupDraft.home.filter(Boolean).length}/11</span></div>${adminLineupEditor(m,'home')}</section><section class="admin-card"><div class="admin-card-head"><h3>${esc(teamDisplayName(m,'away'))}</h3><span class="pill">${lineupDraft.away.filter(Boolean).length}/11</span></div>${adminLineupEditor(m,'away')}</section></div><div class="admin-sticky-actions"><span id="lineupDraftIndicator">${lineupDraft.dirty?'Unsaved changes':'Saved'}</span><button type="button" class="btn" data-admin-lineup-reset>Reset</button><button type="button" class="btn primary" data-admin-lineup-save>Publish lineups</button></div>`}
+function renderAdminFixture(m){const compList=getCompetitionList();return `${adminSectionHeader('FIXTURE EDITOR','Match details','Update public fixture information without touching the match status.')}<section class="admin-card"><div class="form-grid three"><label>Competition<select id="admCompetition" class="select"><option value="">No competition</option>${compList.map(c=>`<option value="${esc(c.id)}" ${String(c.id)===String(m.competition_id)?'selected':''}>${esc(c.name)}</option>`).join('')}</select></label><label>Date<input id="admDate" class="input" type="date" value="${esc(matchDate(m))}"></label><label>Kickoff<input id="admTime" class="input" type="time" value="${esc(fmtTime(matchTime(m)))}"></label><label>Home team<select id="admHomeTeam" class="select">${teams.map(t=>`<option value="${esc(t.id)}" ${String(t.id)===String(m.home_team_id)?'selected':''}>${esc(t.name)}</option>`).join('')}</select></label><label>Away team<select id="admAwayTeam" class="select">${teams.map(t=>`<option value="${esc(t.id)}" ${String(t.id)===String(m.away_team_id)?'selected':''}>${esc(t.name)}</option>`).join('')}</select></label><label>Venue<input id="admVenue" class="input" value="${esc(m.venue||'')}"></label><label>City<input id="admCity" class="input" value="${esc(m.city||'')}"></label><label>Round / matchday<input id="admRound" class="input" value="${esc(m.round||m.matchday||'')}"></label></div><div class="admin-sticky-actions"><button type="button" class="btn primary" data-admin-fixture-save>Save fixture</button></div></section>`}
+function renderAdminHealth(m){return `${adminSectionHeader('SYSTEM HEALTH','Network & data','Diagnostics are read-only. The app keeps its last good dataset locally when the network fails.')}<section class="admin-card"><div class="admin-health-grid"><div><b>${dbOnline?'ONLINE':'OFFLINE'}</b><span>Database connection</span></div><div><b>${matches.length}</b><span>Cached matches</span></div><div><b>${players.length}</b><span>Cached players</span></div><div><b>${(m.events||[]).length}</b><span>Match events</span></div></div><div class="actions"><button type="button" class="btn" data-admin-action="health-check">Run network check</button><button type="button" class="btn" data-admin-action="clear-cache">Clear local cache</button></div><div id="adminHealthResult" class="admin-health-result">Local cache is kept automatically to prevent network failures from blanking the app.</div></section>`}
+function bindAdminPanelActions(){
+ const el=document.getElementById('admin');if(!el||el.dataset.panelBound==='1')return;el.dataset.panelBound='1';
+ el.addEventListener('click',async e=>{
+  const section=e.target.closest('[data-admin-section]');if(section){adminSection=section.dataset.adminSection;renderAdmin();return}
+  const f=e.target.closest('[data-admin-filter]');if(f){adminFilter=f.dataset.adminFilter;renderAdmin();return}
+  const act=e.target.closest('[data-admin-action]');if(act){const a=act.dataset.adminAction;if(a==='health-check')adminNetworkCheck();if(a==='clear-cache'){try{localStorage.removeItem('mefco_offline_snapshot')}catch{}showToast('Local snapshot cleared')}return}
+  const m=matches.find(x=>String(x.id)===String(selectedMatchId));if(!m)return;
+  if(e.target.closest('[data-admin-start]')){if(!isLive(m))await startSelected();return}
+  if(e.target.closest('[data-admin-half]')){await pauseSelected();return}
+  if(e.target.closest('[data-admin-finish]')){await finishSelected();return}
+  if(e.target.closest('[data-admin-save-score]')){await saveScoreOnly();return}
+  if(e.target.closest('[data-admin-goal]')){await addGoalWithAssist();return}
+  if(e.target.closest('[data-admin-other]')){await addOtherEvent();return}
+  const del=e.target.closest('[data-delete-event]');if(del){await deleteEvent(del.dataset.deleteEvent);return}
+  if(e.target.closest('[data-admin-lineup-reset]')){resetCurrentLineupDraft();return}
+  if(e.target.closest('[data-admin-lineup-save]')){await saveLineups();return}
+  if(e.target.closest('[data-admin-fixture-save]')){await saveAdminMatch();return}
+ });
+}
+async function adminNetworkCheck(){const result=document.getElementById('adminHealthResult');if(result)result.textContent='Checking database…';try{const t=Date.now();await supabaseFetch(MATCHES_URL+'?select=id&limit=1',{timeoutMs:6000});dbOnline=true;if(result)result.textContent=`Database reachable in ${Date.now()-t} ms.`;showToast('Network check passed')}catch(e){dbOnline=false;if(result)result.textContent=`Offline / unreachable: ${e?.message||'network error'}`;showToast('Network unavailable — using local data')}}
+function showCreateMatch(){
+ adminSection='fixture';selectedMatchId=null;const el=document.getElementById('adminPanel');if(!el)return;
+ el.innerHTML=`${adminSectionHeader('NEW FIXTURE','Create match','Create a scheduled match. Existing Supabase schema is preserved.')}<section class="admin-card"><div class="form-grid three"><label>Competition<select id="createCompetition" class="select"><option value="">Select competition</option>${getCompetitionList().map(c=>`<option value="${esc(c.id||c.name)}" data-name="${esc(c.name)}">${esc(c.name)}</option>`).join('')}</select></label><label>Date<input id="createDate" class="input" type="date" value="${todayISO()}"></label><label>Kickoff<input id="createKickoff" class="input" type="time" value="20:00"></label><label>Home team<select id="createHomeTeam" class="select"><option value="">Select home team</option>${teams.map(t=>`<option value="${esc(t.id)}">${esc(t.name)}</option>`).join('')}</select></label><label>Away team<select id="createAwayTeam" class="select"><option value="">Select away team</option>${teams.map(t=>`<option value="${esc(t.id)}">${esc(t.name)}</option>`).join('')}</select></label><label>Venue<input id="createVenue" class="input"></label><label>City<input id="createCity" class="input"></label></div><div class="admin-sticky-actions"><button type="button" class="btn" data-admin-section="control">Cancel</button><button type="button" class="btn primary" data-create-match>＋ Create match</button></div></section>`;
+}
+/* Extend the single admin event delegation with creation support without creating duplicate listeners. */
+const _adminCreatePatch=()=>{const el=document.getElementById('admin');if(!el||el.dataset.createBound==='1')return;el.dataset.createBound='1';el.addEventListener('click',async e=>{if(!e.target.closest('[data-create-match]'))return;await createMatch()})};
+const _oldRenderAdmin=renderAdmin;renderAdmin=function(){_oldRenderAdmin();bindAdminPanelActions();_adminCreatePatch()};
 
 /* ---------- STATUS / DATABASE FIX ---------- */
 async function updateMatch(id,changes){
@@ -635,10 +685,37 @@ async function persistStatus(id,status){
 }
 
 async function startSelected(){
- const id=selectedMatchId;if(!id)return;const m=matches.find(x=>String(x.id)===String(id));if(!m)return;if(isFinished(m)){showToast("This match is already finished");return}
- const current=Math.max(0,Math.floor(Number(m.minute)||0)),meta=readMatchMetadata(m);meta.clock={started_at:new Date().toISOString(),base_minute:current};
- if(!await persistStatus(id,"live"))return;
- try{await supabaseFetch(MATCHES_URL+"?id=eq."+encodeURIComponent(id),{method:"PATCH",body:JSON.stringify({minute:current,metadata:meta,status:"live"}),headers:{Prefer:"return=minimal"}});m.status="live";m.minute=current;m.metadata=meta;startTimer();renderAll();showToast("Match is LIVE")}catch(e){showToast("Match started, but the clock could not be saved")}
+ const id=selectedMatchId;if(!id)return;
+ const m=matches.find(x=>String(x.id)===String(id));if(!m)return;
+ if(isFinished(m)){showToast("This match is already finished");return}
+ const current=Math.max(0,Math.floor(Number(m.minute)||0));
+ const meta=readMatchMetadata(m);
+ meta.clock={started_at:new Date().toISOString(),base_minute:current};
+ const audit=getAuditLog(m);
+ audit.unshift({at:new Date().toISOString(),action:"Status changed",details:"live"});
+ meta.audit_log=audit.slice(0,100);
+ showToast("Starting match…");
+ try{
+  /* One write replaces the old sequence of status PATCH -> status verification ->
+     clock PATCH -> audit PATCH. The UI updates immediately after one verified read. */
+  await supabaseFetch(MATCHES_URL+"?id=eq."+encodeURIComponent(id),{
+   method:"PATCH",
+   body:JSON.stringify({status:"live",minute:current,metadata:meta}),
+   headers:{Prefer:"return=minimal"}
+  });
+  const rows=await supabaseFetch(MATCHES_URL+"?id=eq."+encodeURIComponent(id)+"&select=id,status,minute,metadata");
+  const verified=Array.isArray(rows)?rows[0]:rows;
+  if(!verified||String(verified.status||"").toLowerCase()!=="live")throw new Error("Live status verification failed");
+  m.status="live";
+  m.minute=Math.max(0,Math.floor(Number(verified.minute??current)||0));
+  m.metadata=verified.metadata||meta;
+  startTimer();
+  renderAll();
+  showToast("Match is LIVE");
+ }catch(e){
+  console.error("MEFCO start match failed:",e);
+  showToast("Could not start match: "+(e?.message||"database error"));
+ }
 }
 async function pauseSelected(){
  const m=matches.find(x=>String(x.id)===String(selectedMatchId));if(!m||!isLive(m)){showToast("Match is not currently live");return}
@@ -926,56 +1003,9 @@ async function createMatch(){
  const c=cs.options[cs.selectedIndex],name=c?.dataset.name||c?.textContent||"",match={competition:name,competition_id:cs.value&&!String(cs.value).startsWith("legacy-")?cs.value:null,home:h.name,away:a.name,home_team_id:h.id,away_team_id:a.id,match_date:document.getElementById("createDate").value,match_time:document.getElementById("createKickoff").value,home_flag:document.getElementById("createHomeFlag").value.trim(),away_flag:document.getElementById("createAwayFlag").value.trim(),status:"scheduled",minute:0,score_home:0,score_away:0,stoppage:0,metadata:{lineups:{home:[],away:[]}}};
  try{const result=await supabaseFetch(MATCHES_URL,{method:"POST",body:JSON.stringify(match)});matches.push(Array.isArray(result)?result[0]:result);showToast("Match created");renderAll()}catch(e){console.error(e);showToast("Could not create match")}
 }
-async function refreshData(){showToast("Refreshing MEFCO data…");try{await loadData();showToast("Data refreshed")}catch(e){console.error(e);showToast("Data refresh failed")}}
+async function refreshData(){showToast("Syncing MEFCO data…");try{await loadData();showToast(dbOnline?"Data synced":"Using cached data — database unavailable")}catch(e){console.error(e);if(loadOfflineSnapshot()){renderAll();showToast("Network unavailable — restored last saved data")}else showToast("Data unavailable — check your connection")}}
 function startAutoRefresh(){/* Intentionally disabled. Data reloads on page load or explicit Refresh only. */}
-function setupRealtime(){
- if(!window.supabase?.createClient||realtimeChannels.length)return;
- try{
-  realtimeClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:false,autoRefreshToken:false}});
-  const eventsChannel=realtimeClient.channel("mefco-watch-events").on("postgres_changes",{event:"INSERT",schema:"public",table:"matches-events"},payload=>{
-   const e=payload.new,m=matches.find(x=>String(x.id)===String(e?.match_id));
-   if(!m)return;
-   m.events=m.events||[];if(!m.events.some(x=>String(x.id)===String(e.id)))m.events.push(e);
-   notifyFavoriteEvent(m,e);
-   try{renderAll()}catch(err){console.error("MEFCO realtime render:",err)}
-  }).subscribe();
-  const matchesChannel=realtimeClient.channel("mefco-watch-matches").on("postgres_changes",{event:"UPDATE",schema:"public",table:"matches"},payload=>{
-   const incoming=payload.new,old=payload.old||{},m=matches.find(x=>String(x.id)===String(incoming?.id));
-   if(!m)return;
-   const pendingStatus=pendingStatusWrites.get(String(incoming?.id));
-   if(pendingStatus&&String(incoming?.status||"").toLowerCase()!==String(pendingStatus.status).toLowerCase()){
-    console.warn("MEFCO ignored stale realtime status",incoming?.id,incoming?.status,"expected",pendingStatus.status);
-    return;
-   }
-   const fav=isFavorite(m.id);
-   const key=String(m.id);
-   const oldScore=Number(m.score_home||0)+"-"+Number(m.score_away||0);
-   const incomingScore=[Number(incoming.score_home??0),Number(incoming.score_away??0)];
-   const pending=pendingMatchWrites.get(key);
-   const pendingMatchesIncoming=!!pending&&incomingScore[0]===pending.score[0]&&incomingScore[1]===pending.score[1];
-   /* Realtime is advisory, not authoritative during an in-flight score write.
-      Never let a stale 0-0 payload overwrite a freshly verified score. */
-   if(pending&&!pendingMatchesIncoming){
-    const safeIncoming={...incoming};
-    delete safeIncoming.score_home;delete safeIncoming.score_away;
-    Object.assign(m,safeIncoming);
-   }else{
-    Object.assign(m,incoming);
-    if(pendingMatchesIncoming){pendingMatchWrites.delete(key);verifiedScoreCache.set(key,incomingScore.slice());}
-   }
-   const newScore=Number(m.score_home||0)+"-"+Number(m.score_away||0);
-   const scoreChanged=oldScore!==newScore,statusChanged=String(m.status||"")!==String(incoming.status||"");
-   if(fav&&typeof Notification!=="undefined"&&Notification.permission==="granted"&&scoreChanged){
-    try{new Notification("MEFCO Score Update",{body:`${teamDisplayName(m,"home")} ${newScore.replace("-","–")} ${teamDisplayName(m,"away")}`,tag:`mefco-score-${m.id}-${newScore}`})}catch{}
-   }
-   if(fav&&typeof Notification!=="undefined"&&Notification.permission==="granted"&&statusChanged&&isFinished(m)){
-    try{new Notification("MEFCO Full Time",{body:`${teamDisplayName(m,"home")} ${newScore.replace("-","–")} ${teamDisplayName(m,"away")}`,tag:`mefco-ft-${m.id}`})}catch{}
-   }
-   try{renderAll()}catch(err){console.error("MEFCO realtime match render:",err)}
-  }).subscribe();
-  realtimeChannels=[eventsChannel,matchesChannel];
- }catch(e){console.warn("MEFCO realtime unavailable:",e)}
-}
+function setupRealtime(){return;}
 function notifyFavoriteEvent(m,e){
  if(!isFavorite(m.id)||typeof Notification==="undefined"||Notification.permission!=="granted"||!e?.id)return;
  const t=eventType(e);if(!["goal","yellow","red","substitution"].includes(t))return;
@@ -1260,10 +1290,10 @@ renderHome=function(){_renderHomeV3();const el=document.getElementById('home');i
 
 /* Preserve the existing admin UI. These hooks only add background data work. */
 const _loadDataV3=loadData;
-loadData=async function(){await _loadDataV3();await ensureAutomaticLineups();await autoPublishFinishedReports();renderAll();};
+loadData=async function(){await _loadDataV3();await ensureAutomaticLineups();await autoPublishFinishedReports();};
 
-loadData().then(()=>{
- setupRealtime();
+loadData().catch(e=>{console.warn("MEFCO initial network unavailable:",e);if(loadOfflineSnapshot()){renderAll();showToast("Offline — restored last saved MEFCO data")}else{renderAll();showToast("MEFCO is offline and has no cached data yet")}}).then(()=>{
+ /* No automatic realtime refreshes: explicit Refresh/page load only. */
  /* Resume the real match clock after a reload if the selected match is live. */
  if(selectedMatchId)resumeLiveTimer();
 }).catch(e=>{console.error("MEFCO startup:",e);showToast("MEFCO could not load data")});
@@ -1373,7 +1403,7 @@ async function v9ConsistencySweep(){
 }
 
 const _v9LoadDataBase=loadData;
-loadData=async function(){await _v9LoadDataBase();await v9ConsistencySweep();renderAll()};
+loadData=async function(){await _v9LoadDataBase();await v9ConsistencySweep()};
 
 /* MEFCO Watch V10 — match intelligence, player award, records and predictor. */
 (function(){
@@ -1474,5 +1504,6 @@ document.addEventListener("click",function(ev){const a=ev.target.closest?.("[dat
 .match-intelligence{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px}.mi-panel{padding:18px}.mi-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}.mi-head h3{margin:3px 0 0}.mi-head p{margin:5px 0 0}.mi-muted{color:var(--muted);font-size:13px;padding:12px 0}.predict-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:15px}.predict-grid>div{text-align:center;padding:12px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.025)}.predict-grid strong{display:block;font-size:24px}.predict-grid span{display:block;color:var(--muted);font-size:11px;margin-top:4px}.predict-bar{height:8px;display:flex;overflow:hidden;border-radius:99px;background:var(--line);margin-top:12px}.predict-bar i{display:block;height:100%}.predict-bar i:nth-child(1){background:var(--accent)}.predict-bar i:nth-child(2){background:#7a8590}.predict-bar i:nth-child(3){background:#4aa9ff}.predict-detail{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:11px;margin-top:9px}.momentum-chart{height:150px;display:grid;grid-template-columns:repeat(19,1fr);gap:3px;align-items:center;margin-top:15px;padding:0 4px;position:relative}.momentum-chart:before{content:"";position:absolute;left:0;right:0;top:50%;border-top:1px dashed var(--line)}.momentum-col{height:100%;position:relative;display:flex;align-items:center;justify-content:center}.momentum-fill{position:absolute;width:70%;border-radius:3px;min-height:3px;z-index:1}.momentum-fill.home{bottom:50%;background:var(--accent)}.momentum-fill.away{top:50%;background:#4aa9ff}.momentum-col span{position:absolute;bottom:-17px;font-size:8px;color:var(--muted)}.momentum-scale{display:flex;justify-content:space-between;color:var(--muted);font-size:10px;margin-top:24px}.mi-legend{display:flex;gap:10px;color:var(--muted);font-size:10px;white-space:nowrap}.potm-mark{font-size:10px;font-weight:900;letter-spacing:.08em;border:1px solid var(--accent);color:var(--accent);border-radius:999px;padding:5px 8px}.potm-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:15px 0}.potm-stats>div{text-align:center;padding:10px;border:1px solid var(--line);border-radius:9px}.potm-stats strong{display:block;font-size:18px}.potm-stats span{font-size:9px;color:var(--muted);text-transform:uppercase}.records-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.record-item{display:grid;grid-template-columns:1fr auto;gap:5px 10px;padding:14px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.02)}.record-item span{grid-column:1/-1;color:var(--muted);font-size:10px;text-transform:uppercase}.record-item strong{font-size:13px}.record-item b{font-size:18px;text-align:right}.milestones{margin-top:14px;padding:14px;border:1px solid var(--line);border-radius:10px}.milestones h3{margin:0 0 8px}.milestone-row{width:100%;display:flex;justify-content:space-between;gap:12px;padding:9px 0;background:none;border:0;border-bottom:1px solid var(--line);color:var(--text);text-align:left;cursor:pointer}.milestone-row:last-child{border-bottom:0}.milestone-row b{color:var(--accent)}
 @media(max-width:900px){.match-intelligence{grid-template-columns:1fr}}@media(max-width:600px){.predict-grid,.records-grid{grid-template-columns:1fr}.predict-detail{flex-direction:column}.potm-stats{grid-template-columns:repeat(2,1fr)}.mi-head{flex-direction:column}.mi-legend{white-space:normal}}
 </style>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}))}</script>
 </body>
 </html>
