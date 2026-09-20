@@ -688,34 +688,46 @@ async function startSelected(){
  const m=matches.find(x=>String(x.id)===String(id));if(!m)return;
  if(isFinished(m)){showToast("This match is already finished");return}
  const current=Math.max(0,Math.floor(Number(m.minute)||0));
- const meta=readMatchMetadata(m);
- meta.clock={started_at:new Date().toISOString(),base_minute:current};
- const audit=getAuditLog(m);
- audit.unshift({at:new Date().toISOString(),action:"Status changed",details:"live"});
- meta.audit_log=audit.slice(0,100);
  showToast("Starting match…");
  try{
-  /* One write replaces the old sequence of status PATCH -> status verification ->
-     clock PATCH -> audit PATCH. The UI updates immediately after one verified read. */
-  await supabaseFetch(MATCHES_URL+"?id=eq."+encodeURIComponent(id),{
+  /* IMPORTANT: status is a canonical matches column. Do not bundle metadata/audit data
+     into the status write. A trigger/RLS rule must not be able to silently leave status
+     unchanged while the UI waits for a verification GET. */
+  const updated=await supabaseFetch(MATCHES_URL+"?id=eq."+encodeURIComponent(id)+"&select=id,status,minute",{
    method:"PATCH",
-   body:JSON.stringify(strictDbPayload("matches",{status:"live",minute:current,metadata:meta})),
-   headers:{Prefer:"return=minimal"}
+   body:JSON.stringify(strictDbPayload("matches",{status:"live",minute:current})),
+   headers:{Prefer:"return=representation,count=exact"}
   });
-  const rows=await supabaseFetch(MATCHES_URL+"?id=eq."+encodeURIComponent(id)+"&select=id,status,minute,metadata");
-  const verified=Array.isArray(rows)?rows[0]:rows;
-  if(!verified||String(verified.status||"").toLowerCase()!=="live")throw new Error("Live status verification failed");
+  const row=Array.isArray(updated)?updated[0]:updated;
+  if(!row){
+   throw new Error("Supabase updated 0 rows. Your Admin session is not allowed to UPDATE matches (RLS/policy), or this match id is not writable.");
+  }
+  if(String(row.status||"").toLowerCase()!=="live"){
+   throw new Error(`Supabase accepted the request but returned status “${row.status||"empty"}”. A database trigger or constraint may be resetting the status.`);
+  }
   m.status="live";
-  m.minute=Math.max(0,Math.floor(Number(verified.minute??current)||0));
-  m.metadata=verified.metadata||meta;
+  m.minute=Math.max(0,Math.floor(Number(row.minute??current)||0));
+  const meta=readMatchMetadata(m);
+  meta.clock={started_at:new Date().toISOString(),base_minute:m.minute};
+  const audit=getAuditLog(m);
+  audit.unshift({at:new Date().toISOString(),action:"Status changed",details:"live"});
+  meta.audit_log=audit.slice(0,100);
+  /* Audit/clock metadata is best-effort and must never block the live status. */
+  try{
+   const metaUpdated=await supabaseFetch(MATCHES_URL+"?id=eq."+encodeURIComponent(id)+"&select=id,metadata",{
+    method:"PATCH",body:JSON.stringify(strictDbPayload("matches",{metadata:meta})),headers:{Prefer:"return=minimal"}
+   });
+   m.metadata=meta;
+  }catch(metaErr){console.warn("MEFCO: live status saved; metadata/audit sync skipped:",metaErr)}
   startTimer();
   renderAll();
-  showToast("Match is LIVE");
+  showToast("Match is LIVE — saved to database");
  }catch(e){
   console.error("MEFCO start match failed:",e);
   showToast("Could not start match: "+(e?.message||"database error"));
  }
 }
+
 async function pauseSelected(){
  const m=matches.find(x=>String(x.id)===String(selectedMatchId));if(!m||!isLive(m)){showToast("Match is not currently live");return}
  const current=liveClockMinute(m);if(!await persistStatus(selectedMatchId,"halftime"))return;const meta=readMatchMetadata(m);delete meta.clock;
