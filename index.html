@@ -535,6 +535,16 @@ function refreshOtherEventPlayers(){
  }
  }
 
+async function updateMatch(id,changes){
+ let m=matches.find(x=>String(x.id)===String(id));if(!m)return false;
+ let previous={};for(const k of Object.keys(changes))previous[k]=m[k];
+ try{
+  await supabaseFetch(MATCHES_URL+'?id=eq.'+encodeURIComponent(id),{method:'PATCH',body:JSON.stringify(changes)});
+  Object.assign(m,changes);addLog('Updated match '+id);showToast('Match saved');renderAll();return true
+ }catch(e){
+  console.error(e);Object.assign(m,previous);showToast('Could not save match');return false
+ }
+}
 async function saveAdminMatch(){let m=matches.find(x=>String(x.id)===String(selectedMatchId));if(!m)return;let home=teamById(document.getElementById('admHomeTeam').value),away=teamById(document.getElementById('admAwayTeam').value);if(!home||!away||String(home.id)===String(away.id)){showToast('Choose two different teams');return}let cs=document.getElementById('admCompetition'),changes={home_team_id:home.id,away_team_id:away.id,home:home.name,away:away.name,match_date:document.getElementById('admDate').value,match_time:document.getElementById('admTime').value,status:document.getElementById('admStatus').value,competition_id:cs.value||null,competition:cs.options[cs.selectedIndex]?.textContent||''};const optional={venue:document.getElementById('admVenue').value.trim(),city:document.getElementById('admCity').value.trim(),round:document.getElementById('admRound').value.trim(),matchday:document.getElementById('admRound').value.trim()};for(const [k,v] of Object.entries(optional)){if(Object.prototype.hasOwnProperty.call(m,k))changes[k]=v}let hflag=teamFlag(home),aflag=teamFlag(away);if(Object.prototype.hasOwnProperty.call(m,'home_flag'))changes.home_flag=hflag;if(Object.prototype.hasOwnProperty.call(m,'away_flag'))changes.away_flag=aflag;await updateMatch(m.id,changes)}
 async function saveScoreOnly(){let m=matches.find(x=>String(x.id)===String(selectedMatchId));if(!m)return;await updateMatch(m.id,{score_home:Math.max(0,Number(document.getElementById('admHomeScore').value)||0),score_away:Math.max(0,Number(document.getElementById('admAwayScore').value)||0),minute:Math.max(0,Number(document.getElementById('admMinute').value)||0),stoppage:Math.max(0,Number(document.getElementById('admStoppage').value)||0),status:document.getElementById('admStatus')?.value||m.status})}
 async function startSelected(){let ok=await updateMatch(selectedMatchId,{status:'live'});if(ok)startTimer()}
