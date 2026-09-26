@@ -920,7 +920,7 @@ async function testPushNotification(){
   try{
     const subscription=await ensurePushSubscription(true);
     if(!subscription){showToast('Push subscription was not created');return}
-    const response=await fetch(NOTIFICATION_API+'/api/test',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({subscription,title:'MEFCO Watch Test',body:'Push notifications are working.',url:'/'})});
+    const response=await fetch(NOTIFICATION_API+'/api/test',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({subscription,title:'MEFCO Watch Test',body:'Push notifications are working.',url:'/MEFCOWatch/'})});
     const text=await response.text();
     if(!response.ok)throw new Error(text);
     console.log('MEFCO test push:',text);
@@ -930,7 +930,7 @@ async function testPushNotification(){
     showToast('Test push failed');
   }
 }
-async function sendNotification(title,body,url='/'){try{let r=await fetch(NOTIFICATION_API+'/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({title,body,url})});if(!r.ok)throw new Error(await r.text());showToast('Notification sent')}catch(e){showToast('Notification service unavailable')}}
+async function sendNotification(title,body,url='/MEFCOWatch/'){try{let r=await fetch(NOTIFICATION_API+'/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({title,body,url})});if(!r.ok)throw new Error(await r.text());showToast('Notification sent')}catch(e){showToast('Notification service unavailable')}}
 function addLog(msg){adminLog.unshift({time:new Date().toLocaleTimeString(),msg});if(adminLog.length>50)adminLog.pop()}
 document.addEventListener('submit',e=>{e.preventDefault()});
 window.addEventListener('beforeunload',e=>{if(isEditingAdmin()){e.preventDefault();e.returnValue='';}});
