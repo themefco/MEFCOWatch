@@ -5,7 +5,7 @@ self.addEventListener('push', event => {
     data = event.data ? event.data.json() : {};
   } catch {
     data = {
-      body: event.data?.text?.() || ''
+      body: event.data ? event.data.text() : ''
     };
   }
 
@@ -13,11 +13,11 @@ self.addEventListener('push', event => {
 
   const options = {
     body: data.body || 'A new MEFCO Watch update is available.',
-    icon: data.icon || '/favicon.ico',
-    badge: data.badge || '/favicon.ico',
+    icon: data.icon || '/MEFCOWatch/favicon.ico',
+    badge: data.badge || '/MEFCOWatch/favicon.ico',
     tag: data.tag || 'mefco-watch',
     data: {
-      url: data.url || '/'
+      url: data.url || '/MEFCOWatch/'
     },
     renotify: !!data.renotify
   };
@@ -30,7 +30,7 @@ self.addEventListener('push', event => {
 self.addEventListener('notificationclick', event => {
   event.notification.close();
 
-  const url = event.notification?.data?.url || '/';
+  const url = event.notification?.data?.url || '/MEFCOWatch/';
 
   event.waitUntil(
     clients.matchAll({
@@ -42,7 +42,6 @@ self.addEventListener('notificationclick', event => {
           if ('navigate' in client && client.url !== url) {
             client.navigate(url);
           }
-
           return client.focus();
         }
       }
