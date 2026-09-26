@@ -1,7 +1,7 @@
 const MEFCO_BASE = '/MEFCOWatch/';
 
 self.addEventListener('install', event => {
-  self.skipWaiting();
+  event.waitUntil(self.skipWaiting());
 });
 
 self.addEventListener('activate', event => {
@@ -48,7 +48,6 @@ self.addEventListener('notificationclick', event => {
       type: 'window',
       includeUncontrolled: true
     }).then(clientList => {
-
       for (const client of clientList) {
         if ('focus' in client) {
           if (
