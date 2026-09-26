@@ -887,19 +887,49 @@ async function ensurePushSubscription(requestPermission=true){
   if(Notification.permission!=='granted')return null;
   try{
     const reg=await navigator.serviceWorker.register('/swnot.js',{scope:'/'});
+    await navigator.serviceWorker.ready;
     let sub=await reg.pushManager.getSubscription();
     if(!sub){
-      const key=await fetch(NOTIFICATION_API+'/api/vapid-public-key').then(r=>{if(!r.ok)throw new Error('VAPID key unavailable');return r.text()});
-      const raw=key.trim();const b64=raw.replace(/-/g,'+').replace(/_/g,'/');const pad='='.repeat((4-b64.length%4)%4);const bin=atob(b64+pad);const arr=Uint8Array.from(bin,c=>c.charCodeAt(0));
+      const response=await fetch(NOTIFICATION_API+'/api/vapid-public-key');
+      if(!response.ok)throw new Error('Could not get VAPID public key');
+      const data=await response.json();
+      const publicKey=String(data.publicKey||'').trim();
+      if(!publicKey)throw new Error('VAPID public key missing');
+      const b64=publicKey.replace(/-/g,'+').replace(/_/g,'/');
+      const pad='='.repeat((4-b64.length%4)%4);
+      const bin=atob(b64+pad);
+      const arr=Uint8Array.from(bin,c=>c.charCodeAt(0));
       sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:arr});
     }
     mefcoNotificationSubscription=sub;
-    try{await fetch(NOTIFICATION_API+'/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({subscription:sub.toJSON(),preferences:notificationPrefs()})})}catch(e){console.warn('MEFCO subscription sync unavailable',e)}
+    const result=await fetch(NOTIFICATION_API+'/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({subscription:sub.toJSON(),preferences:notificationPrefs()})});
+    if(!result.ok)throw new Error('Worker rejected subscription: '+await result.text());
     return sub.toJSON();
-  }catch(e){console.warn('MEFCO push setup:',e);return null}
+  }catch(e){console.error('MEFCO notification setup failed:',e);showToast('Notification setup failed. Check the console.');return null}
 }
-function notificationSettingsPanel(){const p=notificationPrefs(),f=notificationFollows(),count=['match','team','player'].reduce((n,k)=>n+(f[k]||[]).length,0);return `<div class="notify-panel"><div class="notify-panel-head"><div><div class="eyebrow">Personal notifications</div><div class="notify-panel-title">Follow what matters to you</div><div class="notify-panel-sub">Follow matches, teams or players for targeted alerts.</div></div><button class="btn primary" onclick="enableNotifications()">${(typeof Notification!=='undefined'&&Notification.permission==='granted')?'Notifications enabled':'Enable push notifications'}</button></div><div class="notify-follow-grid"><label class="notify-pref"><input id="npMatch" type="checkbox" ${p.match_events?'checked':''} onchange="saveNotificationPrefs()"> Match events</label><label class="notify-pref"><input id="npTeam" type="checkbox" ${p.team_events?'checked':''} onchange="saveNotificationPrefs()"> Team events</label><label class="notify-pref"><input id="npPlayer" type="checkbox" ${p.player_events?'checked':''} onchange="saveNotificationPrefs()"> Player events</label><label class="notify-pref"><input id="npNews" type="checkbox" ${p.mefco_news?'checked':''} onchange="saveNotificationPrefs()"> MEFCO news</label><label class="notify-pref"><input id="npCommunity" type="checkbox" ${p.community?'checked':''} onchange="saveNotificationPrefs()"> Community</label></div><div class="notify-follow-row"><span class="notify-panel-sub">${count} followed item${count===1?'':'s'}</span><div class="notify-follow-list">${(f.team||[]).slice(0,6).map(id=>`<span class="notify-follow-chip">Team ${esc(teamName(id,'Team'))}</span>`).join('')}${(f.player||[]).slice(0,6).map(id=>{const p=playerById(id);return `<span class="notify-follow-chip">Player ${esc(p?.short_name||p?.name||id)}</span>`}).join('')}</div></div></div>`}
-async function enableNotifications(){if(!('Notification'in window)){showToast('Notifications are not supported here');return}let sub=await ensurePushSubscription(true);const p=Notification.permission;document.getElementById('notificationButton').textContent=sub?'Notifications Enabled':p==='denied'?'Notifications Blocked':'Enable Notifications';showToast(sub?'Personalized notifications enabled':p==='denied'?'Notification permission blocked':'Notification permission not granted')}
+function notificationSettingsPanel(){const p=notificationPrefs(),f=notificationFollows(),count=['match','team','player'].reduce((n,k)=>n+(f[k]||[]).length,0);return `<div class="notify-panel"><div class="notify-panel-head"><div><div class="eyebrow">Personal notifications</div><div class="notify-panel-title">Follow what matters to you</div><div class="notify-panel-sub">Follow matches, teams or players for targeted alerts.</div></div><div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end"><button class="btn primary" onclick="enableNotifications()">${(typeof Notification!=='undefined'&&Notification.permission==='granted')?'Notifications enabled':'Enable push notifications'}</button><button class="btn" type="button" onclick="testPushNotification()">Test Push</button></div></div><div class="notify-follow-grid"><label class="notify-pref"><input id="npMatch" type="checkbox" ${p.match_events?'checked':''} onchange="saveNotificationPrefs()"> Match events</label><label class="notify-pref"><input id="npTeam" type="checkbox" ${p.team_events?'checked':''} onchange="saveNotificationPrefs()"> Team events</label><label class="notify-pref"><input id="npPlayer" type="checkbox" ${p.player_events?'checked':''} onchange="saveNotificationPrefs()"> Player events</label><label class="notify-pref"><input id="npNews" type="checkbox" ${p.mefco_news?'checked':''} onchange="saveNotificationPrefs()"> MEFCO news</label><label class="notify-pref"><input id="npCommunity" type="checkbox" ${p.community?'checked':''} onchange="saveNotificationPrefs()"> Community</label></div><div class="notify-follow-row"><span class="notify-panel-sub">${count} followed item${count===1?'':'s'}</span><div class="notify-follow-list">${(f.team||[]).slice(0,6).map(id=>`<span class="notify-follow-chip">Team ${esc(teamName(id,'Team'))}</span>`).join('')}${(f.player||[]).slice(0,6).map(id=>{const p=playerById(id);return `<span class="notify-follow-chip">Player ${esc(p?.short_name||p?.name||id)}</span>`}).join('')}</div></div></div>`}
+async function enableNotifications(){
+  if(!('Notification' in window)){showToast('Notifications are not supported here');return}
+  const sub=await ensurePushSubscription(true);
+  const p=Notification.permission;
+  const button=document.getElementById('notificationButton');
+  if(button)button.textContent=sub?'Notifications Enabled':p==='denied'?'Notifications Blocked':'Enable Notifications';
+  showToast(sub?'Personalized notifications enabled':p==='denied'?'Notification permission blocked':'Notification permission not granted');
+}
+async function testPushNotification(){
+  try{
+    const subscription=await ensurePushSubscription(true);
+    if(!subscription){showToast('Push subscription was not created');return}
+    const response=await fetch(NOTIFICATION_API+'/api/test',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({subscription,title:'MEFCO Watch Test',body:'Push notifications are working.',url:'/'})});
+    const text=await response.text();
+    if(!response.ok)throw new Error(text);
+    console.log('MEFCO test push:',text);
+    showToast('Test notification sent');
+  }catch(error){
+    console.error('MEFCO test push failed:',error);
+    showToast('Test push failed');
+  }
+}
 async function sendNotification(title,body,url='/'){try{let r=await fetch(NOTIFICATION_API+'/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({title,body,url})});if(!r.ok)throw new Error(await r.text());showToast('Notification sent')}catch(e){showToast('Notification service unavailable')}}
 function addLog(msg){adminLog.unshift({time:new Date().toLocaleTimeString(),msg});if(adminLog.length>50)adminLog.pop()}
 document.addEventListener('submit',e=>{e.preventDefault()});
