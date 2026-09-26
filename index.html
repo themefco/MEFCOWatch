@@ -886,7 +886,7 @@ async function ensurePushSubscription(requestPermission=true){
   if(requestPermission&&Notification.permission!=='granted'){const p=await Notification.requestPermission();if(p!=='granted')return null}
   if(Notification.permission!=='granted')return null;
   try{
-    const reg=await navigator.serviceWorker.register('/swnot.js',{scope:'/'});
+    const reg=await navigator.serviceWorker.register('/MEFCOWatch/swnot.js',{scope:'/MEFCOWatch/'});
     await navigator.serviceWorker.ready;
     let sub=await reg.pushManager.getSubscription();
     if(!sub){
